@@ -122,5 +122,5 @@ interface ErrorStackTraceLimit {
 interface NodeRequire extends WebpackRequire {}
 interface ErrorConstructor extends ErrorStackTraceLimit {}
 interface NodeRequireFunction extends Es6PromiseLoader  {}
-interface NodeModule extends WebpackModule {}
+interface Module extends WebpackModule {}
 interface Global extends GlobalEnvironment  {}
