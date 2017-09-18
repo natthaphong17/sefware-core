@@ -8,8 +8,8 @@ script: # run after installed
   - npm install -g @angular/cli
   - npm install -g karma
   - npm install # install node module
-  - npm run npm run lint
-  - npm run build:aot:prod
+  - npm run lint
+  - npm run build:aot:prod # build project
 
 #install:
 #  - npm install -g firebase-tools # install firebase-cli
