@@ -11,12 +11,12 @@ script: # run after installed
   - npm run lint
   - npm run build:aot:prod # build project
 
-#install:
-#  - npm install -g firebase-tools # install firebase-cli
-#after_success:
-#  - firebase use --token ${FIREBASE_TOKEN} # set firebase token
-#  - firebase use --add ${PROJECT_ID} # set current project
-#  - firebase deploy --non-interactive --token "${FIREBASE_TOKEN}" # deploy project
+install:
+  - npm install -g firebase-tools # install firebase-cli
+after_success:
+  - firebase use --token ${FIREBASE_TOKEN} # set firebase token
+  - firebase use --add ${PROJECT_ID} # set current project
+  - firebase deploy --non-interactive --token "${FIREBASE_TOKEN}" # deploy project
 
 notifications:
   email:
