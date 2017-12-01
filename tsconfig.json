@@ -23,12 +23,15 @@
       "node_modules/@types"
     ],
     "types": [
+      "core-js",
+      "firebase",
       "hammerjs",
       "jasmine",
       "node",
       "source-map",
       "uglify-js",
       "webpack"
+      "jquery"
     ]
   },
   "exclude": [

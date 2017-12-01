@@ -1,19 +1,58 @@
-/* this file will be extracted to main dist folder and is imported in index.html */
-/* This file is for setting global styles  */
-@import 'variables';
 
-nav {
-  margin-top: 16px;
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  //min-width: 900px;
+  // Helps fonts on OSX looks more consistent with other systems
+  // Isn't currently in button styles due to performance concerns
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-nav a {
-  background-color: $nav-button-color;
-  color: white;
-  padding: 8px 16px;
-  margin: 8px;
-  vertical-align: middle;
-  line-height: 1.25;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
+md-toolbar .mat-icon.md-icon-logo {height: 40px; }
+
+.mat-dialog-container {
+  max-width: 100vw !important;
+  padding: 0px !important;
+}
+
+.logo {
+  width: 20vw;
+}
+
+// Custom style for loading elements without height
+.will-load {
+  min-height: 80px;
+}
+// Href line height wasn't right for md-icon-button
+a[md-icon-button] {
+  line-height: 36px;
+}
+
+// Capitalize
+.text-capital {
+  text-transform: capitalize;
+}
+
+// Lighter font weight in sub-toolbars
+td-layout-manage-list .mat-toolbar {
+  font-weight: 400;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  //background: rgba(200,200,255,.1);
+}
+
+.mat-menu-item {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.89rem;
+  line-height: 32px !important;
+  height: 32px !important;;
+  padding: 0 24px !important;;
 }

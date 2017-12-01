@@ -1,44 +1,53 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import {
-  NgModule,
-  ApplicationRef
-} from '@angular/core';
-import {
-  removeNgStyles,
-  createNewHosts,
-  createInputTransfer
-} from '@angularclass/hmr';
-import {
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpModule} from '@angular/http';
+import {ApplicationRef, NgModule} from '@angular/core';
+import {createInputTransfer, createNewHosts, removeNgStyles} from '@angularclass/hmr';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfect-scrollbar';
 
+import {LocaleService, TranslationModule, TranslationService} from 'angular-l10n';
+import {CovalentHttpModule} from '@covalent/http';
+import {SharedModule} from './shared/shared.module';
+
+import {LazyLoadImageModule} from 'ng-lazyload-image';
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+import {ENV_PROVIDERS} from './environment';
+import {AppRoutingModule, routedComponents} from './app.routing';
 // App is our top level component
-import { AppComponent } from './app.component';
-import { APP_RESOLVER_PROVIDERS } from './app.resolver';
-import { AppState, InternalStateType } from './app.service';
-import { HomeComponent } from './home';
-import { AboutComponent } from './about';
-import { NoContentComponent } from './no-content';
-import { XLargeDirective } from './home/x-large';
+import {AppComponent} from './app.component';
+import {APP_RESOLVER_PROVIDERS} from './app.resolver';
+import {AppState, InternalStateType} from './app.service';
 
+import '../styles/theme.scss';
 import '../styles/styles.scss';
-import '../styles/headings.css';
+import 'hammerjs';
+// import {AuthService} from './login/auth.service';
+// import {SettingsComponent} from './dialog/settings/settings.component';
+// import {ConfirmComponent} from './dialog/confirm/confirm.component';
+// import {ResetPasswordComponent} from './dialog/reset-password/reset-password.component';
+// import {UploadImageComponent} from './dialog/upload-image/upload-image.component';
+
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+// import {ChangePasswordComponent} from './dialog/change-password/change-password.component';
+import {environment} from "../environments/environment.prod";
+// import {RequireAuthGuard} from "./login/guards/require-auth.guard";
+// import {RequireUnauthGuard} from "./login/guards/require-unauth.guard";
+import {TestComponent} from './pages/test/test.component';
+// import {LogsService} from "./dialog/logs-dialog/logs.service";
+// import {LogsDialogComponent} from "./dialog/logs-dialog/logs-dialog.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState
 ];
+
+
 
 interface StoreType {
   state: InternalStateType;
@@ -50,41 +59,70 @@ interface StoreType {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    AboutComponent,
-    HomeComponent,
-    NoContentComponent,
-    XLargeDirective
+    routedComponents,
+
+    // SettingsComponent,
+    // ConfirmComponent,
+    // ChangePasswordComponent,
+    // ResetPasswordComponent,
+    // UploadImageComponent,
+    TestComponent,
+    // LogsDialogComponent
   ],
-  /**
-   * Import Angular's modules.
-   */
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES, {
-      useHash: Boolean(history.pushState) === false,
-      preloadingStrategy: PreloadAllModules
-    })
+    SharedModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    LazyLoadImageModule,
+
+    TranslationModule.forRoot(),
+    AppRoutingModule,
+
+    CovalentHttpModule.forRoot(),
   ],
-  /**
-   * Expose our Services and Providers into Angular's dependency injection.
-   */
+  entryComponents: [
+    AppComponent,
+    // SettingsComponent,
+    // ConfirmComponent,
+    // ResetPasswordComponent,
+    // UploadImageComponent,
+    // LogsDialogComponent
+  ],
   providers: [
+    // AuthService,
+    // LogsService,
+    // RequireAuthGuard,
+    // RequireUnauthGuard,
     ENV_PROVIDERS,
     APP_PROVIDERS
   ]
 })
 export class AppModule {
 
-  constructor(
-    public appRef: ApplicationRef,
-    public appState: AppState
-  ) {}
+  constructor(/*public locale: LocaleService,
+              public translation: TranslationService,*/
+              public appRef: ApplicationRef,
+              public appState: AppState) {
+    /*this.locale.addConfiguration()
+      .addLanguages(['en', 'th', 'ko'])
+      .setCookieExpiration(30)
+      .defineLanguage('en');
+    this.translation.addConfiguration()
+      .addProvider('./assets/locale-');
+    this.translation.init();*/
+  }
+
+  ngDoBootstrap() {
+    this.appRef.bootstrap(AppComponent);
+  }
 
   public hmrOnInit(store: StoreType) {
     if (!store || !store.state) {
@@ -122,7 +160,7 @@ export class AppModule {
     /**
      * Save input values
      */
-    store.restoreInputValues  = createInputTransfer();
+    store.restoreInputValues = createInputTransfer();
     /**
      * Remove styles
      */

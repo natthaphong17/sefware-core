@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+  <base href="/">
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,26 +22,15 @@
   <script src="/webpack-dev-server.js"></script>
   <% } %>
 
-  <!-- Async Google Analytics: change UA-71073175-1 to be your site's ID -->
-  <script>
-    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', 'UA-71073175-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-  <script async src="https://www.google-analytics.com/analytics.js"></script>
-  <!-- End Google Analytics -->
-
-  <!-- CSS will be injected by webpack here -->
-  <!-- Preload link tags will be injected by webpack here -->
-
 </head>
 
 <body>
 
-  <app>
-    Loading...
-  </app>
+  <app-root>
+    <div style="padding: 20%;text-align:center;">
+      <img src="assets/images/logo.svg" width="100">
+    </div>
+  </app-root>
 
-  <!-- Scripts will be injected by webpack here -->
 </body>
 </html>
