@@ -1,0 +1,108 @@
+<td-layout #layout>
+
+  <td-navigation-drawer name="{{user.displayName}}" email="{{user.email}}">
+    <md-nav-list>
+      <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
+        <a md-list-item [routerLink]="[item.route]" (click)="layout.close()">
+          <md-icon>{{item.icon}}</md-icon>
+          {{item.title}}</a>
+      </ng-template>
+    </md-nav-list>
+    <md-nav-list td-navigation-drawer-menu>
+      <a md-list-item (click)="openSetting()">
+        <md-icon>tune</md-icon>
+        Account settings</a>
+      <a md-list-item (click)="logout()">
+        <md-icon>exit_to_app</md-icon>
+        Sign out</a>
+    </md-nav-list>
+  </td-navigation-drawer>
+
+  <td-layout-nav [color]="'primary'">
+    <div td-toolbar-content layout="row" layout-align="start center" flex>
+      <button md-icon-button td-menu-button tdLayoutToggle>
+        <md-icon>menu</md-icon>
+      </button>
+      <!--<md-icon *ngIf="(_media.registerQuery('gt-lg') | async)" class="md-icon-logo cursor-pointer" (click)="refresh()"-->
+      <!--svgIcon="assets:logo"></md-icon>-->
+      <span>JDR TOUR</span>
+      <p class="version">version {{appVersion}}</p>
+      <span flex></span>
+
+      <button md-button [mdMenuTriggerFor]="menu">
+        <div fxLayout="row">
+          <div *ngIf="lang === 'en'">English</div>
+          <div *ngIf="lang === 'th'" >ภาษาไทย</div>
+          <div *ngIf="lang === 'ko'" >Korean</div>
+          <md-icon style="line-height: 35px; margin-left: 5px;">arrow_drop_down</md-icon>
+        </div>
+      </button>
+      <md-menu #menu="mdMenu">
+        <button md-menu-item (click)="selectLanguage('en');">
+          English
+        </button>
+        <button md-menu-item (click)="selectLanguage('th');">
+          ภาษาไทย
+        </button>
+        <button md-menu-item disabled (click)="selectLanguage('ko');">
+          Korean
+        </button>
+      </md-menu>
+
+      <button md-icon-button [mdMenuTriggerFor]="notificationsMenu">
+        <td-notification-count [notifications]="2">
+          <md-icon>notifications</md-icon>
+        </td-notification-count>
+      </button>
+      <md-menu #notificationsMenu="mdMenu" [overlapTrigger]="false">
+        <td-menu>
+          <div td-menu-header class="md-subhead">Updates</div>
+          <md-nav-list dense>
+            <!--<ng-template let-last="last" ngFor [ngForOf]="[0,1,2,3,4,5,6,7,8,9]">-->
+              <a md-list-item>
+                <md-icon mdListAvatar>today</md-icon>
+                <h4 md-line><span class="text-wrap">Update hotel contract rate.</span>
+                </h4>
+                <p md-line>1 day ago</p>
+              </a>
+
+            <md-divider></md-divider>
+
+              <a md-list-item>
+                <md-icon mdListAvatar>today</md-icon>
+                <h4 md-line><span class="text-wrap">Fixed and update admin module.</span>
+                </h4>
+                <p md-line>2 day ago</p>
+              </a>
+
+              <!--<md-divider *ngIf="!last"></md-divider>-->
+            <!--</ng-template>-->
+          </md-nav-list>
+          <button md-button color="accent" td-menu-footer>
+            See All Updates
+          </button>
+        </td-menu>
+      </md-menu>
+    </div>
+
+    <router-outlet></router-outlet>
+
+  </td-layout-nav>
+
+  <nav md-tab-nav-bar class="nav-bar" *ngIf="(_media.registerQuery('gt-sm') | async)">
+    <a md-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
+       routerLinkActive="">{{ 'Home' | translate:lang}}</a>
+    <!--<a md-tab-link routerLink="/main/booking" routerLinkActive="selected">-->
+      <div layout="row" layout-align="center center">
+        {{ 'Booking' | translate:lang}}
+        <td-notification-count [notifications]="0"> </td-notification-count>
+      </div>
+    </a>
+    <!--<a md-tab-link routerLink="/main/allotment" routerLinkActive="selected">{{ 'Allotment' | translate:lang}}</a>-->
+    <!--<a md-tab-link routerLink="/main/overmoney" routerLinkActive="selected">{{ 'Over Money' | translate:lang}}</a>-->
+    <!--<a md-tab-link routerLink="/main/financial" routerLinkActive="selected">{{ 'Financial' | translate:lang}}</a>-->
+    <!--<a md-tab-link routerLink="/main/summary" routerLinkActive="selected">{{ 'Summary' | translate:lang}}</a>-->
+    <!--<a md-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>-->
+  </nav>
+
+</td-layout>
