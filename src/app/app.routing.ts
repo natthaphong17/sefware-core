@@ -5,9 +5,9 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 // import {LoginComponent} from './login/login.component';
-// import {PageNotFoundComponent} from './main/page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from './main/page-not-found/page-not-found.component';
 // import {MainComponent} from './main/main.component';
-// import {HomeComponent} from './main/home/home.component';
+import {HomeComponent} from './main/home/home.component';
 // import {BookingComponent} from './main/booking/booking.component';
 // import {AllotmentComponent} from './main/allotment/allotment.component';
 // import {OvermoneyComponent} from './main/overmoney/overmoney.component';
@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   // },
   // {
   //   path: 'main',
-  //   canActivate: [RequireAuthGuard],
+  //   // canActivate: [RequireAuthGuard],
   //   children: [
   //     {
   //       path: '',
@@ -41,45 +41,29 @@ const appRoutes: Routes = [
   //         {
   //           path: '',
   //           children: [
-  //             {path: '', component: HomeComponent},
-  //             {path: 'booking', component: BookingComponent},
-  //             {path: 'allotment', component: AllotmentComponent},
-  //             {
-  //               path: 'contractrate',
-  //               component: ContractrateComponent,
-  //               children:[
-  //                 {
-  //                   path: '',
-  //                   children: [
-  //                     {path: 'hotel', loadChildren: 'app/main/contractrate/hotel/hotel.module#HotelModule'},
-  //                     {path: 'golf', loadChildren: 'app/main/contractrate/golf/golf.module#GolfModule'},
-  //                     {path: 'adventure', loadChildren: 'app/main/contractrate/adventure/adventure.module#AdventureModule'},
-  //                     {path: 'restaurant', loadChildren: 'app/main/contractrate/restaurant/restaurant.module#RestaurantModule'},
-  //                     {path: 'spa', loadChildren: 'app/main/contractrate/spa/spa.module#SpaModule'},
-  //                   ]
-  //                 }
-  //               ]
-  //             },
-  //             {path: 'overmoney', component: OvermoneyComponent},
-  //             {path: 'financial', component: FinancialComponent},
-  //             {path: 'summary', loadChildren: 'app/main/summary/summary.module#SummaryModule'},
-  //             {
-  //               path: 'admin',
-  //               component: AdminComponent,
-  //               children: [
-  //                 {
-  //                   path: '',
-  //                   children: [
-  //                     {path: 'user', loadChildren: 'app/main/admin/user/user.module#UserModule'},
-  //                     {path: 'role', loadChildren: 'app/main/admin/role/role.module#RoleModule'},
-  //                     {path: 'guide', loadChildren: 'app/main/admin/guide/guide.module#GuideModule'},
-  //                     {path: 'driver', loadChildren: 'app/main/admin/driver/driver.module#DriverModule'},
-  //                     {path: 'booking-path', loadChildren: 'app/main/admin/booking-path/booking-path.module#BookingPathModule'},
-  //                     {path: 'log', loadChildren: 'app/main/admin/log/log.module#LogModule'},
-  //                   ]
-  //                 }
-  //               ]
-  //             }
+              {path: '', component: HomeComponent},
+              // {path: 'booking', component: BookingComponent},
+              // {path: 'allotment', component: AllotmentComponent},
+              // {path: 'overmoney', component: OvermoneyComponent},
+              // {path: 'financial', component: FinancialComponent},
+              {path: 'summary', loadChildren: 'app/main/summary/summary.module#SummaryModule'},
+              // {
+              //   path: 'admin',
+              //   component: AdminComponent,
+              //   children: [
+              //     {
+              //       path: '',
+              //       children: [
+              //         {path: 'user', loadChildren: 'app/main/admin/user/user.module#UserModule'},
+              //         {path: 'role', loadChildren: 'app/main/admin/role/role.module#RoleModule'},
+              //         {path: 'guide', loadChildren: 'app/main/admin/guide/guide.module#GuideModule'},
+              //         {path: 'driver', loadChildren: 'app/main/admin/driver/driver.module#DriverModule'},
+              //         {path: 'booking-path', loadChildren: 'app/main/admin/booking-path/booking-path.module#BookingPathModule'},
+              //         {path: 'log', loadChildren: 'app/main/admin/log/log.module#LogModule'},
+              //       ]
+              //     }
+              //   ]
+              // }
   //           ]
   //         }
   //       ]
@@ -87,7 +71,7 @@ const appRoutes: Routes = [
   //   ]
   // },
   // {path: '', redirectTo: 'login', pathMatch: 'full'},
-  // {path: '**', component: PageNotFoundComponent}
+  {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({
@@ -105,13 +89,12 @@ export class AppRoutingModule {
 
 export const routedComponents: any[] = [
   // LoginComponent,
-  // PageNotFoundComponent,
+  PageNotFoundComponent,
   // MainComponent,
-  // HomeComponent,
+  HomeComponent,
   // BookingComponent,
   // AllotmentComponent,
   // OvermoneyComponent,
   // FinancialComponent,
-  // ContractrateComponent,
   // AdminComponent
 ];

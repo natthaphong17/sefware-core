@@ -1,3 +1,4 @@
+///<reference path="../../node_modules/angular-l10n/src/modules/translation.module.d.ts"/>
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpModule} from '@angular/http';
@@ -69,7 +70,7 @@ interface StoreType {
     // ChangePasswordComponent,
     // ResetPasswordComponent,
     // UploadImageComponent,
-    TestComponent,
+    TestComponent
     // LogsDialogComponent
   ],
   imports: [
@@ -83,7 +84,7 @@ interface StoreType {
     BrowserAnimationsModule,
     LazyLoadImageModule,
 
-    TranslationModule.forRoot(),
+    // TranslationModule.forRoot(),
     AppRoutingModule,
 
     CovalentHttpModule.forRoot(),
@@ -111,13 +112,13 @@ export class AppModule {
               public translation: TranslationService,*/
               public appRef: ApplicationRef,
               public appState: AppState) {
-    /*this.locale.addConfiguration()
-      .addLanguages(['en', 'th', 'ko'])
-      .setCookieExpiration(30)
-      .defineLanguage('en');
-    this.translation.addConfiguration()
-      .addProvider('./assets/locale-');
-    this.translation.init();*/
+    // this.locale.addConfiguration()
+    //   .addLanguages(['en', 'th', 'ko'])
+    //   .setCookieExpiration(30)
+    //   .defineLanguage('en');
+    // this.translation.addConfiguration()
+    //   .addProvider('./assets/locale-');
+    // this.translation.init();
   }
 
   ngDoBootstrap() {
