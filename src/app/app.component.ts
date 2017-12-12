@@ -12,8 +12,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AppComponent implements OnInit {
   @Language() lang: string;
 
-
-
   constructor(private _iconRegistry: MatIconRegistry,
               private _domSanitizer: DomSanitizer,
               ) {
@@ -22,7 +20,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 
 }

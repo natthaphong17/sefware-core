@@ -6,12 +6,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCJ6CdoCtHtMTIFv4RNWR3MHop3G4awbpg",
-    authDomain: "sefware-pos.firebaseapp.com",
-    databaseURL: "https://sefware-pos.firebaseio.com",
-    projectId: "sefware-pos",
-    storageBucket: "sefware-pos.appspot.com",
-    messagingSenderId: "75989758405"
+    apiKey: 'AIzaSyAmG0sHZzS7wzdDpKCaf_3NL31g4ry6wDI',
+    authDomain: 'sefware-core01.firebaseapp.com',
+    databaseURL: 'https://sefware-core01.firebaseio.com',
+    projectId: 'sefware-core01',
+    storageBucket: 'sefware-core01.appspot.com',
+    messagingSenderId: '838571103215'
   },
-  api: 'https://us-central1-sefware-pos.cloudfunctions.net'
+  // api: 'https://us-central1-sefware-pos.cloudfunctions.net'
 };

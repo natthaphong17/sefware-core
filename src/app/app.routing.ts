@@ -13,8 +13,8 @@ import {HomeComponent} from './main/home/home.component';
 // import {OvermoneyComponent} from './main/overmoney/overmoney.component';
 // import {FinancialComponent} from './main/financial/financial.component';
 import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
-import {RequireAuthGuard} from "./login/guards/require-auth.guard";
-import {TestComponent} from "./pages/test/test.component";
+import {RequireAuthGuard} from './login/guards/require-auth.guard';
+import {TestComponent} from './pages/test/test.component';
 // import {AdminComponent} from "./main/admin/admin.component";
 // import {ContractrateComponent} from "./main/contractrate/contractrate.component";
 
@@ -76,7 +76,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes, {useHash: Boolean(history.pushState) === false,preloadingStrategy: PreloadAllModules})
+    RouterModule.forRoot(appRoutes, {useHash: Boolean(history.pushState) === false, preloadingStrategy: PreloadAllModules})
   ],
   exports: [
     RouterModule

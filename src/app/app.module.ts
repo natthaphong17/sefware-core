@@ -25,21 +25,21 @@ import '../styles/theme.scss';
 import '../styles/styles.scss';
 import 'hammerjs';
 import {AuthService} from './login/auth.service';
-// import {SettingsComponent} from './dialog/settings/settings.component';
-// import {ConfirmComponent} from './dialog/confirm/confirm.component';
-// import {ResetPasswordComponent} from './dialog/reset-password/reset-password.component';
-// import {UploadImageComponent} from './dialog/upload-image/upload-image.component';
+import {SettingsComponent} from './dialog/settings/settings.component';
+import {ConfirmComponent} from './dialog/confirm/confirm.component';
+import {ResetPasswordComponent} from './dialog/reset-password/reset-password.component';
+import {UploadImageComponent} from './dialog/upload-image/upload-image.component';
 
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
-// import {ChangePasswordComponent} from './dialog/change-password/change-password.component';
+import {ChangePasswordComponent} from './dialog/change-password/change-password.component';
 import {environment} from '../environments/environment.prod';
 import {RequireAuthGuard} from './login/guards/require-auth.guard';
 import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {TestComponent} from './pages/test/test.component';
-// import {LogsService} from "./dialog/logs-dialog/logs.service";
-// import {LogsDialogComponent} from "./dialog/logs-dialog/logs-dialog.component";
+import {LogsService} from './dialog/logs-dialog/logs.service';
+import {LogsDialogComponent} from './dialog/logs-dialog/logs-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -62,13 +62,13 @@ interface StoreType {
     AppComponent,
     routedComponents,
 
-    // SettingsComponent,
-    // ConfirmComponent,
-    // ChangePasswordComponent,
-    // ResetPasswordComponent,
-    // UploadImageComponent,
-    TestComponent
-    // LogsDialogComponent
+    SettingsComponent,
+    ConfirmComponent,
+    ChangePasswordComponent,
+    ResetPasswordComponent,
+    UploadImageComponent,
+    TestComponent,
+    LogsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -88,15 +88,15 @@ interface StoreType {
   ],
   entryComponents: [
     AppComponent,
-    // SettingsComponent,
-    // ConfirmComponent,
-    // ResetPasswordComponent,
-    // UploadImageComponent,
-    // LogsDialogComponent
+    SettingsComponent,
+    ConfirmComponent,
+    ResetPasswordComponent,
+    UploadImageComponent,
+    LogsDialogComponent
   ],
   providers: [
     AuthService,
-    // LogsService,
+    LogsService,
     RequireAuthGuard,
     RequireUnauthGuard,
     ENV_PROVIDERS,
