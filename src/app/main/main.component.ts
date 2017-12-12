@@ -1,12 +1,12 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {Language, LocaleService} from "angular-l10n";
-import {AuthService} from "../login/auth.service";
-import {MatDialog} from "@angular/material";
-import {Router} from "@angular/router";
-import {TdMediaService} from "@covalent/core";
-// import {ResetPasswordComponent} from "../dialog/reset-password/reset-password.component";
-// import {UploadImageComponent} from "../dialog/upload-image/upload-image.component";
-import * as firebase from "firebase";
+import {Language, LocaleService} from 'angular-l10n';
+import {AuthService} from '../login/auth.service';
+import {MatDialog} from '@angular/material';
+import {Router} from '@angular/router';
+import {TdMediaService} from '@covalent/core';
+import {ResetPasswordComponent} from '../dialog/reset-password/reset-password.component';
+import {UploadImageComponent} from '../dialog/upload-image/upload-image.component';
+import * as firebase from 'firebase';
 
 const { version: appVersion } = require('../../../package.json');
 
@@ -16,46 +16,45 @@ const { version: appVersion } = require('../../../package.json');
   styleUrls: ['./main.component.scss'],
 })
 
-
 export class MainComponent implements OnInit, AfterViewInit {
 
   @Language() lang: string;
-  public appVersion
+  public appVersion;
   user: firebase.User;
 
   routes: Object[] = [{
     title: 'Home',
     route: '/main',
     icon: 'home',
-  },/* {
-    title: 'Booking',
-    route: '/main/booking',
-    icon: 'book',
-  }, {
-    title: 'Allotment',
-    route: '/main/allotment',
-    icon: 'event',
-  }, {
-    title: 'Contract Rate',
-    route: '/main/contractrate/hotel',
-    icon: 'contacts',
-  }, {
-    title: 'Over Money',
-    route: '/main/overmoney',
-    icon: 'credit_card',
-  }, {
-    title: 'Financial',
-    route: '/main/financial',
-    icon: 'attach_money',
+  // }, {
+  //   title: 'Booking',
+  //   route: '/main/booking',
+  //   icon: 'book',
+  // }, {
+  //   title: 'Allotment',
+  //   route: '/main/allotment',
+  //   icon: 'event',
+  // }, {
+  //   title: 'Contract Rate',
+  //   route: '/main/contractrate/hotel',
+  //   icon: 'contacts',
+  // }, {
+  //   title: 'Over Money',
+  //   route: '/main/overmoney',
+  //   icon: 'credit_card',
+  // }, {
+  //   title: 'Financial',
+  //   route: '/main/financial',
+  //   icon: 'attach_money',
   }, {
     title: 'Summary',
     route: '/main/summary',
     icon: 'web',
-  }, {
-    title: 'Administrators',
-    route: '/main/admin/user',
-    icon: 'verified_user',
-  },*/
+  // }, {
+  //   title: 'Administrators',
+  //   route: '/main/admin/user',
+  //   icon: 'verified_user',
+  },
   ];
 
   constructor(
@@ -66,19 +65,17 @@ export class MainComponent implements OnInit, AfterViewInit {
     public locale: LocaleService,
     private _changeDetectorRef: ChangeDetectorRef
   ) {
-    this._authService.user.subscribe((user)=>{
+    this._authService.user.subscribe((user) => {
       this.user = user;
     });
 
-    this.appVersion = appVersion
+    this.appVersion = appVersion;
   }
-
 
   ngAfterViewInit(): void {
     this._media.broadcast();
     this._changeDetectorRef.detectChanges();
   }
-
 
   ngOnInit(): void {
   }

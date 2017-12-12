@@ -57,10 +57,12 @@
     ],
     "variable-name": [
       true,
+      "check-format",
       "allow-leading-underscore",
+      "allow-trailing-underscore",
       "allow-pascal-case",
-      "ban-keywords",
-      "check-format"
+      "allow-snake-case",
+      "ban-keywords"
     ],
     "whitespace": [
       true,

@@ -1,4 +1,4 @@
-<div class="body" [lazyLoad]="'./assets/images/bg.jpg'" flex>
+<div class="body" flex><!--[lazyLoad]="'./assets/images/bg.jpg'" flex>-->
 
   <mat-card tdMediaToggle="xs" [mediaClasses]="['login-card-xs','push']" class="login-card centered"
            layout-align="center center">
@@ -108,7 +108,7 @@
   </mat-card>
 
   <div class="language">
-    <button mat-button [matMenuTriggerFor]="menu" style="padding-left: 20px">
+    <button ma-button [matMenuTriggerFor]="menu" style="padding-left: 20px">
       <div fxLayout="row">
         <div *ngIf="lang === 'en'" tdMediaToggle="gt-xs" [mediaClasses]="['color-title']">
           English

@@ -1,34 +1,34 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {fallIn, moveIn} from '../app.animations';
-import {Language, LocaleService} from "angular-l10n";
+import {Language, LocaleService} from 'angular-l10n';
 
 import {AngularFireAuth} from 'angularfire2/auth';
-import {AuthService} from "./auth.service";
-import {TdLoadingService, TdMediaService} from "@covalent/core";
-import {MatSnackBar} from "@angular/material";
+import {AuthService} from './auth.service';
+import {TdLoadingService, TdMediaService} from '@covalent/core';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   animations: [moveIn(), fallIn()],
-  host: {'[@moveIn]': ''}
+  host: {'[@moveIn]': ''},
 })
 
 export class LoginComponent implements OnInit, AfterViewInit {
-  @Language() lang: string;
+  @Language() public lang: string;
 
-  forgot_password = false;
-  state = '';
-  error: any;
+  public forgot_password = false;
+  public state = '';
+  public error: any;
 
-  error_recovery: any;
+  public error_recovery: any;
 
   // user: Observable<firebase.User>;
-  username: string;
-  password: string;
-  email: string;
+  public username: string;
+  public password: string;
+  public email: string;
 
   constructor(public afAuth: AngularFireAuth,
               private authServeic: AuthService,
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               public locale: LocaleService) {
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.afAuth.authState.subscribe((user) => {
       this._loadingService.resolve();
       if (user !== null) {
@@ -49,45 +49,45 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this._media.broadcast();
     this._changeDetectorRef.detectChanges();
   }
 
-  selectLanguage(language: string): void {
+  public selectLanguage(language: string): void {
     this.locale.setCurrentLanguage(language);
   }
 
-  forgotPassword() {
+  public forgotPassword() {
     this.error_recovery = false;
     this.forgot_password = true;
   }
 
-  backtoLogin() {
+  public backtoLogin() {
     this.error = false;
     this.forgot_password = false;
   }
 
-  recoveryEmail(form) {
+  public recoveryEmail(form) {
     this.error = false;
     this._loadingService.register();
-    this.authServeic.resetPassword(form.value.email).then(result => {
+    this.authServeic.resetPassword(form.value.email).then((result) => {
       this._loadingService.resolve();
       this._snackBarService.open('Password reset email has been sent', 'Dismiss', {duration: 5000});
       this.forgot_password = false;
-    }).catch(err => {
+    }).catch((err) => {
       this._loadingService.resolve();
       this.error_recovery = err.message;
     });
   }
 
-  login(form) {
+  public login(form) {
     this.error = false;
     this._loadingService.register();
     this.afAuth.auth.signInWithEmailAndPassword(form.value.username, form.value.password)
-      .then(function (success) {
+      .then(function(success) {
 
-      }).catch((err:any) => {
+      }).catch((err: any) => {
       console.log('err : ' + err);
       this.error = err.message;
       this._loadingService.resolve();

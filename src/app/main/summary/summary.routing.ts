@@ -3,7 +3,7 @@
  */
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SummaryComponent} from "./summary.component";
+import {SummaryComponent} from './summary.component';
 
 const SUMMARY_ROUTER: Routes = [
   {
@@ -24,4 +24,4 @@ const SUMMARY_ROUTER: Routes = [
   ]
 })
 
-export class SummaryRouting{}
+export class SummaryRouting {}

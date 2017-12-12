@@ -6,7 +6,6 @@ import {CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../auth.service';
 
-
 @Injectable()
 export class RequireAuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}
@@ -14,7 +13,7 @@ export class RequireAuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.auth.authenticated
       .take(1)
-      .do(authenticated => {
+      .do((authenticated) => {
         if (!authenticated) {
           this.router.navigate(['/login']);
         }

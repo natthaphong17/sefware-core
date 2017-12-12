@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import {ApplicationRef, NgModule} from '@angular/core';
 import {createInputTransfer, createNewHosts, removeNgStyles} from '@angularclass/hmr';
 
@@ -72,7 +72,7 @@ interface StoreType {
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     SharedModule,
 
     AngularFireModule.initializeApp(environment.firebase),

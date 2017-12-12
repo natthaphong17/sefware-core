@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 
-import {Observable} from "rxjs/Rx";
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
-import {AngularFireAuth} from "angularfire2/auth";
+import {AngularFireAuth} from 'angularfire2/auth';
 import {Router} from '@angular/router';
 
 import * as firebase from 'firebase/app';
@@ -17,8 +17,8 @@ export class AuthService {
   public user: Observable<firebase.User>;
 
   constructor(private fbAuth: AngularFireAuth, private router: Router) {
-    this.authenticated = fbAuth.authState.map(user => !!user);
-    this.user = fbAuth.authState.map(user => user);
+    this.authenticated = fbAuth.authState.map((user) => !!user);
+    this.user = fbAuth.authState.map((user) => user);
   }
 
   resetPassword(email: string) {
@@ -27,8 +27,8 @@ export class AuthService {
 
   updateProfile(displayName: string, photoURL: string) {
     return this.fbAuth.auth.currentUser.updateProfile({
-      displayName: displayName,
-      photoURL: photoURL
+      displayName,
+      photoURL
     });
   }
 
