@@ -6,19 +6,19 @@ import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 // import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './main/page-not-found/page-not-found.component';
-// import {MainComponent} from './main/main.component';
+import {MainComponent} from './main/main.component';
 import {HomeComponent} from './main/home/home.component';
 // import {BookingComponent} from './main/booking/booking.component';
 // import {AllotmentComponent} from './main/allotment/allotment.component';
 // import {OvermoneyComponent} from './main/overmoney/overmoney.component';
 // import {FinancialComponent} from './main/financial/financial.component';
 // import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
-// import {RequireAuthGuard} from "./login/guards/require-auth.guard";
+import {RequireAuthGuard} from "./login/guards/require-auth.guard";
 import {TestComponent} from "./pages/test/test.component";
 // import {AdminComponent} from "./main/admin/admin.component";
 // import {ContractrateComponent} from "./main/contractrate/contractrate.component";
 
-// export {RequireAuthGuard} from './login/guards/require-auth.guard';
+export {RequireAuthGuard} from './login/guards/require-auth.guard';
 
 const appRoutes: Routes = [
   {
@@ -30,17 +30,17 @@ const appRoutes: Routes = [
   //   canActivate: [RequireUnauthGuard],
   //   component: LoginComponent
   // },
-  // {
-  //   path: 'main',
-  //   // canActivate: [RequireAuthGuard],
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: MainComponent,
-  //       children: [
-  //         {
-  //           path: '',
-  //           children: [
+  {
+    path: 'main',
+  //   canActivate: [RequireAuthGuard],
+    children: [
+      {
+        path: '',
+        component: MainComponent,
+        children: [
+          {
+            path: '',
+            children: [
               {path: '', component: HomeComponent},
               // {path: 'booking', component: BookingComponent},
               // {path: 'allotment', component: AllotmentComponent},
@@ -64,12 +64,12 @@ const appRoutes: Routes = [
               //     }
               //   ]
               // }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
+            ]
+          }
+        ]
+      }
+    ]
+  },
   // {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
@@ -90,7 +90,7 @@ export class AppRoutingModule {
 export const routedComponents: any[] = [
   // LoginComponent,
   PageNotFoundComponent,
-  // MainComponent,
+  MainComponent,
   HomeComponent,
   // BookingComponent,
   // AllotmentComponent,

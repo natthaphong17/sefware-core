@@ -1,108 +1,108 @@
 <td-layout #layout>
 
   <td-navigation-drawer name="{{user.displayName}}" email="{{user.email}}">
-    <md-nav-list>
+    <mat-nav-list>
       <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
-        <a md-list-item [routerLink]="[item.route]" (click)="layout.close()">
-          <md-icon>{{item.icon}}</md-icon>
+        <a mat-list-item [routerLink]="[item.route]" (click)="layout.close()">
+          <mat-icon>{{item.icon}}</mat-icon>
           {{item.title}}</a>
       </ng-template>
-    </md-nav-list>
-    <md-nav-list td-navigation-drawer-menu>
-      <a md-list-item (click)="openSetting()">
-        <md-icon>tune</md-icon>
+    </mat-nav-list>
+    <mat-nav-list td-navigation-drawer-menu>
+      <a mat-list-item (click)="openSetting()">
+        <mat-icon>tune</mat-icon>
         Account settings</a>
-      <a md-list-item (click)="logout()">
-        <md-icon>exit_to_app</md-icon>
+      <a mat-list-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
         Sign out</a>
-    </md-nav-list>
+    </mat-nav-list>
   </td-navigation-drawer>
 
   <td-layout-nav [color]="'primary'">
     <div td-toolbar-content layout="row" layout-align="start center" flex>
-      <button md-icon-button td-menu-button tdLayoutToggle>
-        <md-icon>menu</md-icon>
+      <button mat-icon-button td-menu-button tdLayoutToggle>
+        <mat-icon>menu</mat-icon>
       </button>
-      <!--<md-icon *ngIf="(_media.registerQuery('gt-lg') | async)" class="md-icon-logo cursor-pointer" (click)="refresh()"-->
-      <!--svgIcon="assets:logo"></md-icon>-->
+      <!--<mat-icon *ngIf="(_media.registerQuery('gt-lg') | async)" class="mat-icon-logo cursor-pointer" (click)="refresh()"-->
+      <!--svgIcon="assets:logo"></mat-icon>-->
       <span>JDR TOUR</span>
       <p class="version">version {{appVersion}}</p>
       <span flex></span>
 
-      <button md-button [mdMenuTriggerFor]="menu">
+      <button mat-button [matMenuTriggerFor]="menu">
         <div fxLayout="row">
           <div *ngIf="lang === 'en'">English</div>
           <div *ngIf="lang === 'th'" >ภาษาไทย</div>
           <div *ngIf="lang === 'ko'" >Korean</div>
-          <md-icon style="line-height: 35px; margin-left: 5px;">arrow_drop_down</md-icon>
+          <mat-icon style="line-height: 35px; margin-left: 5px;">arrow_drop_down</mat-icon>
         </div>
       </button>
-      <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="selectLanguage('en');">
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="selectLanguage('en');">
           English
         </button>
-        <button md-menu-item (click)="selectLanguage('th');">
+        <button mat-menu-item (click)="selectLanguage('th');">
           ภาษาไทย
         </button>
-        <button md-menu-item disabled (click)="selectLanguage('ko');">
+        <button mat-menu-item disabled (click)="selectLanguage('ko');">
           Korean
         </button>
-      </md-menu>
+      </mat-menu>
 
-      <button md-icon-button [mdMenuTriggerFor]="notificationsMenu">
+      <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
         <td-notification-count [notifications]="2">
-          <md-icon>notifications</md-icon>
+          <mat-icon>notifications</mat-icon>
         </td-notification-count>
       </button>
-      <md-menu #notificationsMenu="mdMenu" [overlapTrigger]="false">
+      <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false">
         <td-menu>
-          <div td-menu-header class="md-subhead">Updates</div>
-          <md-nav-list dense>
+          <div td-menu-header class="mat-subhead">Updates</div>
+          <mat-nav-list dense>
             <!--<ng-template let-last="last" ngFor [ngForOf]="[0,1,2,3,4,5,6,7,8,9]">-->
-              <a md-list-item>
-                <md-icon mdListAvatar>today</md-icon>
-                <h4 md-line><span class="text-wrap">Update hotel contract rate.</span>
+              <a mat-list-item>
+                <mat-icon matListAvatar>today</mat-icon>
+                <h4 mat-line><span class="text-wrap">Update hotel contract rate.</span>
                 </h4>
-                <p md-line>1 day ago</p>
+                <p mat-line>1 day ago</p>
               </a>
 
-            <md-divider></md-divider>
+            <mat-divider></mat-divider>
 
-              <a md-list-item>
-                <md-icon mdListAvatar>today</md-icon>
-                <h4 md-line><span class="text-wrap">Fixed and update admin module.</span>
+              <a mat-list-item>
+                <mat-icon matListAvatar>today</mat-icon>
+                <h4 mat-line><span class="text-wrap">Fixed and update admin module.</span>
                 </h4>
-                <p md-line>2 day ago</p>
+                <p mat-line>2 day ago</p>
               </a>
 
-              <!--<md-divider *ngIf="!last"></md-divider>-->
+              <!--<mat-divider *ngIf="!last"></mat-divider>-->
             <!--</ng-template>-->
-          </md-nav-list>
-          <button md-button color="accent" td-menu-footer>
+          </mat-nav-list>
+          <button mat-button color="accent" td-menu-footer>
             See All Updates
           </button>
         </td-menu>
-      </md-menu>
+      </mat-menu>
     </div>
 
     <router-outlet></router-outlet>
 
   </td-layout-nav>
 
-  <nav md-tab-nav-bar class="nav-bar" *ngIf="(_media.registerQuery('gt-sm') | async)">
-    <a md-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
-       routerLinkActive="">{{ 'Home' | translate:lang}}</a>
-    <!--<a md-tab-link routerLink="/main/booking" routerLinkActive="selected">-->
-      <div layout="row" layout-align="center center">
-        {{ 'Booking' | translate:lang}}
-        <td-notification-count [notifications]="0"> </td-notification-count>
-      </div>
-    </a>
-    <!--<a md-tab-link routerLink="/main/allotment" routerLinkActive="selected">{{ 'Allotment' | translate:lang}}</a>-->
-    <!--<a md-tab-link routerLink="/main/overmoney" routerLinkActive="selected">{{ 'Over Money' | translate:lang}}</a>-->
-    <!--<a md-tab-link routerLink="/main/financial" routerLinkActive="selected">{{ 'Financial' | translate:lang}}</a>-->
-    <!--<a md-tab-link routerLink="/main/summary" routerLinkActive="selected">{{ 'Summary' | translate:lang}}</a>-->
-    <!--<a md-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>-->
+  <nav mat-tab-nav-bar class="nav-bar" *ngIf="(_media.registerQuery('gt-sm') | async)">
+    <a mat-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
+       routerLinkActive="">{{ 'Home'}}</a>
+    <!--<a mat-tab-link routerLink="/main/booking" routerLinkActive="selected">-->
+      <!--<div layout="row" layout-align="center center">-->
+        <!--{{ 'Booking' | translate:lang}}-->
+        <!--<td-notification-count [notifications]="0"> </td-notification-count>-->
+      <!--</div>-->
+    <!--</a>-->
+    <!--<a mat-tab-link routerLink="/main/allotment" routerLinkActive="selected">{{ 'Allotment' | translate:lang}}</a>-->
+    <!--<a mat-tab-link routerLink="/main/overmoney" routerLinkActive="selected">{{ 'Over Money' | translate:lang}}</a>-->
+    <!--<a mat-tab-link routerLink="/main/financial" routerLinkActive="selected">{{ 'Financial' | translate:lang}}</a>-->
+    <!--<a mat-tab-link routerLink="/main/summary" routerLinkActive="selected">{{ 'Summary' | translate:lang}}</a>-->
+    <!--<a mat-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>-->
   </nav>
 
 </td-layout>
