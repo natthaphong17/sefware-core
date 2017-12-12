@@ -93,7 +93,7 @@
     "@covalent/http": "^1.0.0-rc.0",
     "@covalent/markdown": "^1.0.0-rc.0",
     "@swimlane/ngx-datatable": "^11.1.5",
-    "angular-l10n": "^4.1.2",
+    "angular-l10n": "^3.5.1",
     "angularfire2": "^5.0.0-rc.4",
     "core-js": "^2.4.1",
     "firebase": "^4.7.0",

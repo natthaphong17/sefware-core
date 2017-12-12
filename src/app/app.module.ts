@@ -1,4 +1,3 @@
-///<reference path="../../node_modules/angular-l10n/src/modules/translation.module.d.ts"/>
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpModule} from '@angular/http';
@@ -25,7 +24,7 @@ import {AppState, InternalStateType} from './app.service';
 import '../styles/theme.scss';
 import '../styles/styles.scss';
 import 'hammerjs';
-// import {AuthService} from './login/auth.service';
+import {AuthService} from './login/auth.service';
 // import {SettingsComponent} from './dialog/settings/settings.component';
 // import {ConfirmComponent} from './dialog/confirm/confirm.component';
 // import {ResetPasswordComponent} from './dialog/reset-password/reset-password.component';
@@ -35,9 +34,9 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 // import {ChangePasswordComponent} from './dialog/change-password/change-password.component';
-import {environment} from "../environments/environment.prod";
-// import {RequireAuthGuard} from "./login/guards/require-auth.guard";
-// import {RequireUnauthGuard} from "./login/guards/require-unauth.guard";
+import {environment} from '../environments/environment.prod';
+import {RequireAuthGuard} from './login/guards/require-auth.guard';
+import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {TestComponent} from './pages/test/test.component';
 // import {LogsService} from "./dialog/logs-dialog/logs.service";
 // import {LogsDialogComponent} from "./dialog/logs-dialog/logs-dialog.component";
@@ -47,8 +46,6 @@ const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState
 ];
-
-
 
 interface StoreType {
   state: InternalStateType;
@@ -84,7 +81,7 @@ interface StoreType {
     BrowserAnimationsModule,
     LazyLoadImageModule,
 
-    // TranslationModule.forRoot(),
+    TranslationModule.forRoot(),
     AppRoutingModule,
 
     CovalentHttpModule.forRoot(),
@@ -98,27 +95,27 @@ interface StoreType {
     // LogsDialogComponent
   ],
   providers: [
-    // AuthService,
+    AuthService,
     // LogsService,
-    // RequireAuthGuard,
-    // RequireUnauthGuard,
+    RequireAuthGuard,
+    RequireUnauthGuard,
     ENV_PROVIDERS,
     APP_PROVIDERS
   ]
 })
 export class AppModule {
 
-  constructor(/*public locale: LocaleService,
-              public translation: TranslationService,*/
+  constructor(public locale: LocaleService,
+              public translation: TranslationService,
               public appRef: ApplicationRef,
               public appState: AppState) {
-    // this.locale.addConfiguration()
-    //   .addLanguages(['en', 'th', 'ko'])
-    //   .setCookieExpiration(30)
-    //   .defineLanguage('en');
-    // this.translation.addConfiguration()
-    //   .addProvider('./assets/locale-');
-    // this.translation.init();
+    this.locale.addConfiguration()
+      .addLanguages(['en', 'th', 'ko'])
+      .setCookieExpiration(30)
+      .defineLanguage('en');
+    this.translation.addConfiguration()
+      .addProvider('./assets/locale-');
+    this.translation.init();
   }
 
   ngDoBootstrap() {
