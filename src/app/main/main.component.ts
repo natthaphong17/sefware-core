@@ -7,8 +7,7 @@ import {TdMediaService} from '@covalent/core';
 import {ResetPasswordComponent} from '../dialog/reset-password/reset-password.component';
 import {UploadImageComponent} from '../dialog/upload-image/upload-image.component';
 import * as firebase from 'firebase';
-
-const { version: appVersion } = require('../../../package.json');
+import { version as appVersion } from '../../../package.json';
 
 @Component({
   selector: 'app-main',
@@ -22,34 +21,46 @@ export class MainComponent implements OnInit, AfterViewInit {
   public appVersion;
   user: firebase.User;
 
-  routes: Object[] = [{
-    title: 'Home',
+  routes = [{
+  //   title: 'Home',
+  //   route: '/main',
+  //   icon: 'home',
+  // }, {
+    title: 'Purchase',
     route: '/main',
-    icon: 'home',
-  // }, {
-  //   title: 'Booking',
-  //   route: '/main/booking',
-  //   icon: 'book',
-  // }, {
-  //   title: 'Allotment',
-  //   route: '/main/allotment',
-  //   icon: 'event',
-  // }, {
-  //   title: 'Contract Rate',
-  //   route: '/main/contractrate/hotel',
-  //   icon: 'contacts',
-  // }, {
-  //   title: 'Over Money',
-  //   route: '/main/overmoney',
-  //   icon: 'credit_card',
-  // }, {
-  //   title: 'Financial',
-  //   route: '/main/financial',
-  //   icon: 'attach_money',
+    icon: 'shopping_cart',
   }, {
-    title: 'Summary',
-    route: '/main/summary',
-    icon: 'web',
+    title: 'Inventory',
+    route: '/main',
+    icon: 'store',
+  }, {
+    title: 'Fixed Assets',
+    route: '/main',
+    icon: 'directions_boat',
+  }, {
+    title: 'Account Payable',
+    route: '/main',
+    icon: 'local_parking',
+  }, {
+    title: 'Income Audit',
+    route: '/main',
+    icon: 'monetization_on',
+  }, {
+    title: 'Account Receivable',
+    route: '/main',
+    icon: 'credit_card',
+  }, {
+    title: 'General Ledger',
+    route: '/main',
+    icon: 'pie_chart',
+  }, {
+    title: 'Report',
+    route: '/main',
+    icon: 'find_in_page',
+  // }, {
+  //   title: 'Summary',
+  //   route: '/main/summary',
+  //   icon: 'web',
   // }, {
   //   title: 'Administrators',
   //   route: '/main/admin/user',

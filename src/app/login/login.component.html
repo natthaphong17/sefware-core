@@ -1,11 +1,11 @@
-<div class="body" flex><!--[lazyLoad]="'./assets/images/bg.jpg'" flex>-->
+<div class="body" style="background-color: #cccccc;" flex><!--[lazyLoad]="'./assets/images/bg.jpg'" flex>-->
 
   <mat-card tdMediaToggle="xs" [mediaClasses]="['login-card-xs','push']" class="login-card centered"
            layout-align="center center">
     <ng-template tdLoading="login.page">
       <div class="card-content">
         <div flex layout-align="center center" class="text-center push-top-logo">
-          <mat-icon class="mat-icon-logo" svgIcon="assets:logo" style="height: 50px"></mat-icon>
+          <mat-icon class="mat-icon-logo" svgIcon="assets:logo" style="height: 150px"></mat-icon>
         </div>
 
         <div *ngIf="!forgot_password" class="push-top">
@@ -108,7 +108,7 @@
   </mat-card>
 
   <div class="language">
-    <button ma-button [matMenuTriggerFor]="menu" style="padding-left: 20px">
+    <button mat-button [matMenuTriggerFor]="menu" style="padding-left: 20px">
       <div fxLayout="row">
         <div *ngIf="lang === 'en'" tdMediaToggle="gt-xs" [mediaClasses]="['color-title']">
           English
@@ -126,7 +126,7 @@
       <button mat-menu-item (click)="selectLanguage('en');">
         English
       </button>
-      <button mat-menu-item disabled (click)="selectLanguage('th');">
+      <button mat-menu-item (click)="selectLanguage('th');">
         ภาษาไทย
       </button>
       <button mat-menu-item disabled (click)="selectLanguage('ko');">

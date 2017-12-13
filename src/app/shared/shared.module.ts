@@ -1,7 +1,7 @@
-import {NgModule,} from '@angular/core';
-import {CommonModule,} from '@angular/common';
-import {FormsModule, ReactiveFormsModule,} from '@angular/forms';
-import {FlexLayoutModule,} from '@angular/flex-layout';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {
   CovalentChipsModule,
@@ -22,8 +22,8 @@ import {
   CovalentVirtualScrollModule
 } from '@covalent/core';
 
-import {CovalentHighlightModule} from "@covalent/highlight";
-import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import {CovalentHighlightModule} from '@covalent/highlight';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 import {
   MatAutocompleteModule,
@@ -49,7 +49,6 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
-
 
 const FLEX_LAYOUT_MODULES: any[] = [
   FlexLayoutModule,
@@ -122,7 +121,7 @@ const COVALENT_MODULES: any[] = [
     MATERIAL_MODULES,
     COVALENT_MODULES,
     FLEX_LAYOUT_MODULES,
-  ],providers: [
+  ], providers: [
 
   ],
 })
