@@ -12,7 +12,7 @@ import {HomeComponent} from './main/home/home.component';
 import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {RequireAuthGuard} from './login/guards/require-auth.guard';
 import {TestComponent} from './pages/test/test.component';
-import { ItemTypeDialogComponent } from './settings/item-type/item-type.component';
+import { ItemTypeDialogComponent } from './setup/item-type/item-type.component';
 
 // import {AdminComponent} from "./main/admin/admin.component";
 // import {ContractrateComponent} from "./main/contractrate/contractrate.component";

@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 import { version as appVersion } from '../../../package.json';
 import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component';
 
-import {ItemTypeDialogComponent} from '../settings/item-type/item-type.component';
+import {ItemTypeDialogComponent} from '../setup/item-type/item-type.component';
 
 @Component({
   selector: 'app-main',
