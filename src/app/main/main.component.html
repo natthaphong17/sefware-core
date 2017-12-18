@@ -57,7 +57,7 @@
           <div td-menu-header class="mat-subhead">Settings</div>
           <mat-nav-list dense>
             <!--<ng-template let-last="last" ngFor [ngForOf]="[0,1,2,3,4,5,6,7,8,9]">-->
-            <a mat-list-item>
+            <a mat-list-item (click)="openItemTypeDialog()">
               <h4 mat-line><span class="text-wrap">Item Type</span>
               </h4>
             </a>

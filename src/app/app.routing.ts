@@ -8,13 +8,12 @@ import {LoginComponent} from './login/login.component';
 import {PageNotFoundComponent} from './main/page-not-found/page-not-found.component';
 import {MainComponent} from './main/main.component';
 import {HomeComponent} from './main/home/home.component';
-// import {BookingComponent} from './main/booking/booking.component';
-// import {AllotmentComponent} from './main/allotment/allotment.component';
-// import {OvermoneyComponent} from './main/overmoney/overmoney.component';
-// import {FinancialComponent} from './main/financial/financial.component';
+
 import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {RequireAuthGuard} from './login/guards/require-auth.guard';
 import {TestComponent} from './pages/test/test.component';
+import { ItemTypeDialogComponent } from './settings/item-type/item-type.component';
+
 // import {AdminComponent} from "./main/admin/admin.component";
 // import {ContractrateComponent} from "./main/contractrate/contractrate.component";
 
@@ -42,10 +41,12 @@ const appRoutes: Routes = [
             path: '',
             children: [
               {path: '', component: HomeComponent},
-              // {path: 'booking', component: BookingComponent},
-              // {path: 'allotment', component: AllotmentComponent},
-              // {path: 'overmoney', component: OvermoneyComponent},
-              // {path: 'financial', component: FinancialComponent},
+              {
+                path: '',
+                children: [
+                  {path: 'item-type', component: ItemTypeDialogComponent}
+                ]
+              },
               {path: 'summary', loadChildren: 'app/main/summary/summary.module#SummaryModule'},
               // {
               //   path: 'admin',
@@ -92,6 +93,7 @@ export const routedComponents: any[] = [
   PageNotFoundComponent,
   MainComponent,
   HomeComponent,
+  ItemTypeDialogComponent
   // BookingComponent,
   // AllotmentComponent,
   // OvermoneyComponent,

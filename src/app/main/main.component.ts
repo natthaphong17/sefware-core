@@ -8,6 +8,9 @@ import {ResetPasswordComponent} from '../dialog/reset-password/reset-password.co
 import {UploadImageComponent} from '../dialog/upload-image/upload-image.component';
 import * as firebase from 'firebase';
 import { version as appVersion } from '../../../package.json';
+import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component';
+
+import {ItemTypeDialogComponent} from '../settings/item-type/item-type.component';
 
 @Component({
   selector: 'app-main',
@@ -93,6 +96,21 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   selectLanguage(language: string): void {
     this.locale.setCurrentLanguage(language);
+  }
+
+  openItemTypeDialog() {
+    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+      disableClose: true,
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
   }
 
   logout() {
