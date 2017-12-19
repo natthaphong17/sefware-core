@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 import { version as appVersion } from '../../../package.json';
 import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component';
 
-import {ItemTypeDialogComponent} from '../setup/item-type/item-type.component';
+import {ItemTypeComponent} from '../setup/item-type/item-type.component';
 
 @Component({
   selector: 'app-main',
@@ -99,7 +99,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   openItemTypeDialog() {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+    const dialogRef = this.dialog.open(ItemTypeComponent, {
       disableClose: true,
       width: '100%',
       height: '100%'
