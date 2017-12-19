@@ -1,20 +1,15 @@
-<div style="padding: 10px;">
-  <div style="vertical-align: top; padding: 10px;">
-    <div class="col-md-12">
-      <label style="width: 100px;">Code: </label>
-      <input matInput="code">
-    </div>
-    <div class="col-md-12">
-      <label style="width: 100px;">Name 1: </label>
-      <input matInput="code">
-    </div>
-    <div class="col-md-12">
-      <label style="width: 100px;">Name 2: </label>
-      <input matInput="code">
-    </div>
-  </div>
-  <div align="center" style="vertical-align: bottom; padding: 10px;">
+<div align="center" style="vertical-align: inherit; padding: 30px 20px;">
+  <form class="form">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Code" value="Run Number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Name 1">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Name 2">
+    </mat-form-field>
     <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
     <button mat-button class="text-upper" color="primary" (click)="saveData()">Save</button>
-  </div>
+  </form>
 </div>
