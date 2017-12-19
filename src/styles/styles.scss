@@ -1,4 +1,3 @@
-
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   //min-width: 900px;
@@ -10,12 +9,12 @@ body {
   }
 }
 
-md-toolbar .mat-icon.md-icon-logo {height: 40px; }
+mat-toolbar .mat-icon.mat-icon-logo {height: 40px; }
 
 .mat-dialog-container {
-  max-width: 100vw !important;
-  padding: 0px !important;
-}
+   max-width: 100vw !important;
+   padding: 0px !important;
+ }
 
 .logo {
   width: 20vw;
@@ -26,7 +25,7 @@ md-toolbar .mat-icon.md-icon-logo {height: 40px; }
   min-height: 80px;
 }
 // Href line height wasn't right for md-icon-button
-a[md-icon-button] {
+a[mat-icon-button] {
   line-height: 36px;
 }
 

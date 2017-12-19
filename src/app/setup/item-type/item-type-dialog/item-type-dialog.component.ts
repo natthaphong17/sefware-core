@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatFormFieldModule} from '@angular/material';
 // import {DriverService} from "../driver.service";
 import {Upload} from '../../../../shared/model/upload';
 import {UploadService} from '../../../../services/upload.service';
@@ -15,6 +15,8 @@ export class ItemTypeDialogComponent implements OnInit {
   @Language() lang: string;
   private dialog: MatDialog;
   ngOnInit(): void {
+  }
+  saveData() {
   }
   openLink(link: string) {
     window.open(link, '_blank');

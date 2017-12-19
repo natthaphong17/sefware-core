@@ -1,19 +1,20 @@
-  <!--<ng-template tdLoading="data.form">-->
-
-  <!--</ng-template>-->
-  <td-layout-card-over cardTitle="Item Type Setup" cardSubtitle="">
-    <mat-divider></mat-divider>
-    <mat-card-actions>
-      <div>
-        <button mat-button class="text-upper" color="primary" (click)="addData()">
-          <mat-icon>add</mat-icon> Add</button>
-        <button mat-button class="text-upper" color="warning" mat-dialog-close>
-          <mat-icon>delete_forever</mat-icon> Delete</button>
-      </div>
-    </mat-card-actions>
-    <mat-list>
-      <div>
-        <label>Table Layout</label>
-      </div>
-    </mat-list>
-  </td-layout-card-over>
+<div style="padding: 10px;">
+  <div style="vertical-align: top; padding: 10px;">
+    <div class="col-md-12">
+      <label style="width: 100px;">Code: </label>
+      <input matInput="code">
+    </div>
+    <div class="col-md-12">
+      <label style="width: 100px;">Name 1: </label>
+      <input matInput="code">
+    </div>
+    <div class="col-md-12">
+      <label style="width: 100px;">Name 2: </label>
+      <input matInput="code">
+    </div>
+  </div>
+  <div align="center" style="vertical-align: bottom; padding: 10px;">
+    <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    <button mat-button class="text-upper" color="primary" (click)="saveData()">Save</button>
+  </div>
+</div>

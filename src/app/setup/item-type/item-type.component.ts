@@ -22,8 +22,8 @@ export class ItemTypeComponent implements OnInit {
   addData() {
     const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
       disableClose: true,
-      width: '50%',
-      height: '50%'
+      width: '300px',
+      height: '200px'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

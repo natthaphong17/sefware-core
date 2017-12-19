@@ -41,6 +41,8 @@ import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {TestComponent} from './pages/test/test.component';
 import {LogsService} from './dialog/logs-dialog/logs.service';
 import {LogsDialogComponent} from './dialog/logs-dialog/logs-dialog.component';
+import {ItemTypeComponent} from './setup/item-type/item-type.component';
+import { ItemTypeDialogComponent } from './setup/item-type/item-type-dialog/item-type-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -69,7 +71,9 @@ interface StoreType {
     ResetPasswordComponent,
     UploadImageComponent,
     TestComponent,
-    LogsDialogComponent
+    LogsDialogComponent,
+    ItemTypeComponent,
+    ItemTypeDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +98,9 @@ interface StoreType {
     ConfirmComponent,
     ResetPasswordComponent,
     UploadImageComponent,
-    LogsDialogComponent
+    LogsDialogComponent,
+    ItemTypeComponent,
+    ItemTypeDialogComponent
   ],
   providers: [
     AuthService,

@@ -12,7 +12,6 @@ import {HomeComponent} from './main/home/home.component';
 import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {RequireAuthGuard} from './login/guards/require-auth.guard';
 import {TestComponent} from './pages/test/test.component';
-import {ItemTypeComponent} from './setup/item-type/item-type.component';
 
 // import {AdminComponent} from "./main/admin/admin.component";
 // import {ContractrateComponent} from "./main/contractrate/contractrate.component";
@@ -41,12 +40,6 @@ const appRoutes: Routes = [
             path: '',
             children: [
               {path: '', component: HomeComponent},
-              {
-                path: '',
-                children: [
-                  {path: 'item-type', component: ItemTypeComponent}
-                ]
-              },
               {path: 'summary', loadChildren: 'app/main/summary/summary.module#SummaryModule'},
               // {
               //   path: 'admin',
@@ -92,7 +85,6 @@ export const routedComponents: any[] = [
   LoginComponent,
   PageNotFoundComponent,
   MainComponent,
-  HomeComponent,
-  ItemTypeComponent
+  HomeComponent
   // AdminComponent
 ];

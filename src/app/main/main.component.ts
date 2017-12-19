@@ -1,7 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Language, LocaleService} from 'angular-l10n';
 import {AuthService} from '../login/auth.service';
-import {MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
 import {TdMediaService} from '@covalent/core';
 import {ResetPasswordComponent} from '../dialog/reset-password/reset-password.component';
@@ -101,6 +101,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   openItemTypeDialog() {
     const dialogRef = this.dialog.open(ItemTypeComponent, {
       disableClose: true,
+      maxWidth: '100vw',
       width: '100%',
       height: '100%'
     });
