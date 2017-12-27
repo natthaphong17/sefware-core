@@ -32,7 +32,7 @@ import {ResetPasswordComponent} from './dialog/reset-password/reset-password.com
 import {UploadImageComponent} from './dialog/upload-image/upload-image.component';
 
 import {AngularFireModule} from 'angularfire2';
-import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {ChangePasswordComponent} from './dialog/change-password/change-password.component';
 import {environment} from '../environments/environment.prod';
