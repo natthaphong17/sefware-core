@@ -34,7 +34,7 @@ export class ItemTypeComponent implements OnInit {
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
 
-    this.page.size = 50;
+    this.page.size = 5;
     this.page.pageNumber = 0;
 
   }
@@ -76,8 +76,9 @@ export class ItemTypeComponent implements OnInit {
   addData() {
     const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
       disableClose: true,
-      width: '350px',
-      height: '300px'
+      maxWidth: '50vw',
+      maxHeight: '50vw',
+      width: '25%',
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -87,6 +88,24 @@ export class ItemTypeComponent implements OnInit {
       }
     });
   }
+
+  editData(data: ItemType) {
+    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+      disableClose: true,
+      maxWidth: '50vw',
+      maxHeight: '50vw',
+      width: '25%',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
   openLink(link: string) {
     window.open(link, '_blank');
   }
