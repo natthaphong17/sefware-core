@@ -36,13 +36,13 @@ export class ItemTypeDialogComponent implements OnInit {
           this.displayImage('../../../../../assets/images/user.png');
         } else {
           this.displayImage(this.data.image);
-        }
+        }*/
 
       } else {
-        this.displayImage('../../../../../assets/images/user.png');
-        this._bookingpathService.requestData().subscribe(() => {
+        // this.displayImage('../../../../../assets/images/user.png');
+        this._itemtypeService.requestData().subscribe(() => {
           this.generateCode();
-        });*/
+        });
       }
     } catch (error) {
       this.error = error;

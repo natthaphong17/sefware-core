@@ -76,9 +76,11 @@ export class ItemTypeComponent implements OnInit {
   addData() {
     const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
       disableClose: true,
-      maxWidth: '50vw',
-      maxHeight: '50vw',
-      width: '25%',
+      maxWidth: '100vw',
+      maxHeight: '100vw',
+      width: '250px'
+    //  for 2 col
+    //  width: '500px'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -104,6 +106,28 @@ export class ItemTypeComponent implements OnInit {
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
       }
     });
+  }
+
+  updateFilter(event) {
+    if (event === '') {
+      this.setPage(null);
+      return;
+    }
+
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function(d) {
+      return (d.code.toLowerCase().indexOf(val) !== -1) ||
+        (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
+        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
+        || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 
   openLink(link: string) {
