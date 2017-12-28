@@ -1,34 +1,36 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {GalleryConfig, /*GalleryService*/} from 'ng-gallery';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ItemGroupService } from '../../item-group/item-group.service';
 import * as _ from 'lodash';
-import { Uom } from '../../uom/uom';
-import { UomService } from '../../uom/uom.service';
-import { UploadService } from '../../../services/upload.service';
+import { ItemGroup } from '../../item-group/item-group';
 
 @Component({
-  selector: 'app-setting-uom-dialog',
-  templateUrl: './uom-dialog.component.html',
-  styleUrls: ['./uom-dialog.component.scss'],
-  providers: [UomService]
+  selector: 'app-settings-item-group-dialog',
+  templateUrl: './item-group-dialog.component.html',
+  styleUrls: ['./item-group-dialog.component.scss'],
+  providers: [ItemGroupService]
 })
-export class UomDialogComponent implements OnInit {
-  data: Uom = new Uom({});
+export class ItemGroupDialogComponent implements OnInit {
+  @Language() lang: string;
+
+  data: ItemGroup = new ItemGroup({});
   error: any;
   images = [];
-  storage_ref = '/main/settings/uom';
+  storage_ref = '/main/settings/item_group';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public md_data: Uom,
-              private _uomService: UomService,
+  constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemGroup,
+              private _itemgroupService: ItemGroupService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<UomDialogComponent>) {
+              public dialogRef: MatDialogRef<ItemGroupDialogComponent>) {
 
     try {
       if (md_data) {
-        this.data = new Uom(md_data);
+        this.data = new ItemGroup(md_data);
       } else {
-        this._uomService.requestData().subscribe(() => {
+        this._itemgroupService.requestData().subscribe(() => {
           this.generateCode();
         });
       }
@@ -42,11 +44,11 @@ export class UomDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'UOM';
+    const prefix = 'GRP';
     this.data.code = prefix + '-001';
     console.log('Prev Code :' + this.data.code);
-    this._uomService.requestLastData().subscribe((s) => {
-      s.forEach((ss: Uom) => {
+    this._itemgroupService.requestLastData().subscribe((s) => {
+      s.forEach((ss: ItemGroup) => {
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;
@@ -78,7 +80,7 @@ export class UomDialogComponent implements OnInit {
         if (_.isEqual(this.data, this.md_data)) {
           this.dialogRef.close(false);
         } else {
-          this._uomService.updateData(this.data).then(() => {
+          this._itemgroupService.updateData(this.data).then(() => {
             this.dialogRef.close(this.data);
             this._loadingService.resolve();
           }).catch((err) => {
@@ -87,7 +89,7 @@ export class UomDialogComponent implements OnInit {
           });
         }
       } else {
-        this._uomService.addData(this.data).then(() => {
+        this._itemgroupService.addData(this.data).then(() => {
           this.dialogRef.close(this.data);
           this._loadingService.resolve();
         }).catch((err) => {

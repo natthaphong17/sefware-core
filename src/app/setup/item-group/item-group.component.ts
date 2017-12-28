@@ -1,21 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Language } from 'angular-l10n';
-import { UomService } from '../uom/uom.service';
+import { ItemGroupService } from '../item-group/item-group.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { TdLoadingService, TdMediaService } from '@covalent/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { UomDialogComponent } from '../uom/uom-dialog/uom-dialog.component';
+import {Language} from 'angular-l10n';
+import {TdLoadingService, TdMediaService} from '@covalent/core';
+import {SelectionModel} from '@angular/cdk/collections';
+import { ItemGroupDialogComponent } from '../item-group/item-group-dialog/item-group-dialog.component';
 import { Page } from '../../shared/model/page';
-import { Uom } from '../uom/uom';
-import { ItemType } from '../item-type/item-type';
+import { ItemGroup } from '../item-group/item-group';
 
 @Component({
-  selector: 'app-settings-uom',
-  templateUrl: './uom.component.html',
-  styleUrls: ['./uom.component.scss'],
-  providers: [UomService]
+  selector: 'app-settings-item-group',
+  templateUrl: './item-group.component.html',
+  styleUrls: ['./item-group.component.scss'],
+  providers: [ItemGroupService]
 })
-export class UomComponent implements OnInit {
+export class ItemGroupComponent implements OnInit {
   @Language() lang: string;
   @ViewChild('dataTable') table: any;
 
@@ -28,7 +27,7 @@ export class UomComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _uomService: UomService,
+  constructor(private _itemgroupService: ItemGroupService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -37,23 +36,22 @@ export class UomComponent implements OnInit {
     this.page.pageNumber = 0;
 
   }
-
   ngOnInit(): void {
     this.load();
   }
 
   load() {
     this.loading = true;
-    this._uomService.requestData().subscribe((snapshot) => {
-      this._uomService.rows = [];
+    this._itemgroupService.requestData().subscribe((snapshot) => {
+      this._itemgroupService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new ItemType(s.val());
-        this._uomService.rows.push(_row);
+        const _row = new ItemGroup(s.val());
+        this._itemgroupService.rows.push(_row);
 
       });
 
-      this.temp = [...this._uomService.rows];
+      this.temp = [...this._itemgroupService.rows];
       this.loading = false;
       this.setPage(null);
     });
@@ -66,7 +64,7 @@ export class UomComponent implements OnInit {
       this.page.size = pageInfo.pageSize;
     }
 
-    this._uomService.getResults(this.page).subscribe((pagedData) => {
+    this._itemgroupService.getResults(this.page).subscribe((pagedData) => {
       this.page = pagedData.page;
       this.rows = pagedData.data;
     });
@@ -74,7 +72,7 @@ export class UomComponent implements OnInit {
   }
 
   addData() {
-    const dialogRef = this.dialog.open(UomDialogComponent, {
+    const dialogRef = this.dialog.open(ItemGroupDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
@@ -89,8 +87,8 @@ export class UomComponent implements OnInit {
     });
   }
 
-  editData(data: Uom) {
-    const dialogRef = this.dialog.open(UomDialogComponent, {
+  editData(data: ItemGroup) {
+    const dialogRef = this.dialog.open(ItemGroupDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
@@ -115,8 +113,9 @@ export class UomComponent implements OnInit {
     const val = event.target.value.toLowerCase();
 
     // filter our data
-    const temp = this.temp.filter(function (d) {
+    const temp = this.temp.filter(function(d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
+        // (d.item_type && d.item_type.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
         (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
         || !val;

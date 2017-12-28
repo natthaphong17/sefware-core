@@ -9,7 +9,7 @@ import {ItemTypeDialogComponent} from './item-type-dialog/item-type-dialog.compo
 import {ItemType} from './item-type';
 
 @Component({
-  selector: 'app-main-settings-item--type',
+  selector: 'app-settings-item-type',
   templateUrl: './item-type.component.html',
   styleUrls: ['./item-type.component.scss'],
   providers: [ItemTypeService]

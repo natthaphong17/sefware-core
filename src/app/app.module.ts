@@ -43,10 +43,12 @@ import {LogsService} from './dialog/logs-dialog/logs.service';
 import {LogsDialogComponent} from './dialog/logs-dialog/logs-dialog.component';
 
 // Import Settings Dialog Component
-import {ItemTypeComponent} from './setup/item-type/item-type.component';
-import {ItemTypeDialogComponent} from './setup/item-type/item-type-dialog/item-type-dialog.component';
-import {UomComponent} from './setup/uom/uom.component';
-import {UomDialogComponent} from './setup/uom/uom-dialog/uom-dialog.component';
+import { ItemTypeComponent } from './setup/item-type/item-type.component';
+import { ItemTypeDialogComponent } from './setup/item-type/item-type-dialog/item-type-dialog.component';
+import { ItemGroupComponent } from './setup/item-group/item-group.component';
+import { ItemGroupDialogComponent } from './setup/item-group/item-group-dialog/item-group-dialog.component';
+import { UomComponent } from './setup/uom/uom.component';
+import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -80,6 +82,8 @@ interface StoreType {
     // Load Settings Dialog Component
     ItemTypeComponent,
     ItemTypeDialogComponent,
+    ItemGroupComponent,
+    ItemGroupDialogComponent,
     UomComponent,
     UomDialogComponent
   ],
@@ -111,6 +115,8 @@ interface StoreType {
   // Load Settings Dialog Component
     ItemTypeComponent,
     ItemTypeDialogComponent,
+    ItemGroupComponent,
+    ItemGroupDialogComponent,
     UomComponent,
     UomDialogComponent
   ],

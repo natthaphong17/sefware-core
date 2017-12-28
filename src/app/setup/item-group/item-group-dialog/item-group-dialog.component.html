@@ -1,0 +1,89 @@
+<div align="center" style="vertical-align: inherit; padding: 20px;">
+  <mat-card-content class="push-bottom-none" style="margin: 10px">
+
+    <form #dataForm="ngForm">
+      <div layout="row" class="push-top">
+        <mat-form-field flex>
+          <input matInput
+                 #nameElement
+                 #nameControl="ngModel"
+                 placeholder="Group Code"
+                 [(ngModel)]="data.code"
+                 name="code"
+                 maxlength="8"
+                 readonly>
+          <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
+          <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div layout="row" class="push-top">
+        <mat-form-field flex>
+          <mat-select maxlength="250" placeholder="Item Type">
+                 <!--#nameElement
+                 #nameControl="ngModel"
+                 placeholder="Item Type"
+                 [(ngModel)]="data.item_type"
+                 name="item_type"
+                 maxlength="250"
+                 [required]="false">-->
+            <mat-option [value]="test">Test</mat-option>
+          </mat-select>
+          <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
+          <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div layout="row" class="push-top">
+        <mat-form-field flex>
+          <input matInput
+                 #nameElement
+                 #nameControl="ngModel"
+                 placeholder="Description Name 1"
+                 [(ngModel)]="data.name1"
+                 name="name1"
+                 maxlength="250"
+                 required>
+          <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
+          <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div layout="row" class="push-top">
+        <mat-form-field flex>
+          <input matInput
+                 #nameElement
+                 #nameControl="ngModel"
+                 placeholder="Description Name 2"
+                 [(ngModel)]="data.name2"
+                 name="name2"
+                 maxlength="250">
+          <mat-hint align="start">
+          </mat-hint>
+          <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </mat-card-content>
+  <mat-divider style="margin: 10px"></mat-divider>
+
+  <mat-card-footer style="margin: 10px;align-content: center;">
+    <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
+            (click)="saveData(dataForm.form)">Save
+    </button>
+  </mat-card-footer>
+</div>

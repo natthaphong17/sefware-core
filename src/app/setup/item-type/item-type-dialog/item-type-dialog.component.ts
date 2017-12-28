@@ -10,7 +10,7 @@ import { ItemType } from '../item-type';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-main-settings-item--type--dialog',
+  selector: 'app-settings-item-type-dialog',
   templateUrl: './item-type-dialog.component.html',
   styleUrls: ['./item-type-dialog.component.scss'],
   providers: [ItemTypeService, UploadService]
