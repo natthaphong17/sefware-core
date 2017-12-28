@@ -118,7 +118,8 @@ export class MainComponent implements OnInit, AfterViewInit {
   openSupplierDialog() {
     const dialogRef = this.dialog.open(SupplierComponent, {
       disableClose: true,
-      width: '1200px',
+      maxWidth: '100vw',
+      width: '100%',
       height: '100%'
     });
 

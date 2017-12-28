@@ -22,7 +22,20 @@ export class SupplierDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: Supplier,
               private _supplierService: SupplierService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<SupplierDialogComponent>){}  
+              public dialogRef: MatDialogRef<SupplierDialogComponent>){
+                try {
+                  if (md_data) {
+                    this.data = new Supplier(md_data);
+
+                  } else {
+                    this._supplierService.requestData().subscribe(() => {
+                      this.generateCode();
+                    });
+                  }
+                } catch (error) {
+                  this.error = error;
+                }
+              }  
  ngOnInit() {
  }
 
@@ -31,6 +44,7 @@ export class SupplierDialogComponent implements OnInit {
  generateCode() {
   this._loadingService.register('data.form');
   this.data.code = "SP-001";
+  console.log("code :" + this.data.code);
   this._supplierService.requestLastData().subscribe(s => {
     s.forEach((ss: Supplier) => {
       let str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;

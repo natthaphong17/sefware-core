@@ -84,6 +84,23 @@ export class SupplierComponent implements OnInit {
       }
     });
   }
+
+  editData(data: Supplier) {
+    const dialogRef = this.dialog.open(SupplierDialogComponent, {
+      disableClose: true,
+      width: '100%',
+      height: '100%',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
   openLink(link: string) {
     window.open(link, '_blank');
   }

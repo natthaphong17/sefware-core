@@ -1,10 +1,10 @@
-<td-layout-nav toolbarTitle="{{md_data?'Edit Supplier':'Add Supplier'}}" class="container">
-  <button mat-icon-button td-menu-button mat-dialog-close>
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-  <ng-template>
+<!--<td-layout-nav toolbarTitle="{{md_data?'Edit Supplier':'Add Supplier'}}" class="container">-->
+  <!--<button mat-icon-button td-menu-button mat-dialog-close>-->
+    <!--<mat-icon>arrow_back</mat-icon>-->
+  <!--</button>-->
+  <!--<ng-template>-->
 
-  </ng-template>
+  <!--</ng-template>-->
   <td-layout-card-over cardTitle="{{data.code}}" cardSubtitle="">
 
     <!--<div style="position: absolute;right: 20px;top: 20px;">-->
@@ -14,42 +14,42 @@
 
     <mat-card-content class="push-bottom-none">
       <form #dataForm="ngForm">
-        
+
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #dn1Element
+                   #dn1Control="ngModel"
                    placeholder="Name Description 1"
-                   [(ngModel)]="data.nd1"
-                   name="name"
+                   [(ngModel)]="data.dn1"
+                   name="dn1"
                    maxlength="250"
                    required>
             <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                <span [hidden]="dn1Control.pristine" class="tc-red-600">
+                  <span [hidden]="!dn1Control.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{dn1Element.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #dn2Element
+                   #dn2Control="ngModel"
                    placeholder="Name Description 2"
-                   [(ngModel)]="data.nd2"
-                   name="name"
+                   [(ngModel)]="data.dn2"
+                   name="dn2"
                    maxlength="250"
                    required>
             <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                <span [hidden]="dn2Control.pristine" class="tc-red-600">
+                  <span [hidden]="!dn2Control.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{dn2Element.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
         <div layout="row">
@@ -147,4 +147,4 @@
       <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
     </mat-card-actions>
   </td-layout-card-over>
-</td-layout-nav>
+<!--</td-layout-nav>-->
