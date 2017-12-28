@@ -11,6 +11,7 @@ import { version as appVersion } from '../../../package.json';
 import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component';
 
 import {ItemTypeComponent} from '../setup/item-type/item-type.component';
+import {SupplierComponent} from '../setup/supplier/supplier.component';
 
 @Component({
   selector: 'app-main',
@@ -103,6 +104,21 @@ export class MainComponent implements OnInit, AfterViewInit {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openSupplierDialog() {
+    const dialogRef = this.dialog.open(SupplierComponent, {
+      disableClose: true,
+      width: '1200px',
       height: '100%'
     });
 
