@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ItemTypeComponent} from './item-type.component';
+import { UomDialogComponent } from './uom-dialog.component';
 
-describe('ItemTypeComponent', () => {
-  let component: ItemTypeComponent;
-  let fixture: ComponentFixture<ItemTypeComponent>;
+describe('UomDialogComponent', () => {
+  let component: UomDialogComponent;
+  let fixture: ComponentFixture<UomDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemTypeComponent ]
+      declarations: [ UomDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemTypeComponent);
+    fixture = TestBed.createComponent(UomDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

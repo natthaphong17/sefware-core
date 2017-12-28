@@ -10,7 +10,9 @@ import * as firebase from 'firebase';
 import { version as appVersion } from '../../../package.json';
 import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component';
 
+// Import Settings Dialog Component
 import {ItemTypeComponent} from '../setup/item-type/item-type.component';
+import {UomComponent} from '../setup/uom/uom.component';
 
 @Component({
   selector: 'app-main',
@@ -64,10 +66,6 @@ export class MainComponent implements OnInit, AfterViewInit {
   //   title: 'Summary',
   //   route: '/main/summary',
   //   icon: 'web',
-  // }, {
-  //   title: 'Administrators',
-  //   route: '/main/admin/user',
-  //   icon: 'verified_user',
   },
   ];
 
@@ -98,8 +96,25 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.locale.setCurrentLanguage(language);
   }
 
+  // Request Open Settings Dialog Component
   openItemTypeDialog() {
     const dialogRef = this.dialog.open(ItemTypeComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openUomDialog() {
+    const dialogRef = this.dialog.open(UomComponent, {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',
