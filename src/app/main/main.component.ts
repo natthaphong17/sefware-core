@@ -13,6 +13,7 @@ import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component
 // Import Settings Dialog Component
 import { ItemTypeComponent } from '../setup/item-type/item-type.component';
 import { ItemGroupComponent } from '../setup/item-group/item-group.component';
+import { ItemSubGroupComponent } from '../setup/item-sub-group/item-sub-group.component';
 import { UomComponent } from '../setup/uom/uom.component';
 
 @Component({
@@ -116,6 +117,22 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   openItemGroupDialog() {
     const dialogRef = this.dialog.open(ItemGroupComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openItemSubGroupDialog() {
+    const dialogRef = this.dialog.open(ItemSubGroupComponent, {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',

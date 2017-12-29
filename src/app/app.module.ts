@@ -47,6 +47,8 @@ import { ItemTypeComponent } from './setup/item-type/item-type.component';
 import { ItemTypeDialogComponent } from './setup/item-type/item-type-dialog/item-type-dialog.component';
 import { ItemGroupComponent } from './setup/item-group/item-group.component';
 import { ItemGroupDialogComponent } from './setup/item-group/item-group-dialog/item-group-dialog.component';
+import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.component';
+import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
 import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 
@@ -84,8 +86,10 @@ interface StoreType {
     ItemTypeDialogComponent,
     ItemGroupComponent,
     ItemGroupDialogComponent,
+    ItemSubGroupComponent,
+    ItemSubGroupDialogComponent,
     UomComponent,
-    UomDialogComponent
+    UomDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,6 +121,8 @@ interface StoreType {
     ItemTypeDialogComponent,
     ItemGroupComponent,
     ItemGroupDialogComponent,
+    ItemSubGroupComponent,
+    ItemSubGroupDialogComponent,
     UomComponent,
     UomDialogComponent
   ],
