@@ -1,46 +1,36 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatFormFieldModule} from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
 import {GalleryConfig, /*GalleryService*/} from 'ng-gallery';
-import {Upload} from '../../../shared/model/upload';
-import {UploadService} from '../../../services/upload.service';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
-import { ItemTypeService } from '../item-type.service';
-import { ItemType } from '../item-type';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ItemGroupService } from '../../item-group/item-group.service';
 import * as _ from 'lodash';
+import { ItemGroup } from '../../item-group/item-group';
 
 @Component({
-  selector: 'app-settings-item-type-dialog',
-  templateUrl: './item-type-dialog.component.html',
-  styleUrls: ['./item-type-dialog.component.scss'],
-  providers: [ItemTypeService, UploadService]
+  selector: 'app-settings-item-group-dialog',
+  templateUrl: './item-group-dialog.component.html',
+  styleUrls: ['./item-group-dialog.component.scss'],
+  providers: [ItemGroupService]
 })
-
-export class ItemTypeDialogComponent implements OnInit {
+export class ItemGroupDialogComponent implements OnInit {
   @Language() lang: string;
 
-  data: ItemType = new ItemType({});
+  data: ItemGroup = new ItemGroup({});
   error: any;
   images = [];
-  storage_ref = '/main/settings/item_type';
+  storage_ref = '/main/settings/item_group';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemType,
-              private _itemtypeService: ItemTypeService,
+  constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemGroup,
+              private _itemgroupService: ItemGroupService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<ItemTypeDialogComponent>) {
+              public dialogRef: MatDialogRef<ItemGroupDialogComponent>) {
 
     try {
       if (md_data) {
-        this.data = new ItemType(md_data);
-        /*if (!this.data.image) {
-          this.displayImage('../../../../../assets/images/user.png');
-        } else {
-          this.displayImage(this.data.image);
-        }*/
-
+        this.data = new ItemGroup(md_data);
       } else {
-        // this.displayImage('../../../../../assets/images/user.png');
-        this._itemtypeService.requestData().subscribe(() => {
+        this._itemgroupService.requestData().subscribe(() => {
           this.generateCode();
         });
       }
@@ -54,11 +44,11 @@ export class ItemTypeDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'TYPE';
+    const prefix = 'GRP';
     this.data.code = prefix + '-001';
     console.log('Prev Code :' + this.data.code);
-    this._itemtypeService.requestLastData().subscribe((s) => {
-      s.forEach((ss: ItemType) => {
+    this._itemgroupService.requestLastData().subscribe((s) => {
+      s.forEach((ss: ItemGroup) => {
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;
@@ -90,7 +80,7 @@ export class ItemTypeDialogComponent implements OnInit {
         if (_.isEqual(this.data, this.md_data)) {
           this.dialogRef.close(false);
         } else {
-          this._itemtypeService.updateData(this.data).then(() => {
+          this._itemgroupService.updateData(this.data).then(() => {
             this.dialogRef.close(this.data);
             this._loadingService.resolve();
           }).catch((err) => {
@@ -99,7 +89,7 @@ export class ItemTypeDialogComponent implements OnInit {
           });
         }
       } else {
-        this._itemtypeService.addData(this.data).then(() => {
+        this._itemgroupService.addData(this.data).then(() => {
           this.dialogRef.close(this.data);
           this._loadingService.resolve();
         }).catch((err) => {
@@ -113,5 +103,4 @@ export class ItemTypeDialogComponent implements OnInit {
   openLink(link: string) {
     window.open(link, '_blank');
   }
-
 }

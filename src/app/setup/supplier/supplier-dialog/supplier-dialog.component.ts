@@ -5,33 +5,33 @@ import {Upload} from '../../../shared/model/upload';
 import {UploadService} from '../../../services/upload.service';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
-import { ItemTypeService } from '../item-type.service';
-import { ItemType } from '../item-type';
+import { SupplierService } from '../supplier.service';
+import { Supplier } from '../supplier';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-settings-item-type-dialog',
-  templateUrl: './item-type-dialog.component.html',
-  styleUrls: ['./item-type-dialog.component.scss'],
-  providers: [ItemTypeService, UploadService]
+  selector: 'app-settings-supplier-dialog',
+  templateUrl: './supplier-dialog.component.html',
+  styleUrls: ['./supplier-dialog.component.scss'],
+  providers: [SupplierService]
 })
 
-export class ItemTypeDialogComponent implements OnInit {
+export class SupplierDialogComponent implements OnInit {
   @Language() lang: string;
 
-  data: ItemType = new ItemType({});
+  data: Supplier = new Supplier({});
   error: any;
   images = [];
-  storage_ref = '/main/settings/item_type';
+  storage_ref = '/main/settings/supplier';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemType,
-              private _itemtypeService: ItemTypeService,
+  constructor(@Inject(MAT_DIALOG_DATA) public md_data: Supplier,
+              private _supplierService: SupplierService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<ItemTypeDialogComponent>) {
+              public dialogRef: MatDialogRef<SupplierDialogComponent>) {
 
     try {
       if (md_data) {
-        this.data = new ItemType(md_data);
+        this.data = new Supplier(md_data);
         /*if (!this.data.image) {
           this.displayImage('../../../../../assets/images/user.png');
         } else {
@@ -40,7 +40,7 @@ export class ItemTypeDialogComponent implements OnInit {
 
       } else {
         // this.displayImage('../../../../../assets/images/user.png');
-        this._itemtypeService.requestData().subscribe(() => {
+        this._supplierService.requestData().subscribe(() => {
           this.generateCode();
         });
       }
@@ -54,11 +54,11 @@ export class ItemTypeDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'TYPE';
+    const prefix = 'SUP';
     this.data.code = prefix + '-001';
     console.log('Prev Code :' + this.data.code);
-    this._itemtypeService.requestLastData().subscribe((s) => {
-      s.forEach((ss: ItemType) => {
+    this._supplierService.requestLastData().subscribe((s) => {
+      s.forEach((ss: Supplier) => {
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;
@@ -90,7 +90,7 @@ export class ItemTypeDialogComponent implements OnInit {
         if (_.isEqual(this.data, this.md_data)) {
           this.dialogRef.close(false);
         } else {
-          this._itemtypeService.updateData(this.data).then(() => {
+          this._supplierService.updateData(this.data).then(() => {
             this.dialogRef.close(this.data);
             this._loadingService.resolve();
           }).catch((err) => {
@@ -99,7 +99,7 @@ export class ItemTypeDialogComponent implements OnInit {
           });
         }
       } else {
-        this._itemtypeService.addData(this.data).then(() => {
+        this._supplierService.addData(this.data).then(() => {
           this.dialogRef.close(this.data);
           this._loadingService.resolve();
         }).catch((err) => {

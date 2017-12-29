@@ -1,20 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatSnackBar} from '@angular/material';
-import {Page} from '../../shared/model/page';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ItemGroupService } from '../item-group/item-group.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import {Language} from 'angular-l10n';
 import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {ItemTypeService} from './item-type.service';
-import {ItemTypeDialogComponent} from './item-type-dialog/item-type-dialog.component';
-import {ItemType} from './item-type';
+import { ItemGroupDialogComponent } from '../item-group/item-group-dialog/item-group-dialog.component';
+import { Page } from '../../shared/model/page';
+import { ItemGroup } from '../item-group/item-group';
 
 @Component({
-  selector: 'app-settings-item-type',
-  templateUrl: './item-type.component.html',
-  styleUrls: ['./item-type.component.scss'],
-  providers: [ItemTypeService]
+  selector: 'app-settings-item-group',
+  templateUrl: './item-group.component.html',
+  styleUrls: ['./item-group.component.scss'],
+  providers: [ItemGroupService]
 })
-export class ItemTypeComponent implements OnInit {
+export class ItemGroupComponent implements OnInit {
   @Language() lang: string;
   @ViewChild('dataTable') table: any;
 
@@ -27,7 +27,7 @@ export class ItemTypeComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _itemtypeService: ItemTypeService,
+  constructor(private _itemgroupService: ItemGroupService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -42,16 +42,16 @@ export class ItemTypeComponent implements OnInit {
 
   load() {
     this.loading = true;
-    this._itemtypeService.requestData().subscribe((snapshot) => {
-      this._itemtypeService.rows = [];
+    this._itemgroupService.requestData().subscribe((snapshot) => {
+      this._itemgroupService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new ItemType(s.val());
-        this._itemtypeService.rows.push(_row);
+        const _row = new ItemGroup(s.val());
+        this._itemgroupService.rows.push(_row);
 
       });
 
-      this.temp = [...this._itemtypeService.rows];
+      this.temp = [...this._itemgroupService.rows];
       this.loading = false;
       this.setPage(null);
     });
@@ -64,7 +64,7 @@ export class ItemTypeComponent implements OnInit {
       this.page.size = pageInfo.pageSize;
     }
 
-    this._itemtypeService.getResults(this.page).subscribe((pagedData) => {
+    this._itemgroupService.getResults(this.page).subscribe((pagedData) => {
       this.page = pagedData.page;
       this.rows = pagedData.data;
     });
@@ -72,13 +72,11 @@ export class ItemTypeComponent implements OnInit {
   }
 
   addData() {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+    const dialogRef = this.dialog.open(ItemGroupDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
       width: '25%'
-    //  for 2 col
-    //  width: '500px'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -89,8 +87,8 @@ export class ItemTypeComponent implements OnInit {
     });
   }
 
-  editData(data: ItemType) {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+  editData(data: ItemGroup) {
+    const dialogRef = this.dialog.open(ItemGroupDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
@@ -117,6 +115,7 @@ export class ItemTypeComponent implements OnInit {
     // filter our data
     const temp = this.temp.filter(function(d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
+        // (d.item_type && d.item_type.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
         (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
         || !val;

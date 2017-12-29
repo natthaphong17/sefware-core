@@ -41,8 +41,18 @@ import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {TestComponent} from './pages/test/test.component';
 import {LogsService} from './dialog/logs-dialog/logs.service';
 import {LogsDialogComponent} from './dialog/logs-dialog/logs-dialog.component';
-import {ItemTypeComponent} from './setup/item-type/item-type.component';
+
+// Import Settings Dialog Component
+import { ItemTypeComponent } from './setup/item-type/item-type.component';
 import { ItemTypeDialogComponent } from './setup/item-type/item-type-dialog/item-type-dialog.component';
+import { ItemGroupComponent } from './setup/item-group/item-group.component';
+import { ItemGroupDialogComponent } from './setup/item-group/item-group-dialog/item-group-dialog.component';
+import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.component';
+import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
+import { UomComponent } from './setup/uom/uom.component';
+import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
+import { SupplierComponent } from './setup/supplier/supplier.component';
+import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -72,8 +82,18 @@ interface StoreType {
     UploadImageComponent,
     TestComponent,
     LogsDialogComponent,
+
+    // Load Settings Dialog Component
     ItemTypeComponent,
-    ItemTypeDialogComponent
+    ItemTypeDialogComponent,
+    ItemGroupComponent,
+    ItemGroupDialogComponent,
+    ItemSubGroupComponent,
+    ItemSubGroupDialogComponent,
+    UomComponent,
+    UomDialogComponent,
+    SupplierComponent,
+    SupplierDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -99,8 +119,18 @@ interface StoreType {
     ResetPasswordComponent,
     UploadImageComponent,
     LogsDialogComponent,
+
+  // Load Settings Dialog Component
     ItemTypeComponent,
-    ItemTypeDialogComponent
+    ItemTypeDialogComponent,
+    ItemGroupComponent,
+    ItemGroupDialogComponent,
+    ItemSubGroupComponent,
+    ItemSubGroupDialogComponent,
+    UomComponent,
+    UomDialogComponent,
+    SupplierComponent,
+    SupplierDialogComponent
   ],
   providers: [
     AuthService,

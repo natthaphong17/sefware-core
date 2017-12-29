@@ -1,46 +1,34 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatFormFieldModule} from '@angular/material';
-import {GalleryConfig, /*GalleryService*/} from 'ng-gallery';
-import {Upload} from '../../../shared/model/upload';
-import {UploadService} from '../../../services/upload.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
-import { ItemTypeService } from '../item-type.service';
-import { ItemType } from '../item-type';
 import * as _ from 'lodash';
+import { Uom } from '../../uom/uom';
+import { UomService } from '../../uom/uom.service';
+import { UploadService } from '../../../services/upload.service';
 
 @Component({
-  selector: 'app-settings-item-type-dialog',
-  templateUrl: './item-type-dialog.component.html',
-  styleUrls: ['./item-type-dialog.component.scss'],
-  providers: [ItemTypeService, UploadService]
+  selector: 'app-setting-uom-dialog',
+  templateUrl: './uom-dialog.component.html',
+  styleUrls: ['./uom-dialog.component.scss'],
+  providers: [UomService]
 })
-
-export class ItemTypeDialogComponent implements OnInit {
-  @Language() lang: string;
-
-  data: ItemType = new ItemType({});
+export class UomDialogComponent implements OnInit {
+  data: Uom = new Uom({});
   error: any;
   images = [];
-  storage_ref = '/main/settings/item_type';
+  storage_ref = '/main/settings/uom';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemType,
-              private _itemtypeService: ItemTypeService,
+  constructor(@Inject(MAT_DIALOG_DATA) public md_data: Uom,
+              private _uomService: UomService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<ItemTypeDialogComponent>) {
+              public dialogRef: MatDialogRef<UomDialogComponent>) {
 
     try {
       if (md_data) {
-        this.data = new ItemType(md_data);
-        /*if (!this.data.image) {
-          this.displayImage('../../../../../assets/images/user.png');
-        } else {
-          this.displayImage(this.data.image);
-        }*/
-
+        this.data = new Uom(md_data);
       } else {
-        // this.displayImage('../../../../../assets/images/user.png');
-        this._itemtypeService.requestData().subscribe(() => {
+        this._uomService.requestData().subscribe(() => {
           this.generateCode();
         });
       }
@@ -54,11 +42,11 @@ export class ItemTypeDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'TYPE';
+    const prefix = 'UOM';
     this.data.code = prefix + '-001';
     console.log('Prev Code :' + this.data.code);
-    this._itemtypeService.requestLastData().subscribe((s) => {
-      s.forEach((ss: ItemType) => {
+    this._uomService.requestLastData().subscribe((s) => {
+      s.forEach((ss: Uom) => {
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;
@@ -90,7 +78,7 @@ export class ItemTypeDialogComponent implements OnInit {
         if (_.isEqual(this.data, this.md_data)) {
           this.dialogRef.close(false);
         } else {
-          this._itemtypeService.updateData(this.data).then(() => {
+          this._uomService.updateData(this.data).then(() => {
             this.dialogRef.close(this.data);
             this._loadingService.resolve();
           }).catch((err) => {
@@ -99,7 +87,7 @@ export class ItemTypeDialogComponent implements OnInit {
           });
         }
       } else {
-        this._itemtypeService.addData(this.data).then(() => {
+        this._uomService.addData(this.data).then(() => {
           this.dialogRef.close(this.data);
           this._loadingService.resolve();
         }).catch((err) => {
@@ -113,5 +101,4 @@ export class ItemTypeDialogComponent implements OnInit {
   openLink(link: string) {
     window.open(link, '_blank');
   }
-
 }

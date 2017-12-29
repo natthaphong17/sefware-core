@@ -1,20 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatSnackBar} from '@angular/material';
-import {Page} from '../../shared/model/page';
-import {Language} from 'angular-l10n';
-import {TdLoadingService, TdMediaService} from '@covalent/core';
-import {SelectionModel} from '@angular/cdk/collections';
-import {ItemTypeService} from './item-type.service';
-import {ItemTypeDialogComponent} from './item-type-dialog/item-type-dialog.component';
-import {ItemType} from './item-type';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Language } from 'angular-l10n';
+import { UomService } from '../uom/uom.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { TdLoadingService, TdMediaService } from '@covalent/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { UomDialogComponent } from '../uom/uom-dialog/uom-dialog.component';
+import { Page } from '../../shared/model/page';
+import { Uom } from '../uom/uom';
+import { ItemType } from '../item-type/item-type';
 
 @Component({
-  selector: 'app-settings-item-type',
-  templateUrl: './item-type.component.html',
-  styleUrls: ['./item-type.component.scss'],
-  providers: [ItemTypeService]
+  selector: 'app-settings-uom',
+  templateUrl: './uom.component.html',
+  styleUrls: ['./uom.component.scss'],
+  providers: [UomService]
 })
-export class ItemTypeComponent implements OnInit {
+export class UomComponent implements OnInit {
   @Language() lang: string;
   @ViewChild('dataTable') table: any;
 
@@ -27,7 +28,7 @@ export class ItemTypeComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _itemtypeService: ItemTypeService,
+  constructor(private _uomService: UomService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -36,22 +37,23 @@ export class ItemTypeComponent implements OnInit {
     this.page.pageNumber = 0;
 
   }
+
   ngOnInit(): void {
     this.load();
   }
 
   load() {
     this.loading = true;
-    this._itemtypeService.requestData().subscribe((snapshot) => {
-      this._itemtypeService.rows = [];
+    this._uomService.requestData().subscribe((snapshot) => {
+      this._uomService.rows = [];
       snapshot.forEach((s) => {
 
         const _row = new ItemType(s.val());
-        this._itemtypeService.rows.push(_row);
+        this._uomService.rows.push(_row);
 
       });
 
-      this.temp = [...this._itemtypeService.rows];
+      this.temp = [...this._uomService.rows];
       this.loading = false;
       this.setPage(null);
     });
@@ -64,7 +66,7 @@ export class ItemTypeComponent implements OnInit {
       this.page.size = pageInfo.pageSize;
     }
 
-    this._itemtypeService.getResults(this.page).subscribe((pagedData) => {
+    this._uomService.getResults(this.page).subscribe((pagedData) => {
       this.page = pagedData.page;
       this.rows = pagedData.data;
     });
@@ -72,13 +74,11 @@ export class ItemTypeComponent implements OnInit {
   }
 
   addData() {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+    const dialogRef = this.dialog.open(UomDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
       width: '25%'
-    //  for 2 col
-    //  width: '500px'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -89,8 +89,8 @@ export class ItemTypeComponent implements OnInit {
     });
   }
 
-  editData(data: ItemType) {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+  editData(data: Uom) {
+    const dialogRef = this.dialog.open(UomDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
@@ -115,7 +115,7 @@ export class ItemTypeComponent implements OnInit {
     const val = event.target.value.toLowerCase();
 
     // filter our data
-    const temp = this.temp.filter(function(d) {
+    const temp = this.temp.filter(function (d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
         (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)

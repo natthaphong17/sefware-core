@@ -1,20 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatSnackBar} from '@angular/material';
-import {Page} from '../../shared/model/page';
-import {Language} from 'angular-l10n';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { SupplierDialogComponent } from '../supplier/supplier-dialog/supplier-dialog.component';
+import { Language } from 'angular-l10n';
+import { Page } from '../../shared/model/page';
 import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {ItemTypeService} from './item-type.service';
-import {ItemTypeDialogComponent} from './item-type-dialog/item-type-dialog.component';
-import {ItemType} from './item-type';
+import { SupplierService } from '../supplier/supplier.service';
+import { Supplier } from '../supplier/supplier';
 
 @Component({
-  selector: 'app-settings-item-type',
-  templateUrl: './item-type.component.html',
-  styleUrls: ['./item-type.component.scss'],
-  providers: [ItemTypeService]
+  selector: 'app-supplier',
+  templateUrl: './supplier.component.html',
+  styleUrls: ['./supplier.component.scss'],
+  providers: [SupplierService]
 })
-export class ItemTypeComponent implements OnInit {
+export class SupplierComponent implements OnInit {
   @Language() lang: string;
   @ViewChild('dataTable') table: any;
 
@@ -27,7 +27,7 @@ export class ItemTypeComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _itemtypeService: ItemTypeService,
+  constructor(private _supplierService: SupplierService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -42,16 +42,16 @@ export class ItemTypeComponent implements OnInit {
 
   load() {
     this.loading = true;
-    this._itemtypeService.requestData().subscribe((snapshot) => {
-      this._itemtypeService.rows = [];
+    this._supplierService.requestData().subscribe((snapshot) => {
+      this._supplierService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new ItemType(s.val());
-        this._itemtypeService.rows.push(_row);
+        const _row = new Supplier(s.val());
+        this._supplierService.rows.push(_row);
 
       });
 
-      this.temp = [...this._itemtypeService.rows];
+      this.temp = [...this._supplierService.rows];
       this.loading = false;
       this.setPage(null);
     });
@@ -64,7 +64,7 @@ export class ItemTypeComponent implements OnInit {
       this.page.size = pageInfo.pageSize;
     }
 
-    this._itemtypeService.getResults(this.page).subscribe((pagedData) => {
+    this._supplierService.getResults(this.page).subscribe((pagedData) => {
       this.page = pagedData.page;
       this.rows = pagedData.data;
     });
@@ -72,13 +72,11 @@ export class ItemTypeComponent implements OnInit {
   }
 
   addData() {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+    const dialogRef = this.dialog.open(SupplierDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
-      width: '25%'
-    //  for 2 col
-    //  width: '500px'
+      width: '50%'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -89,12 +87,12 @@ export class ItemTypeComponent implements OnInit {
     });
   }
 
-  editData(data: ItemType) {
-    const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
+  editData(data: Supplier) {
+    const dialogRef = this.dialog.open(SupplierDialogComponent, {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
-      width: '25%',
+      width: '50%',
       data
     });
 
@@ -118,7 +116,13 @@ export class ItemTypeComponent implements OnInit {
     const temp = this.temp.filter(function(d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
-        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
+        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1) ||
+        (d.address && d.address.toLowerCase().indexOf(val) !== -1) ||
+        (d.phone && d.phone.toLowerCase().indexOf(val) !== -1) ||
+        (d.fax && d.fax.toLowerCase().indexOf(val) !== -1) ||
+        (d.email && d.email.toLowerCase().indexOf(val) !== -1) ||
+        (d.term && d.term.toLowerCase().indexOf(val) !== -1) ||
+        (d.bank && d.bank.toLowerCase().indexOf(val) !== -1)
         || !val;
     });
 

@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ItemTypeComponent} from './item-type.component';
+import { SupplierComponent } from './supplier.component';
 
-describe('ItemTypeComponent', () => {
-  let component: ItemTypeComponent;
-  let fixture: ComponentFixture<ItemTypeComponent>;
+describe('SupplierComponent', () => {
+  let component: SupplierComponent;
+  let fixture: ComponentFixture<SupplierComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemTypeComponent ]
+      declarations: [ SupplierComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ItemTypeComponent);
+    fixture = TestBed.createComponent(SupplierComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
