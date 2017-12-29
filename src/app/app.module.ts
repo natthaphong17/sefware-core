@@ -51,6 +51,8 @@ import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.com
 import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
 import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
+import { SupplierComponent } from './setup/supplier/supplier.component';
+import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -90,6 +92,8 @@ interface StoreType {
     ItemSubGroupDialogComponent,
     UomComponent,
     UomDialogComponent,
+    SupplierComponent,
+    SupplierDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +128,9 @@ interface StoreType {
     ItemSubGroupComponent,
     ItemSubGroupDialogComponent,
     UomComponent,
-    UomDialogComponent
+    UomDialogComponent,
+    SupplierComponent,
+    SupplierDialogComponent
   ],
   providers: [
     AuthService,

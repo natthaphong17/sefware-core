@@ -15,6 +15,7 @@ import { ItemTypeComponent } from '../setup/item-type/item-type.component';
 import { ItemGroupComponent } from '../setup/item-group/item-group.component';
 import { ItemSubGroupComponent } from '../setup/item-sub-group/item-sub-group.component';
 import { UomComponent } from '../setup/uom/uom.component';
+import { SupplierComponent } from '../setup/supplier/supplier.component';
 
 @Component({
   selector: 'app-main',
@@ -149,6 +150,22 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   openUomDialog() {
     const dialogRef = this.dialog.open(UomComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openSupplierDialog() {
+    const dialogRef = this.dialog.open(SupplierComponent, {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',
