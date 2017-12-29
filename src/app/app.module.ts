@@ -53,6 +53,7 @@ import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 import { SupplierComponent } from './setup/supplier/supplier.component';
 import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
+import { InventoryComponent } from './main/inventory/inventory.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -93,7 +94,8 @@ interface StoreType {
     UomComponent,
     UomDialogComponent,
     SupplierComponent,
-    SupplierDialogComponent
+    SupplierDialogComponent,
+    InventoryComponent,
   ],
   imports: [
     BrowserModule,
