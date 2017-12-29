@@ -133,10 +133,12 @@
 
   </td-layout-nav>
 
+<!--
   <nav mat-tab-nav-bar class="nav-bar" *ngIf="(_media.registerQuery('gt-sm') | async)">
-    <!--<a mat-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
-       routerLinkActive="">{{ 'Home'}}</a>-->
-    <!--<a mat-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>-->
+    <a mat-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
+       routerLinkActive="">{{ 'Home'}}</a>
+    <a mat-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>
   </nav>
+-->
 
 </td-layout>
