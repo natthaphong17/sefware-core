@@ -1,3 +1,4 @@
+// file config for cli to create component
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
