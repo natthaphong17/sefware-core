@@ -1,0 +1,30 @@
+<div align="center" style="vertical-align: inherit; padding: 30px 20px;">
+  <form class="form" #dataForm="ngForm">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Code" value="{{data.code}}">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput
+             #nameElement
+             #nameControl="ngModel"
+             placeholder="Name Description 1"
+             [(ngModel)]="data.name1"
+             name="name1"
+             maxlength="250"
+             required>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput
+             #nameElement
+             #nameControl="ngModel"
+             placeholder="Name Description 2"
+             [(ngModel)]="data.name2"
+             name="name2"
+             maxlength="250"
+             required>
+    </mat-form-field>
+    <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
+            (click)="saveData(dataForm.form)">Save</button>
+  </form>
+</div>

@@ -43,6 +43,8 @@ import {LogsService} from './dialog/logs-dialog/logs.service';
 import {LogsDialogComponent} from './dialog/logs-dialog/logs-dialog.component';
 import {ItemTypeComponent} from './setup/item-type/item-type.component';
 import { ItemTypeDialogComponent } from './setup/item-type/item-type-dialog/item-type-dialog.component';
+import { UomComponent } from './setup/uom/uom.component';
+import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -73,7 +75,9 @@ interface StoreType {
     TestComponent,
     LogsDialogComponent,
     ItemTypeComponent,
-    ItemTypeDialogComponent
+    ItemTypeDialogComponent,
+    UomComponent,
+    UomDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +104,9 @@ interface StoreType {
     UploadImageComponent,
     LogsDialogComponent,
     ItemTypeComponent,
-    ItemTypeDialogComponent
+    ItemTypeDialogComponent,
+    UomComponent,
+    UomDialogComponent
   ],
   providers: [
     AuthService,
