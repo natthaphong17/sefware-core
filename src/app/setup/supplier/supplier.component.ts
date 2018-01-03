@@ -7,6 +7,8 @@ import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import { SupplierService } from '../supplier/supplier.service';
 import { Supplier } from '../supplier/supplier';
+import { ItemSubGroup } from '../item-sub-group/item-sub-group';
+import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
   selector: 'app-supplier',
@@ -100,6 +102,29 @@ export class SupplierComponent implements OnInit {
       if (result) {
         // this.msgs = [];
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  deleteData(data: Supplier) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'delete',
+        title: 'Delete supplier',
+        content: 'Confirm to delete?',
+        data_title: 'Supplier',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._supplierService.removeData(data).then(() => {
+          this.snackBar.open('Delete supplier succeed.', '', {duration: 3000});
+          // this.addLog('Delete', 'delete supplier succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
       }
     });
   }
