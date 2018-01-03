@@ -26,11 +26,29 @@
           <input matInput
                  #nameElement
                  #nameControl="ngModel"
+                 placeholder="Short Name"
+                 [(ngModel)]="data.shortname"
+                 name="shortname"
+                 maxlength="250"
+                 required>
+          <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
+          <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div layout="row" class="push-top">
+        <mat-form-field flex>
+          <input matInput
+                 #nameElement
+                 #nameControl="ngModel"
                  placeholder="Description Name 1"
                  [(ngModel)]="data.name1"
                  name="name1"
-                 maxlength="250"
-                 required>
+                 maxlength="250">
           <mat-hint align="start">
                 <span [hidden]="nameControl.pristine" class="tc-red-600">
                   <span [hidden]="!nameControl.hasError('required')">Required</span>
