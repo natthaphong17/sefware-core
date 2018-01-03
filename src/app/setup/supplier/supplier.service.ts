@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database-deprecated";
-import {Supplier} from "./supplier"
-import {Observable} from "rxjs";
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
+import {Supplier} from './supplier';
+import {Observable} from 'rxjs';
 import { PagedData } from '../../shared/model/paged-data';
 import { Page } from '../../shared/model/page';
 
@@ -55,22 +55,21 @@ export class SupplierService {
   }
 
   public getResults(page: Page): Observable<PagedData<Supplier>> {
-    return Observable.of(this.rows).map(data => this.getPagedData(page));
+    return Observable.of(this.rows).map((data) => this.getPagedData(page));
   }
 
   private getPagedData(page: Page): PagedData<Supplier> {
-    let pagedData = new PagedData<Supplier>();
+    const pagedData = new PagedData<Supplier>();
     page.totalElements = this.rows.length;
     page.totalPages = page.totalElements / page.size;
-    let start = page.pageNumber * page.size;
-    let end = Math.min((start + page.size), page.totalElements);
+    const start = page.pageNumber * page.size;
+    const end = Math.min((start + page.size), page.totalElements);
     for (let i = start; i < end; i++) {
-      let jsonObj = this.rows[i];
+      const jsonObj = this.rows[i];
       pagedData.data.push(new Supplier(jsonObj));
     }
     pagedData.page = page;
     return pagedData;
   }
-
 
 }

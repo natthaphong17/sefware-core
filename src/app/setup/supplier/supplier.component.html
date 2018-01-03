@@ -28,7 +28,7 @@
         [limit]="page.size"
       >
 
-        <ngx-datatable-column [sortable]="false" name="No." width="50">
+        <ngx-datatable-column [sortable]="false" name="No." width="25">
           <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
             <div style="text-align: left" class="text-truncate">
               {{rowIndex+1}}.
@@ -38,9 +38,9 @@
 
         <ngx-datatable-column
           prop="code"
-          name="Type Code"
-          [minWidth]="50"
-          [width]="75">
+          name="Supplier Code"
+          [minWidth]="40"
+          [width]="60">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div style="text-align: left" class="text-truncate">
               {{row.code}}
@@ -69,6 +69,42 @@
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div style="text-align: left" class="text-truncate">
               {{row.dn2}}
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          [width]="100"
+          [canAutoResize]="true"
+          prop="address"
+          name="Address">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div style="text-align: left" class="text-truncate">
+              {{row.address}}
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          [width]="100"
+          [canAutoResize]="true"
+          prop="tel"
+          name="Telephone">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div style="text-align: left" class="text-truncate">
+              {{row.tel}}
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          [width]="100"
+          [canAutoResize]="true"
+          prop="bank"
+          name="Bank">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div style="text-align: left" class="text-truncate">
+              {{row.bank}}
             </div>
           </ng-template>
         </ngx-datatable-column>
