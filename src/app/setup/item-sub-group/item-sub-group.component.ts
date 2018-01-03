@@ -7,6 +7,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { ItemSubGroupDialogComponent } from '../item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
 import { Page } from '../../shared/model/page';
 import { ItemSubGroup } from '../item-sub-group/item-sub-group';
+import { ItemGroup } from '../item-group/item-group';
+import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
   selector: 'app-settings-item-sub-group',
@@ -100,6 +102,29 @@ export class ItemSubGroupComponent implements OnInit {
       if (result) {
         // this.msgs = [];
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  deleteData(data: ItemSubGroup) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'delete',
+        title: 'Delete item sub group',
+        content: 'Confirm to delete?',
+        data_title: 'Item Sub Group',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemsubgroupService.removeData(data).then(() => {
+          this.snackBar.open('Delete item sub group succeed.', '', {duration: 3000});
+          // this.addLog('Delete', 'delete item sub group succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
       }
     });
   }

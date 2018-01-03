@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatSnackBar} from '@angular/material';
 import {Page} from '../../shared/model/page';
 import {Language} from 'angular-l10n';
+import {ConfirmComponent} from '../../dialog/confirm/confirm.component';
 import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ItemTypeService} from './item-type.service';
@@ -77,8 +78,6 @@ export class ItemTypeComponent implements OnInit {
       maxWidth: '100vw',
       maxHeight: '100vw',
       width: '25%'
-    //  for 2 col
-    //  width: '500px'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -102,6 +101,29 @@ export class ItemTypeComponent implements OnInit {
       if (result) {
         // this.msgs = [];
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  deleteData(data: ItemType) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'delete',
+        title: 'Delete item type',
+        content: 'Confirm to delete?',
+        data_title: 'Item Type',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemtypeService.removeData(data).then(() => {
+          this.snackBar.open('Delete item type succeed.', '', {duration: 3000});
+          // this.addLog('Delete', 'delete item type succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
       }
     });
   }

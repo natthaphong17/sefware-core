@@ -7,6 +7,8 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { ItemGroupDialogComponent } from '../item-group/item-group-dialog/item-group-dialog.component';
 import { Page } from '../../shared/model/page';
 import { ItemGroup } from '../item-group/item-group';
+import { ItemType } from '../item-type/item-type';
+import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
   selector: 'app-settings-item-group',
@@ -100,6 +102,29 @@ export class ItemGroupComponent implements OnInit {
       if (result) {
         // this.msgs = [];
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  deleteData(data: ItemGroup) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'delete',
+        title: 'Delete item group',
+        content: 'Confirm to delete?',
+        data_title: 'Item Group',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemgroupService.removeData(data).then(() => {
+          this.snackBar.open('Delete item group succeed.', '', {duration: 3000});
+          // this.addLog('Delete', 'delete item group succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
       }
     });
   }
