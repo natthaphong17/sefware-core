@@ -7,8 +7,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { UomDialogComponent } from '../uom/uom-dialog/uom-dialog.component';
 import { Page } from '../../shared/model/page';
 import { Uom } from '../uom/uom';
-import { ItemType } from '../item-type/item-type';
-import { ItemSubGroup } from '../item-sub-group/item-sub-group';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
@@ -50,7 +48,7 @@ export class UomComponent implements OnInit {
       this._uomService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new ItemType(s.val());
+        const _row = new Uom(s.val());
         this._uomService.rows.push(_row);
 
       });
