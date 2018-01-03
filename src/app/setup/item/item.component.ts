@@ -33,7 +33,7 @@ export class ItemComponent implements OnInit {
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
 
-    this.page.size = 5;
+    this.page.size = 10;
     this.page.pageNumber = 0;
 
   }
