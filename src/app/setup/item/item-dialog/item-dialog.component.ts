@@ -52,7 +52,7 @@ export class ItemDialogComponent implements OnInit {
     }
   }
 
-  config: GalleryConfig;
+  // config: GalleryConfig ;
 
   ngOnInit(): void {
   }
