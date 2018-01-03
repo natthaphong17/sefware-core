@@ -49,12 +49,12 @@ import { ItemGroupComponent } from './setup/item-group/item-group.component';
 import { ItemGroupDialogComponent } from './setup/item-group/item-group-dialog/item-group-dialog.component';
 import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.component';
 import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
+import { ItemComponent } from './setup/item/item.component';
+import { ItemDialogComponent } from './setup/item/item-dialog/item-dialog.component';
 import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 import { SupplierComponent } from './setup/supplier/supplier.component';
 import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
-import { InventoryComponent } from './main/inventory/inventory.component';
-import { ItemComponent } from './setup/item/item.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -92,12 +92,12 @@ interface StoreType {
     ItemGroupDialogComponent,
     ItemSubGroupComponent,
     ItemSubGroupDialogComponent,
+    ItemComponent,
+    ItemDialogComponent,
     UomComponent,
     UomDialogComponent,
     SupplierComponent,
     SupplierDialogComponent,
-    InventoryComponent,
-    ItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +131,8 @@ interface StoreType {
     ItemGroupDialogComponent,
     ItemSubGroupComponent,
     ItemSubGroupDialogComponent,
+    ItemComponent,
+    ItemDialogComponent,
     UomComponent,
     UomDialogComponent,
     SupplierComponent,

@@ -7,7 +7,6 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { ItemGroupDialogComponent } from '../item-group/item-group-dialog/item-group-dialog.component';
 import { Page } from '../../shared/model/page';
 import { ItemGroup } from '../item-group/item-group';
-import { ItemType } from '../item-type/item-type';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({

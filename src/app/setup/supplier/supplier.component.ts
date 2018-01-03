@@ -7,11 +7,10 @@ import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import { SupplierService } from '../supplier/supplier.service';
 import { Supplier } from '../supplier/supplier';
-import { ItemSubGroup } from '../item-sub-group/item-sub-group';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
-  selector: 'app-supplier',
+  selector: 'app-settings-supplier',
   templateUrl: './supplier.component.html',
   styleUrls: ['./supplier.component.scss'],
   providers: [SupplierService]
