@@ -7,7 +7,7 @@
           <input matInput
                  #nameElement
                  #nameControl="ngModel"
-                 placeholder="Type Code"
+                 placeholder="Unit Code"
                  [(ngModel)]="data.code"
                  name="code"
                  maxlength="8"
@@ -50,9 +50,6 @@
                  name="name2"
                  maxlength="250">
           <mat-hint align="start">
-            <!--<span [hidden]="nameControl.pristine" class="tc-red-600">-->
-            <!--<span [hidden]="!nameControl.hasError('required')">Required</span>-->
-            <!--</span>-->
           </mat-hint>
           <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
         </mat-form-field>

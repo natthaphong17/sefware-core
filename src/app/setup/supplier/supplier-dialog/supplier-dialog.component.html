@@ -1,150 +1,169 @@
-<!--<td-layout-nav toolbarTitle="{{md_data?'Edit Supplier':'Add Supplier'}}" class="container">-->
-  <!--<button mat-icon-button td-menu-button mat-dialog-close>-->
-    <!--<mat-icon>arrow_back</mat-icon>-->
-  <!--</button>-->
-  <!--<ng-template>-->
-
-  <!--</ng-template>-->
-  <td-layout-card-over cardTitle="{{data.code}}" cardSubtitle="">
-
-    <!--<div style="position: absolute;right: 20px;top: 20px;">-->
-    <!--<md-slide-toggle [ngModel]="!data.disable" (ngModelChange)="data.disable = !($event)" name="disable">Enable-->
-    <!--</md-slide-toggle>-->
-    <!--</div>-->
-
-    <mat-card-content class="push-bottom-none">
-      <form #dataForm="ngForm">
-
+<div align="center" style="vertical-align: inherit; padding: 20px;">
+  <form #dataForm="ngForm">
+    <div layout="col" class="push-top" align="center">
+      <!-- Col Left -->
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
+            <input matInput
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Code"
+                   [(ngModel)]="data.code"
+                   name="code"
+                   maxlength="8"
+                   readonly>
+            <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+          </mat-form-field>
+        </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #dn1Element
-                   #dn1Control="ngModel"
-                   placeholder="Name Description 1"
-                   [(ngModel)]="data.dn1"
-                   name="dn1"
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Description Name 1"
+                   [(ngModel)]="data.name1"
+                   name="name1"
                    maxlength="250"
                    required>
             <mat-hint align="start">
-                <span [hidden]="dn1Control.pristine" class="tc-red-600">
-                  <span [hidden]="!dn1Control.hasError('required')">Required</span>
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{dn1Element.value.length}} / 250</mat-hint>
-          </mat-form-field>
-        </div>
-        <div layout="row" class="push-top">
-          <mat-form-field flex>
-            <input matInput
-                   #dn2Element
-                   #dn2Control="ngModel"
-                   placeholder="Name Description 2"
-                   [(ngModel)]="data.dn2"
-                   name="dn2"
-                   maxlength="250"
-                   required>
-            <mat-hint align="start">
-                <span [hidden]="dn2Control.pristine" class="tc-red-600">
-                  <span [hidden]="!dn2Control.hasError('required')">Required</span>
-                </span>
-            </mat-hint>
-            <mat-hint align="end">{{dn2Element.value.length}} / 250</mat-hint>
-          </mat-form-field>
-        </div>
-        <div layout="row">
-          <mat-form-field flex>
-            <input matInput
-                   #addressElement
-                   #addressControl="ngModel"
-                   placeholder="Address"
-                   [(ngModel)]="data.address"
-                   name="address"
-            >
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
-        <div layout="row">
+        <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #telElement
-                   #telControl="ngModel"
-                   placeholder="Telephone"
-                   [(ngModel)]="data.tel"
-                   name="tel"
-            >
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Description Name 2"
+                   [(ngModel)]="data.name2"
+                   name="name2"
+                   maxlength="250"
+                   required>
+            <mat-hint align="start">
+              <span [hidden]="nameControl.pristine" class="tc-red-600">
+              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
-        <div layout="row">
+
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
+            <textarea matInput
+                      #nameElement
+                      #nameControl="ngModel"
+                      placeholder="Address"
+                      [(ngModel)]="data.address"
+                      name="address"
+                      maxlength="250"></textarea>
+            <mat-hint align="start">
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #faxElement
-                   #faxControl="ngModel"
-                   placeholder="fax"
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Phone"
+                   [(ngModel)]="data.phone"
+                   name="phone"
+                   maxlength="250">
+            <mat-hint align="start">
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
+            <input matInput
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Fax"
                    [(ngModel)]="data.fax"
-                   name="fax"
-            >
+                   name="Fax"
+                   maxlength="250">
+            <mat-hint align="start">
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
-        <div layout="row">
+      </mat-card-content>
+      <!-- End Col Left -->
+
+      <!-- Col Right -->
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
+        <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #emailElement
-                   #emailControl="ngModel"
-                   placeholder="email"
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Email"
                    [(ngModel)]="data.email"
                    name="email"
-            >
+                   maxlength="250">
+            <mat-hint align="start">
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
-        <div layout="row">
+        <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #termElement
-                   #termControl="ngModel"
-                   placeholder="term"
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Term"
                    [(ngModel)]="data.term"
                    name="term"
-            >
+                   maxlength="250">
+            <mat-hint align="start">
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
-        <div layout="row">
+        <div layout="row" class="push-top">
           <mat-form-field flex>
-            <input matInput
-                   #bankElement
-                   #bankControl="ngModel"
-                   placeholder="bank"
+            <textarea matInput
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Bank"
                    [(ngModel)]="data.bank"
                    name="bank"
-            >
+                   maxlength="250"></textarea>
+            <mat-hint align="start">
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
           </mat-form-field>
         </div>
-      </form>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-content style="padding:0 16px;padding-bottom: 10px">
-      <mat-list>
-        <mat-divider></mat-divider>
-        <ng-template let-item let-last="last" >
-          <mat-list-item [title]="item.name">
-            <mat-icon mat-list-avatar class="material-icons mat-icon mat-list-avatar" aria-label="watch">
-              attach_file
-            </mat-icon>
-            <span flex></span>
-              <mat-icon>close</mat-icon>
+      </mat-card-content>
+    </div>
+    <!-- End Col Right -->
+  </form>
 
-          </mat-list-item>
-        </ng-template>
-      </mat-list>
-
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
-              (click)="saveData(dataForm.form)">Save
-      </button>
-      <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
-    </mat-card-actions>
-  </td-layout-card-over>
-<!--</td-layout-nav>-->
+  <mat-divider style="margin: 10px"></mat-divider>
+  <!-- Footer -->
+  <mat-card-footer style="margin: 10px;align-content: center;">
+    <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
+            (click)="saveData(dataForm.form)">Save
+    </button>
+  </mat-card-footer>
+</div>

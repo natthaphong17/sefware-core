@@ -7,7 +7,7 @@
           <input matInput
                  #nameElement
                  #nameControl="ngModel"
-                 placeholder="Type Code"
+                 placeholder="Group Code"
                  [(ngModel)]="data.code"
                  name="code"
                  maxlength="8"
@@ -18,6 +18,27 @@
                 </span>
           </mat-hint>
           <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div layout="row" class="push-top">
+        <mat-form-field flex>
+          <mat-select maxlength="250" placeholder="Item Type">
+                 <!--#nameElement
+                 #nameControl="ngModel"
+                 placeholder="Item Type"
+                 [(ngModel)]="data.item_type"
+                 name="item_type"
+                 maxlength="250"
+                 [required]="false">-->
+            <mat-option [value]="test">Test</mat-option>
+          </mat-select>
+          <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
+          <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
         </mat-form-field>
       </div>
 
@@ -50,9 +71,6 @@
                  name="name2"
                  maxlength="250">
           <mat-hint align="start">
-            <!--<span [hidden]="nameControl.pristine" class="tc-red-600">-->
-            <!--<span [hidden]="!nameControl.hasError('required')">Required</span>-->
-            <!--</span>-->
           </mat-hint>
           <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
         </mat-form-field>

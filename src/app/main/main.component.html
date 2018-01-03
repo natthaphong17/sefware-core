@@ -61,16 +61,19 @@
               <h4 mat-line><span class="text-wrap">Item Type</span>
               </h4>
             </a>
-
-            <a mat-list-item>
+            <a mat-list-item (click)="openItemGroupDialog()">
               <h4 mat-line><span class="text-wrap">Item Group</span>
               </h4>
             </a>
-            <a mat-list-item>
+            <a mat-list-item (click)="openItemSubGroupDialog()">
               <h4 mat-line><span class="text-wrap">Item Sub Group</span>
               </h4>
             </a>
-            <a mat-list-item>
+            <a mat-list-item (click)="openItemDialog()">
+              <h4 mat-line><span class="text-wrap">Item</span>
+              </h4>
+            </a>
+            <a mat-list-item (click)="openUomDialog()">
               <h4 mat-line><span class="text-wrap">UOM</span>
               </h4>
             </a>
@@ -78,7 +81,6 @@
               <h4 mat-line><span class="text-wrap">Supplier</span>
               </h4>
             </a>
-
             <a mat-list-item>
               <h4 mat-line><span class="text-wrap">Department</span>
               </h4>
@@ -135,10 +137,12 @@
 
   </td-layout-nav>
 
+<!--
   <nav mat-tab-nav-bar class="nav-bar" *ngIf="(_media.registerQuery('gt-sm') | async)">
-    <!--<a mat-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
-       routerLinkActive="">{{ 'Home'}}</a>-->
-    <!--<a mat-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>-->
+    <a mat-tab-link routerLink="/main" [ngClass]="{'selected': router.routerState.snapshot.url === '/main'}"
+       routerLinkActive="">{{ 'Home'}}</a>
+    <a mat-tab-link routerLink="/main/admin/guide" [ngClass]="{'selected': router.routerState.snapshot.url.includes('/main/admin')}">{{ 'Admin' | translate:lang}}</a>
   </nav>
+-->
 
 </td-layout>

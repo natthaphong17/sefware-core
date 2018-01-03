@@ -1,46 +1,36 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatFormFieldModule} from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
 import {GalleryConfig, /*GalleryService*/} from 'ng-gallery';
-import {Upload} from '../../../shared/model/upload';
-import {UploadService} from '../../../services/upload.service';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
-import { SupplierService } from '../supplier.service';
-import { Supplier } from '../supplier';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { ItemSubGroupService } from '../../item-sub-group/item-sub-group.service';
 import * as _ from 'lodash';
+import { ItemSubGroup } from '../../item-sub-group/item-sub-group';
 
 @Component({
-  selector: 'app-settings-supplier-dialog',
-  templateUrl: './supplier-dialog.component.html',
-  styleUrls: ['./supplier-dialog.component.scss'],
-  providers: [SupplierService]
+  selector: 'app-settings-item-sub-group-dialog',
+  templateUrl: './item-sub-group-dialog.component.html',
+  styleUrls: ['./item-sub-group-dialog.component.scss'],
+  providers: [ItemSubGroupService]
 })
-
-export class SupplierDialogComponent implements OnInit {
+export class ItemSubGroupDialogComponent implements OnInit {
   @Language() lang: string;
 
-  data: Supplier = new Supplier({});
+  data: ItemSubGroup = new ItemSubGroup({});
   error: any;
   images = [];
-  storage_ref = '/main/settings/supplier';
+  storage_ref = '/main/settings/item_group';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public md_data: Supplier,
-              private _supplierService: SupplierService,
+  constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemSubGroup,
+              private _itemsubgroupService: ItemSubGroupService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<SupplierDialogComponent>) {
+              public dialogRef: MatDialogRef<ItemSubGroupDialogComponent>) {
 
     try {
       if (md_data) {
-        this.data = new Supplier(md_data);
-        /*if (!this.data.image) {
-          this.displayImage('../../../../../assets/images/user.png');
-        } else {
-          this.displayImage(this.data.image);
-        }*/
-
+        this.data = new ItemSubGroup(md_data);
       } else {
-        // this.displayImage('../../../../../assets/images/user.png');
-        this._supplierService.requestData().subscribe(() => {
+        this._itemsubgroupService.requestData().subscribe(() => {
           this.generateCode();
         });
       }
@@ -54,11 +44,11 @@ export class SupplierDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'SUP';
+    const prefix = 'SGRP';
     this.data.code = prefix + '-001';
     console.log('Prev Code :' + this.data.code);
-    this._supplierService.requestLastData().subscribe((s) => {
-      s.forEach((ss: Supplier) => {
+    this._itemsubgroupService.requestLastData().subscribe((s) => {
+      s.forEach((ss: ItemSubGroup) => {
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;
@@ -90,7 +80,7 @@ export class SupplierDialogComponent implements OnInit {
         if (_.isEqual(this.data, this.md_data)) {
           this.dialogRef.close(false);
         } else {
-          this._supplierService.updateData(this.data).then(() => {
+          this._itemsubgroupService.updateData(this.data).then(() => {
             this.dialogRef.close(this.data);
             this._loadingService.resolve();
           }).catch((err) => {
@@ -99,7 +89,7 @@ export class SupplierDialogComponent implements OnInit {
           });
         }
       } else {
-        this._supplierService.addData(this.data).then(() => {
+        this._itemsubgroupService.addData(this.data).then(() => {
           this.dialogRef.close(this.data);
           this._loadingService.resolve();
         }).catch((err) => {
@@ -113,5 +103,4 @@ export class SupplierDialogComponent implements OnInit {
   openLink(link: string) {
     window.open(link, '_blank');
   }
-
 }

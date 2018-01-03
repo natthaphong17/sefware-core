@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
+import {ItemGroup} from './item-group';
 import {Page} from '../../shared/model/page';
 import {Observable} from 'rxjs';
 import {PagedData} from '../../shared/model/paged-data';
-import { Supplier } from './supplier';
 
 @Injectable()
-export class SupplierService {
+export class ItemGroupService {
 
   lists: FirebaseListObservable<any>;
-  rows: Supplier[] = [];
-  _path: string = '/main/settings/supplier';
+  rows: ItemGroup[] = [];
+  _path: string = '/main/settings/item_group';
 
   constructor(private agFb: AngularFireDatabase) {
     this.lists = agFb.list(this._path, {preserveSnapshot: true});
@@ -28,21 +28,21 @@ export class SupplierService {
     return this.agFb.object(this._path + '/' + code);
   }
 
-  addData(data: Supplier) {
+  addData(data: ItemGroup) {
     return this.lists.update(data.code, data);
   }
 
-  updateData(data: Supplier) {
+  updateData(data: ItemGroup) {
     return this.lists.update(data.code, data);
   }
 
-  updateDataStatus(data: Supplier, active: boolean) {
+  updateDataStatus(data: ItemGroup, active: boolean) {
     return this.lists.update(data.code, {
       disable: active
     });
   }
 
-  removeData(data: Supplier) {
+  removeData(data: ItemGroup) {
     return this.lists.remove(data.code);
   }
 
@@ -54,19 +54,19 @@ export class SupplierService {
     });
   }
 
-  public getResults(page: Page): Observable<PagedData<Supplier>> {
+  public getResults(page: Page): Observable<PagedData<ItemGroup>> {
     return Observable.of(this.rows).map((data) => this.getPagedData(page));
   }
 
-  private getPagedData(page: Page): PagedData<Supplier> {
-    const pagedData = new PagedData<Supplier>();
+  private getPagedData(page: Page): PagedData<ItemGroup> {
+    const pagedData = new PagedData<ItemGroup>();
     page.totalElements = this.rows.length;
     page.totalPages = page.totalElements / page.size;
     const start = page.pageNumber * page.size;
     const end = Math.min((start + page.size), page.totalElements);
     for (let i = start; i < end; i++) {
       const jsonObj = this.rows[i];
-      pagedData.data.push(new Supplier(jsonObj));
+      pagedData.data.push(new ItemGroup(jsonObj));
     }
     pagedData.page = page;
     return pagedData;

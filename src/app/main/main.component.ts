@@ -6,12 +6,17 @@ import {Router} from '@angular/router';
 import {TdMediaService} from '@covalent/core';
 import {ResetPasswordComponent} from '../dialog/reset-password/reset-password.component';
 import {UploadImageComponent} from '../dialog/upload-image/upload-image.component';
-import * as firebase from 'firebase';
-import { version as appVersion } from '../../../package.json';
 import { LogsDialogComponent } from '../dialog/logs-dialog/logs-dialog.component';
+import { version as appVersion } from '../../../package.json';
 
-import {ItemTypeComponent} from '../setup/item-type/item-type.component';
-import {SupplierComponent} from '../setup/supplier/supplier.component';
+// Import Settings Dialog Component
+import { ItemTypeComponent } from '../setup/item-type/item-type.component';
+import { ItemGroupComponent } from '../setup/item-group/item-group.component';
+import { ItemSubGroupComponent } from '../setup/item-sub-group/item-sub-group.component';
+import { ItemComponent } from '../setup/item/item.component';
+import { UomComponent } from '../setup/uom/uom.component';
+import { SupplierComponent } from '../setup/supplier/supplier.component';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-main',
@@ -25,17 +30,17 @@ export class MainComponent implements OnInit, AfterViewInit {
   public appVersion;
   user: firebase.User;
 
-  routes = [{
-  //   title: 'Home',
-  //   route: '/main',
-  //   icon: 'home',
-  // }, {
-    title: 'Purchase',
+  routes: object[] = [{
+    title: 'Home',
     route: '/main',
+    icon: 'home',
+  }, {
+    title: 'Purchase',
+    route: '/main/purchase',
     icon: 'shopping_cart',
   }, {
     title: 'Inventory',
-    route: '/main',
+    route: '/main/inventory',
     icon: 'store',
   }, {
     title: 'Fixed Assets',
@@ -61,14 +66,10 @@ export class MainComponent implements OnInit, AfterViewInit {
     title: 'Report',
     route: '/main',
     icon: 'find_in_page',
-  // }, {
-  //   title: 'Summary',
-  //   route: '/main/summary',
-  //   icon: 'web',
-  // }, {
-  //   title: 'Administrators',
-  //   route: '/main/admin/user',
-  //   icon: 'verified_user',
+  }, {
+    title: 'Summary',
+    route: '/main/summary',
+    icon: 'web',
   },
   ];
 
@@ -99,8 +100,73 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.locale.setCurrentLanguage(language);
   }
 
+  // Request Open Settings Dialog Component
   openItemTypeDialog() {
     const dialogRef = this.dialog.open(ItemTypeComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openItemGroupDialog() {
+    const dialogRef = this.dialog.open(ItemGroupComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openItemSubGroupDialog() {
+    const dialogRef = this.dialog.open(ItemSubGroupComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openItemDialog() {
+    const dialogRef = this.dialog.open(ItemComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openUomDialog() {
+    const dialogRef = this.dialog.open(UomComponent, {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',
@@ -139,40 +205,40 @@ export class MainComponent implements OnInit, AfterViewInit {
     location.reload();
   }
 
-  // resetPassword() {
-  //   this.dialog.open(ResetPasswordComponent, {
-  //     data: {
-  //       type: 'reset_password',
-  //       title: 'Reset password',
-  //       content: 'Send a password reset email.',
-  //       data_title: 'User account',
-  //       data: this.user.email
-  //     }
-  //   }).afterClosed().subscribe((confirm: boolean) => {
-  //     if (confirm) {
-  //       this._authService.resetPassword(this.user.email).then(_ => console.log('success'))
-  //         .catch(err => console.log(err, 'You do not have access!'));
-  //     }
-  //   });
-  // }
-  //
-  // openSetting() {
-  //
-  // }
-  //
-  // uploadProfile() {
-  //   this.dialog.open(UploadImageComponent, {
-  //     data: {
-  //       title: 'Upload profile',
-  //       link: this.user.photoURL,
-  //       type: 'image/png',
-  //       path: 'users_profile/' + this.user.uid + '.png'
-  //     }
-  //   }).afterClosed().subscribe((link: string) => {
-  //     if (link) {
-  //       this._authService.updateProfile(this.user.displayName, link).then(_ => console.log('success updateProfile'))
-  //         .catch(err => console.log(err, 'You do not have access!'));
-  //     }
-  //   });
-  // }
+  resetPassword() {
+    this.dialog.open(ResetPasswordComponent, {
+      data: {
+        type: 'reset_password',
+        title: 'Reset password',
+        content: 'Send a password reset email.',
+        data_title: 'User account',
+        data: this.user.email
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this._authService.resetPassword(this.user.email).then((_) => console.log('success'))
+          .catch((err) => console.log(err, 'You do not have access!'));
+      }
+    });
+  }
+
+  openSetting() {
+
+  }
+
+  uploadProfile() {
+    this.dialog.open(UploadImageComponent, {
+      data: {
+        title: 'Upload profile',
+        link: this.user.photoURL,
+        type: 'image/png',
+        path: 'users_profile/' + this.user.uid + '.png'
+      }
+    }).afterClosed().subscribe((link: string) => {
+      if (link) {
+        this._authService.updateProfile(this.user.displayName, link).then((_) => console.log('success updateProfile'))
+          .catch((err) => console.log(err, 'You do not have access!'));
+      }
+    });
+  }
 }
