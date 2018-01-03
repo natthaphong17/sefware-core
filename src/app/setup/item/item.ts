@@ -1,6 +1,7 @@
 export class Item {
 
   code?: string = 'N/A';
+  image? = '../../../../../assets/images/user.png';
   name1?: string | null | undefined;
   name2?: string | null | undefined;
   unit?: string | null | undefined;

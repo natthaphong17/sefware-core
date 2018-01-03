@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Upload} from '../shared/model/upload';
-import {AngularFireDatabase} from 'angularfire2/database';
+import {AngularFireDatabase} from 'angularfire2/database-deprecated';
 import {FirebaseApp} from 'angularfire2';
 import 'firebase/storage';
 import * as firebase from 'firebase/app';

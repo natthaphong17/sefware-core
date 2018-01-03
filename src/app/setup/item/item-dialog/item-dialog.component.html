@@ -24,6 +24,69 @@
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
+            <mat-select maxlength="250" placeholder="Item Type">
+              <!--#nameElement
+              #nameControl="ngModel"
+              placeholder="Item Type"
+              [(ngModel)]="data.item_type"
+              name="item_type"
+              maxlength="250"
+              [required]="false">-->
+              <mat-option [value]="test">Test</mat-option>
+            </mat-select>
+            <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
+            <mat-select maxlength="250" placeholder="Item Group">
+              <!--#nameElement
+              #nameControl="ngModel"
+              placeholder="Item Type"
+              [(ngModel)]="data.item_type"
+              name="item_type"
+              maxlength="250"
+              [required]="false">-->
+              <mat-option [value]="test">Test</mat-option>
+            </mat-select>
+            <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
+            <mat-select maxlength="250" placeholder="Item Sub Group">
+              <!--#nameElement
+              #nameControl="ngModel"
+              placeholder="Item Type"
+              [(ngModel)]="data.item_type"
+              name="item_type"
+              maxlength="250"
+              [required]="false">-->
+              <mat-option [value]="test">Test</mat-option>
+            </mat-select>
+            <mat-hint align="start">
+                <span [hidden]="nameControl.pristine" class="tc-red-600">
+                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div layout="row" class="push-top">
+          <mat-form-field flex>
             <input matInput
                    #nameElement
                    #nameControl="ngModel"
@@ -63,20 +126,19 @@
 
       <!-- Col Right -->
       <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
-        <!--<div layout="row" class="push-top">-->
-          <!--<mat-form-field flex>-->
-            <!--<input matInput-->
-                   <!--#nameElement-->
-                   <!--#nameControl="ngModel"-->
-                   <!--placeholder="Email"-->
-                   <!--[(ngModel)]="data.email"-->
-                   <!--name="email"-->
-                   <!--maxlength="250">-->
-            <!--<mat-hint align="start">-->
-            <!--</mat-hint>-->
-            <!--<mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>-->
-          <!--</mat-form-field>-->
-        <!--</div>-->
+       <!-- <div class="grid" style="text-align: center">
+          <div *ngFor="let image of images; let i = index">
+            <img height="250px" [src]="image.src" (click)="gallery.set(i)"/>
+          </div>
+        </div>
+        &lt;!&ndash;<gallery-modal></gallery-modal>&ndash;&gt;
+        <div fxLayout="row" style="margin-top: 10px;text-align: center">
+          <span fxFlex></span>
+          <input #upload hidden accept="image/*" type="file" tdFileSelect (fileSelect)="uploadImage($event)">
+          <a mat-raised-button class="text-upper" color="accent" (click)="upload.click()">Upload</a>
+          <a mat-button class="text-upper" style="margin-left: 10px;" (click)="removeImage()" [disabled]="data.image === '../../../../../assets/images/user.png'?true:false">Remove</a>
+          <span fxFlex></span>
+        </div>-->
 
       </mat-card-content>
     </div>

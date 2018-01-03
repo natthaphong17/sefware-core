@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatFormFieldModule} from '@angular/material';
-import {GalleryConfig, /*GalleryService*/} from 'ng-gallery';
+import {GalleryConfig, Gallery} from 'ng-gallery';
 import {Upload} from '../../../shared/model/upload';
 import {UploadService} from '../../../services/upload.service';
 import {Language} from 'angular-l10n';
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   selector: 'app-settings-item-dialog',
   templateUrl: './item-dialog.component.html',
   styleUrls: ['./item-dialog.component.scss'],
-  providers: [ItemService]
+  providers: [ItemService, UploadService]
 })
 
 export class ItemDialogComponent implements OnInit {
@@ -23,24 +23,26 @@ export class ItemDialogComponent implements OnInit {
   data: Item = new Item({});
   error: any;
   images = [];
-  storage_ref = '/main/settings/supplier';
+  storage_ref = '/main/settings/item';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: Item,
               private _itemService: ItemService,
+              private _uploadService: UploadService,
               private _loadingService: TdLoadingService,
+              private gallery: Gallery,
               public dialogRef: MatDialogRef<ItemDialogComponent>) {
 
     try {
       if (md_data) {
         this.data = new Item(md_data);
-        /*if (!this.data.image) {
+        if (!this.data.image) {
           this.displayImage('../../../../../assets/images/user.png');
         } else {
           this.displayImage(this.data.image);
-        }*/
+        }
 
       } else {
-        // this.displayImage('../../../../../assets/images/user.png');
+        this.displayImage('../../../../../assets/images/user.png');
         this._itemService.requestData().subscribe(() => {
           this.generateCode();
         });
@@ -50,7 +52,19 @@ export class ItemDialogComponent implements OnInit {
     }
   }
 
+  config: GalleryConfig;
+
   ngOnInit(): void {
+  }
+
+  displayImage(path: string) {
+    this.images = [];
+    this.images.push({
+      src: path,
+      thumbnail: path,
+      text: this.data.name1
+    });
+    this.gallery.load(this.images);
   }
 
   generateCode() {
@@ -109,6 +123,28 @@ export class ItemDialogComponent implements OnInit {
         });
       }
     }
+  }
+
+  uploadImage(file: File) {
+    this._loadingService.register();
+    // let file = event.target.files.item(0);
+
+    const file_type = file.name.substring(file.name.lastIndexOf('.'));
+
+    this._uploadService.pushUpload('image/*', this.storage_ref + '/' + this.data.code + '/' + this.data.code + '_' + new Date().getTime() + file_type, new Upload(file)).then((result) => {
+      this.data.image = result.downloadURL;
+      this.images = [];
+      this.displayImage(this.data.image);
+      this._loadingService.resolve();
+    }).catch((err) => {
+      console.log('err : ' + err.message);
+      this._loadingService.resolve();
+    });
+  }
+
+  removeImage() {
+    this.displayImage('../../../../../assets/images/user.png');
+
   }
 
   openLink(link: string) {
