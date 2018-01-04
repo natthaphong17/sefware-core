@@ -16,6 +16,7 @@ import { ItemSubGroupComponent } from '../setup/item-sub-group/item-sub-group.co
 import { UomComponent } from '../setup/uom/uom.component';
 import { SupplierComponent } from '../setup/supplier/supplier.component';
 import { DepartmentComponent } from "../setup/department/department.component";
+import { LocationComponent} from "../setup/location/location.component";
 import * as firebase from 'firebase';
 
 @Component({
@@ -183,6 +184,22 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   openDepartmentDialog() {
     const dialogRef = this.dialog.open(DepartmentComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openLocationDialog() {
+    const dialogRef = this.dialog.open(LocationComponent, {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',

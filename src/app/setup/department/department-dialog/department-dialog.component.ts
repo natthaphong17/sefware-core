@@ -10,7 +10,8 @@ import { UploadService } from '../../../services/upload.service';
 @Component({
   selector: 'app-department-dialog',
   templateUrl: './department-dialog.component.html',
-  styleUrls: ['./department-dialog.component.scss']
+  styleUrls: ['./department-dialog.component.scss'],
+  providers: [DepartmentService]
 })
 export class DepartmentDialogComponent implements OnInit {
 
@@ -42,7 +43,7 @@ export class DepartmentDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'Departmwnt';
+    const prefix = 'DPM';
     this.data.code = prefix + '-001';
     console.log('Prev Code :' + this.data.code);
     this._departmentService.requestLastData().subscribe((s) => {

@@ -56,6 +56,8 @@ import { SupplierComponent } from './setup/supplier/supplier.component';
 import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
 import { DepartmentComponent } from './setup/department/department.component';
 import { DepartmentDialogComponent } from './setup/department/department-dialog/department-dialog.component';
+import { LocationComponent } from './setup/location/location.component';
+import { LocationDialogComponent } from './setup/location/location-dialog/location-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -99,6 +101,8 @@ interface StoreType {
     SupplierDialogComponent,
     DepartmentComponent,
     DepartmentDialogComponent,
+    LocationComponent,
+    LocationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -141,6 +145,8 @@ interface StoreType {
     SupplierDialogComponent,
     DepartmentComponent,
     DepartmentDialogComponent,
+    LocationComponent,
+    LocationDialogComponent,
   ],
   providers: [
     AuthService,
