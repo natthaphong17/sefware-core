@@ -36,13 +36,13 @@ export class ItemDialogComponent implements OnInit {
       if (md_data) {
         this.data = new Item(md_data);
         if (!this.data.image) {
-          this.displayImage('../../../../../assets/images/user.png');
+          this.displayImage('../../../../../assets/images/placeholder.png');
         } else {
           this.displayImage(this.data.image);
         }
 
       } else {
-        this.displayImage('../../../../../assets/images/user.png');
+        this.displayImage('../../../../../assets/images/placeholder.png');
         this._itemService.requestData().subscribe(() => {
           this.generateCode();
         });
@@ -143,7 +143,7 @@ export class ItemDialogComponent implements OnInit {
   }
 
   removeImage() {
-    this.displayImage('../../../../../assets/images/user.png');
+    this.displayImage('../../../../../assets/images/placeholder.png');
 
   }
 
