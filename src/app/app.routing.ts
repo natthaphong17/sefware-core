@@ -49,7 +49,7 @@ const appRoutes: Routes = [
                   {
                     path: '',
                     children: [
-                      // {path: 'comparison', loadChildren: '/main/purchase/comparison.module#Comparison'},
+                      // {path: 'comparison', loadChildren: '/main/purchase/comparison.module#ComparisonModule'},
                     ]
                   }
                 ]*/
@@ -62,7 +62,7 @@ const appRoutes: Routes = [
                   {
                     path: '',
                     children: [
-                      // {path: 'user', loadChildren: 'app/main/admin/user/user.module#UserModule'},
+                      // {path: 'stock-adjustment', loadChildren: '/main/inventory/stock-adjustment.module#StockAdjustmentModule'},
                     ]
                   }
                 ]*/

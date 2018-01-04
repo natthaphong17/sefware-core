@@ -1,9 +1,9 @@
 <div align="center" style="vertical-align: inherit; padding: 20px;">
   <form #dataForm="ngForm">
-    <div layout="col" class="push-top" align="center">
+    <div layout="col" align="center">
       <!-- Col Left -->
       <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #nameElement
@@ -22,7 +22,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <mat-select maxlength="250" placeholder="Item Type">
               <!--#nameElement
@@ -43,7 +43,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <mat-select maxlength="250" placeholder="Item Group">
               <!--#nameElement
@@ -64,7 +64,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <mat-select maxlength="250" placeholder="Item Sub Group">
               <!--#nameElement
@@ -85,7 +85,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #nameElement
@@ -104,7 +104,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #nameElement
@@ -128,15 +128,53 @@
       <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
         <div class="grid" style="text-align: center">
           <div *ngFor="let image of images; let i = index">
-            <img height="250px" [src]="image.src" (click)="gallery.set(i)"/>
+            <img height="200px" [src]="image.src" (click)="gallery.set(i)"/>
           </div>
         </div>
-        <div fxLayout="row" style="margin-top: 10px;text-align: center">
+        <div fxLayout="row" style="margin: 10px;text-align: center">
           <span fxFlex></span>
           <input #upload hidden accept="image/*" type="file" tdFileSelect (fileSelect)="uploadImage($event)">
           <a mat-raised-button class="text-upper" color="primary" (click)="upload.click()">Upload</a>
-          <a mat-button class="text-upper" style="margin-left: 10px;" (click)="removeImage()" [disabled]="data.image === '../../../../../assets/images/user.png'?true:false">Remove</a>
+          <a mat-button class="text-upper" style="margin-left: 10px;" (click)="removeImage()" [disabled]="data.image === '../../../../../assets/images/placeholder.png'?true:false">Remove</a>
           <span fxFlex></span>
+        </div>
+
+        <div layout="row" style="margin-top: 25px">
+          <mat-form-field style="width: 100px;margin: 10px;" flex>
+            <input matInput
+                   type="number"
+                   style="text-align: end;"
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Minimum"
+                   [(ngModel)]="data.min"
+                   name="min"
+                   maxlength="8">
+            <mat-hint align="start">
+              <span [hidden]="nameControl.pristine" class="tc-red-600">
+              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field style="width: 100px;margin: 10px;" flex>
+            <input matInput
+                   type="number"
+                   style="text-align: end;"
+                   #nameElement
+                   #nameControl="ngModel"
+                   placeholder="Maximum"
+                   [(ngModel)]="data.max"
+                   name="max"
+                   maxlength="8">
+            <mat-hint align="start">
+              <span [hidden]="nameControl.pristine" class="tc-red-600">
+              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              </span>
+            </mat-hint>
+            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+          </mat-form-field>
         </div>
 
       </mat-card-content>

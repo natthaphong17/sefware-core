@@ -5,6 +5,8 @@ export class Item {
   name1?: string | null | undefined;
   name2?: string | null | undefined;
   unit?: string | null | undefined;
+  min?: number = 0;
+  max?: number = 0;
   disable?: boolean = false;
 
   constructor(params: Item) {
