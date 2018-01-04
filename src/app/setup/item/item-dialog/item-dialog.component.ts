@@ -52,9 +52,9 @@ export class ItemDialogComponent implements OnInit {
     }
   }
 
-  // config: GalleryConfig ;
+  config: GalleryConfig;
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
   displayImage(path: string) {
@@ -143,8 +143,9 @@ export class ItemDialogComponent implements OnInit {
   }
 
   removeImage() {
-    this.displayImage('../../../../../assets/images/placeholder.png');
-
+    this.data.image = '../../../../../assets/images/placeholder.png';
+    this.displayImage(this.data.image);
+    // this.displayImage('../../../../../assets/images/placeholder.png');
   }
 
   openLink(link: string) {
