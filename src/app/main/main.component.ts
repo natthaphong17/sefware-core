@@ -13,9 +13,9 @@ import { version as appVersion } from '../../../package.json';
 import { ItemTypeComponent } from '../setup/item-type/item-type.component';
 import { ItemGroupComponent } from '../setup/item-group/item-group.component';
 import { ItemSubGroupComponent } from '../setup/item-sub-group/item-sub-group.component';
-import { ItemComponent } from '../setup/item/item.component';
 import { UomComponent } from '../setup/uom/uom.component';
 import { SupplierComponent } from '../setup/supplier/supplier.component';
+import { DepartmentComponent } from "../setup/department/department.component";
 import * as firebase from 'firebase';
 
 @Component({
@@ -149,22 +149,6 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  openItemDialog() {
-    const dialogRef = this.dialog.open(ItemComponent, {
-      disableClose: true,
-      maxWidth: '100vw',
-      width: '100%',
-      height: '100%'
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        // this.msgs = [];
-        // this.msgs.push({severity: 'success', detail: 'Data updated'});
-      }
-    });
-  }
-
   openUomDialog() {
     const dialogRef = this.dialog.open(UomComponent, {
       disableClose: true,
@@ -183,6 +167,22 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   openSupplierDialog() {
     const dialogRef = this.dialog.open(SupplierComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+
+  openDepartmentDialog() {
+    const dialogRef = this.dialog.open(DepartmentComponent, {
       disableClose: true,
       maxWidth: '100vw',
       width: '100%',
