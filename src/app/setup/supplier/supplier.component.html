@@ -73,7 +73,7 @@
         </ngx-datatable-column>
 
         <ngx-datatable-column
-          [width]="100"
+          [width]="150"
           [canAutoResize]="true"
           prop="address"
           name="Adress">
@@ -85,7 +85,7 @@
         </ngx-datatable-column>
 
         <ngx-datatable-column
-          [width]="100"
+          [width]="75"
           [canAutoResize]="true"
           prop="phone"
           name="Telephone">
@@ -108,8 +108,8 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Action"
-                              [width]="100"
+        <ngx-datatable-column name="Actuation"
+                              [width]="75"
                               [resizeable]="false"
                               [sortable]="false">
           <ng-template let-row="row" ngx-datatable-cell-template>
@@ -134,7 +134,7 @@
                      [pageIndex]="page.pageNumber"
                      [pageSize]="page.size"
                      (page)="setPage($event)"
-                     [pageSizeOptions]="[5, 10, 25, 50, 100]">
+                     [pageSizeOptions]="[10, 25, 50, 100]">
       </mat-paginator>
 
     </mat-card-content>

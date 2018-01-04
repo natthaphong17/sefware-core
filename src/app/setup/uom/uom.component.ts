@@ -33,7 +33,7 @@ export class UomComponent implements OnInit {
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
 
-    this.page.size = 5;
+    this.page.size = 10;
     this.page.pageNumber = 0;
 
   }
@@ -140,6 +140,7 @@ export class UomComponent implements OnInit {
     // filter our data
     const temp = this.temp.filter(function (d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
+        (d.shortname && d.shortname.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
         (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
         || !val;

@@ -96,6 +96,7 @@ export const routedComponents: any[] = [
   PageNotFoundComponent,
   MainComponent,
   HomeComponent,
-  PurchaseComponent
+  PurchaseComponent,
+  InventoryComponent
   // AdminComponent
 ];

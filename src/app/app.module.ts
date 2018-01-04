@@ -9,6 +9,7 @@ import {PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfe
 
 import {LocaleService, TranslationModule, TranslationService} from 'angular-l10n';
 import {CovalentHttpModule} from '@covalent/http';
+import { GalleryConfig, GalleryModule } from 'ng-gallery';
 import {SharedModule} from './shared/shared.module';
 
 import {LazyLoadImageModule} from 'ng-lazyload-image';
@@ -49,11 +50,16 @@ import { ItemGroupComponent } from './setup/item-group/item-group.component';
 import { ItemGroupDialogComponent } from './setup/item-group/item-group-dialog/item-group-dialog.component';
 import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.component';
 import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
+import { ItemComponent } from './setup/item/item.component';
+import { ItemDialogComponent } from './setup/item/item-dialog/item-dialog.component';
 import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 import { SupplierComponent } from './setup/supplier/supplier.component';
 import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
-import {InventoryComponent} from './main/inventory/inventory.component';
+import { DepartmentComponent } from './setup/department/department.component';
+import { DepartmentDialogComponent } from './setup/department/department-dialog/department-dialog.component';
+import { LocationComponent } from './setup/location/location.component';
+import { LocationDialogComponent } from './setup/location/location-dialog/location-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -91,11 +97,16 @@ interface StoreType {
     ItemGroupDialogComponent,
     ItemSubGroupComponent,
     ItemSubGroupDialogComponent,
+    ItemComponent,
+    ItemDialogComponent,
     UomComponent,
     UomDialogComponent,
     SupplierComponent,
     SupplierDialogComponent,
-    InventoryComponent,
+    DepartmentComponent,
+    DepartmentDialogComponent,
+    LocationComponent,
+    LocationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +124,9 @@ interface StoreType {
     AppRoutingModule,
 
     CovalentHttpModule.forRoot(),
+
+    GalleryModule.forRoot(),
+
   ],
   entryComponents: [
     AppComponent,
@@ -129,10 +143,16 @@ interface StoreType {
     ItemGroupDialogComponent,
     ItemSubGroupComponent,
     ItemSubGroupDialogComponent,
+    ItemComponent,
+    ItemDialogComponent,
     UomComponent,
     UomDialogComponent,
     SupplierComponent,
     SupplierDialogComponent,
+    DepartmentComponent,
+    DepartmentDialogComponent,
+    LocationComponent,
+    LocationDialogComponent,
   ],
   providers: [
     AuthService,
