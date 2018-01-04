@@ -9,6 +9,7 @@ import {PerfectScrollbarConfigInterface, PerfectScrollbarModule} from 'ngx-perfe
 
 import {LocaleService, TranslationModule, TranslationService} from 'angular-l10n';
 import {CovalentHttpModule} from '@covalent/http';
+import { GalleryConfig, GalleryModule } from 'ng-gallery';
 import {SharedModule} from './shared/shared.module';
 
 import {LazyLoadImageModule} from 'ng-lazyload-image';
@@ -41,10 +42,22 @@ import {RequireUnauthGuard} from './login/guards/require-unauth.guard';
 import {TestComponent} from './pages/test/test.component';
 import {LogsService} from './dialog/logs-dialog/logs.service';
 import {LogsDialogComponent} from './dialog/logs-dialog/logs-dialog.component';
-import {ItemTypeComponent} from './setup/item-type/item-type.component';
+
+// Import Settings Dialog Component
+import { ItemTypeComponent } from './setup/item-type/item-type.component';
 import { ItemTypeDialogComponent } from './setup/item-type/item-type-dialog/item-type-dialog.component';
+import { ItemGroupComponent } from './setup/item-group/item-group.component';
+import { ItemGroupDialogComponent } from './setup/item-group/item-group-dialog/item-group-dialog.component';
+import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.component';
+import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
 import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
+import { SupplierComponent } from './setup/supplier/supplier.component';
+import { SupplierDialogComponent } from './setup/supplier/supplier-dialog/supplier-dialog.component';
+import { DepartmentComponent } from './setup/department/department.component';
+import { DepartmentDialogComponent } from './setup/department/department-dialog/department-dialog.component';
+import { LocationComponent } from './setup/location/location.component';
+import { LocationDialogComponent } from './setup/location/location-dialog/location-dialog.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -74,10 +87,22 @@ interface StoreType {
     UploadImageComponent,
     TestComponent,
     LogsDialogComponent,
+
+    // Load Settings Dialog Component
     ItemTypeComponent,
     ItemTypeDialogComponent,
+    ItemGroupComponent,
+    ItemGroupDialogComponent,
+    ItemSubGroupComponent,
+    ItemSubGroupDialogComponent,
     UomComponent,
-    UomDialogComponent
+    UomDialogComponent,
+    SupplierComponent,
+    SupplierDialogComponent,
+    DepartmentComponent,
+    DepartmentDialogComponent,
+    LocationComponent,
+    LocationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +120,9 @@ interface StoreType {
     AppRoutingModule,
 
     CovalentHttpModule.forRoot(),
+
+    GalleryModule.forRoot(),
+
   ],
   entryComponents: [
     AppComponent,
@@ -103,10 +131,22 @@ interface StoreType {
     ResetPasswordComponent,
     UploadImageComponent,
     LogsDialogComponent,
+
+  // Load Settings Dialog Component
     ItemTypeComponent,
     ItemTypeDialogComponent,
+    ItemGroupComponent,
+    ItemGroupDialogComponent,
+    ItemSubGroupComponent,
+    ItemSubGroupDialogComponent,
     UomComponent,
-    UomDialogComponent
+    UomDialogComponent,
+    SupplierComponent,
+    SupplierDialogComponent,
+    DepartmentComponent,
+    DepartmentDialogComponent,
+    LocationComponent,
+    LocationDialogComponent,
   ],
   providers: [
     AuthService,

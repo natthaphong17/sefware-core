@@ -1,24 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MAT_DIALOG_DATA, MatTableDataSource, MatDialogRef, MatDialog, MatSnackBar} from '@angular/material';
-import {Page} from '../../shared/model/page';
-import {Upload} from '../../shared/model/upload';
-import {UploadService} from '../../services/upload.service';
-import {Language} from 'angular-l10n';
-import {TdLoadingService, TdMediaService} from '@covalent/core';
-import {SelectionModel} from '@angular/cdk/collections';
-import {uomService} from "./uom.service";
-import {UomDialogComponent} from "./uom-dialog/uom-dialog.component";
-import {uom} from "./uom";
-
+import { Language } from 'angular-l10n';
+import { UomService } from '../uom/uom.service';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { TdLoadingService, TdMediaService } from '@covalent/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { UomDialogComponent } from '../uom/uom-dialog/uom-dialog.component';
+import { Page } from '../../shared/model/page';
+import { Uom } from '../uom/uom';
+import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
-  selector: 'app-uom',
+  selector: 'app-settings-uom',
   templateUrl: './uom.component.html',
   styleUrls: ['./uom.component.scss'],
-  providers: [uomService]
+  providers: [UomService]
 })
 export class UomComponent implements OnInit {
-
   @Language() lang: string;
   @ViewChild('dataTable') table: any;
 
@@ -31,31 +28,32 @@ export class UomComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _UomService: uomService,
+  constructor(private _uomService: UomService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
 
-    this.page.size = 50;
+    this.page.size = 10;
     this.page.pageNumber = 0;
 
   }
+
   ngOnInit(): void {
     this.load();
   }
 
   load() {
     this.loading = true;
-    this._UomService.requestData().subscribe((snapshot) => {
-      this._UomService.rows = [];
+    this._uomService.requestData().subscribe((snapshot) => {
+      this._uomService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new uom(s.val());
-        this._UomService.rows.push(_row);
+        const _row = new Uom(s.val());
+        this._uomService.rows.push(_row);
 
       });
 
-      this.temp = [...this._UomService.rows];
+      this.temp = [...this._uomService.rows];
       this.loading = false;
       this.setPage(null);
     });
@@ -68,7 +66,7 @@ export class UomComponent implements OnInit {
       this.page.size = pageInfo.pageSize;
     }
 
-    this._UomService.getResults(this.page).subscribe((pagedData) => {
+    this._uomService.getResults(this.page).subscribe((pagedData) => {
       this.page = pagedData.page;
       this.rows = pagedData.data;
     });
@@ -78,9 +76,11 @@ export class UomComponent implements OnInit {
   addData() {
     const dialogRef = this.dialog.open(UomDialogComponent, {
       disableClose: true,
-      width: '350px',
-      height: '300px'
+      maxWidth: '100vw',
+      maxHeight: '100vw',
+      width: '25%'
     });
+
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         // this.msgs = [];
@@ -88,23 +88,71 @@ export class UomComponent implements OnInit {
       }
     });
   }
-  editData(data: uom) {
+
+  editData(data: Uom) {
     const dialogRef = this.dialog.open(UomDialogComponent, {
       disableClose: true,
-      width: '100%',
-      height: '100%',
+      maxWidth: '100vw',
+      maxHeight: '100vw',
+      width: '25%',
       data
     });
 
-    dialogRef.afterClosed().subscribe((result: boolean) => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         // this.msgs = [];
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
       }
     });
   }
+
+  deleteData(data: Uom) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'delete',
+        title: 'Delete unit',
+        content: 'Confirm to delete?',
+        data_title: 'UOM',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._uomService.removeData(data).then(() => {
+          this.snackBar.open('Delete unit succeed.', '', {duration: 3000});
+          // this.addLog('Delete', 'delete unit succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  updateFilter(event) {
+    if (event === '') {
+      this.setPage(null);
+      return;
+    }
+
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function (d) {
+      return (d.code.toLowerCase().indexOf(val) !== -1) ||
+        (d.shortname && d.shortname.toLowerCase().indexOf(val) !== -1) ||
+        (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
+        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
+        || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+
   openLink(link: string) {
     window.open(link, '_blank');
   }
-
 }

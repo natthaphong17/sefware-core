@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
-import {uom} from "./uom";
+import {Uom} from './uom';
 import {Page} from '../../shared/model/page';
 import {Observable} from 'rxjs';
 import {PagedData} from '../../shared/model/paged-data';
 
 @Injectable()
-export class uomService {
+export class UomService {
 
   lists: FirebaseListObservable<any>;
-  rows: uom[] = [];
-  _path: string = '/uom';
+  rows: Uom[] = [];
+  _path: string = '/main/settings/uom';
 
   constructor(private agFb: AngularFireDatabase) {
     this.lists = agFb.list(this._path, {preserveSnapshot: true});
@@ -28,21 +28,21 @@ export class uomService {
     return this.agFb.object(this._path + '/' + code);
   }
 
-  addData(data: uom) {
+  addData(data: Uom) {
     return this.lists.update(data.code, data);
   }
 
-  updateData(data: uom) {
+  updateData(data: Uom) {
     return this.lists.update(data.code, data);
   }
 
-  updateDataStatus(data: uom, active: boolean) {
+  updateDataStatus(data: Uom, active: boolean) {
     return this.lists.update(data.code, {
       disable: active
     });
   }
 
-  removeData(data: uom) {
+  removeData(data: Uom) {
     return this.lists.remove(data.code);
   }
 
@@ -54,19 +54,19 @@ export class uomService {
     });
   }
 
-  public getResults(page: Page): Observable<PagedData<uom>> {
+  public getResults(page: Page): Observable<PagedData<Uom>> {
     return Observable.of(this.rows).map((data) => this.getPagedData(page));
   }
 
-  private getPagedData(page: Page): PagedData<uom> {
-    const pagedData = new PagedData<uom>();
+  private getPagedData(page: Page): PagedData<Uom> {
+    const pagedData = new PagedData<Uom>();
     page.totalElements = this.rows.length;
     page.totalPages = page.totalElements / page.size;
     const start = page.pageNumber * page.size;
     const end = Math.min((start + page.size), page.totalElements);
     for (let i = start; i < end; i++) {
       const jsonObj = this.rows[i];
-      pagedData.data.push(new uom(jsonObj));
+      pagedData.data.push(new Uom(jsonObj));
     }
     pagedData.page = page;
     return pagedData;

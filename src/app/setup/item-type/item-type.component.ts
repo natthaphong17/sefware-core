@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatTableDataSource, MatDialogRef, MatDialog, MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatSnackBar} from '@angular/material';
 import {Page} from '../../shared/model/page';
-import {Upload} from '../../shared/model/upload';
-import {UploadService} from '../../services/upload.service';
 import {Language} from 'angular-l10n';
+import {ConfirmComponent} from '../../dialog/confirm/confirm.component';
 import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ItemTypeService} from './item-type.service';
@@ -11,7 +10,7 @@ import {ItemTypeDialogComponent} from './item-type-dialog/item-type-dialog.compo
 import {ItemType} from './item-type';
 
 @Component({
-  selector: 'app-main-settings-item--type',
+  selector: 'app-settings-item-type',
   templateUrl: './item-type.component.html',
   styleUrls: ['./item-type.component.scss'],
   providers: [ItemTypeService]
@@ -34,7 +33,7 @@ export class ItemTypeComponent implements OnInit {
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
 
-    this.page.size = 5;
+    this.page.size = 10;
     this.page.pageNumber = 0;
 
   }
@@ -76,9 +75,9 @@ export class ItemTypeComponent implements OnInit {
   addData() {
     const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
       disableClose: true,
-      maxWidth: '50vw',
-      maxHeight: '50vw',
-      width: '25%',
+      maxWidth: '100vw',
+      maxHeight: '100vw',
+      width: '25%'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -92,8 +91,8 @@ export class ItemTypeComponent implements OnInit {
   editData(data: ItemType) {
     const dialogRef = this.dialog.open(ItemTypeDialogComponent, {
       disableClose: true,
-      maxWidth: '50vw',
-      maxHeight: '50vw',
+      maxWidth: '100vw',
+      maxHeight: '100vw',
       width: '25%',
       data
     });
@@ -104,6 +103,51 @@ export class ItemTypeComponent implements OnInit {
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
       }
     });
+  }
+
+  deleteData(data: ItemType) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'delete',
+        title: 'Delete item type',
+        content: 'Confirm to delete?',
+        data_title: 'Item Type',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemtypeService.removeData(data).then(() => {
+          this.snackBar.open('Delete item type succeed.', '', {duration: 3000});
+          // this.addLog('Delete', 'delete item type succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  updateFilter(event) {
+    if (event === '') {
+      this.setPage(null);
+      return;
+    }
+
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp = this.temp.filter(function(d) {
+      return (d.code.toLowerCase().indexOf(val) !== -1) ||
+        (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
+        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
+        || !val;
+    });
+
+    // update the rows
+    this.rows = temp;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
   }
 
   openLink(link: string) {

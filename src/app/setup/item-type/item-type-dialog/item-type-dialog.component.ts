@@ -10,7 +10,7 @@ import { ItemType } from '../item-type';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-main-settings-item--type--dialog',
+  selector: 'app-settings-item-type-dialog',
   templateUrl: './item-type-dialog.component.html',
   styleUrls: ['./item-type-dialog.component.scss'],
   providers: [ItemTypeService, UploadService]
@@ -36,13 +36,13 @@ export class ItemTypeDialogComponent implements OnInit {
           this.displayImage('../../../../../assets/images/user.png');
         } else {
           this.displayImage(this.data.image);
-        }
+        }*/
 
       } else {
-        this.displayImage('../../../../../assets/images/user.png');
-        this._bookingpathService.requestData().subscribe(() => {
+        // this.displayImage('../../../../../assets/images/user.png');
+        this._itemtypeService.requestData().subscribe(() => {
           this.generateCode();
-        });*/
+        });
       }
     } catch (error) {
       this.error = error;
@@ -54,9 +54,9 @@ export class ItemTypeDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'ITT';
+    const prefix = 'TYPE';
     this.data.code = prefix + '-001';
-    console.log('Code :');
+    console.log('Prev Code :' + this.data.code);
     this._itemtypeService.requestLastData().subscribe((s) => {
       s.forEach((ss: ItemType) => {
         // tslint:disable-next-line:radix

@@ -11,7 +11,7 @@
                  [(ngModel)]="data.code"
                  name="code"
                  maxlength="8"
-                 required>
+                 readonly>
           <mat-hint align="start">
                 <span [hidden]="nameControl.pristine" class="tc-red-600">
                   <span [hidden]="!nameControl.hasError('required')">Required</span>
