@@ -6,27 +6,27 @@
         <div layout="row">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #codeElement
+                   #codeControl="ngModel"
                    placeholder="Code"
                    [(ngModel)]="data.code"
                    name="code"
                    maxlength="8"
                    readonly>
             <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                <span [hidden]="codeControl.pristine" class="tc-red-600">
+                  <span [hidden]="!codeControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+            <mat-hint align="end">{{codeElement.value?.length || 0}} / 8</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row">
           <mat-form-field flex>
-            <mat-select maxlength="250" placeholder="Item Type">
-              <!--#nameElement
-              #nameControl="ngModel"
+            <mat-select placeholder="Item Type">
+              <!--#itemTypeElement
+              #itemTypeControl="ngModel"
               placeholder="Item Type"
               [(ngModel)]="data.item_type"
               name="item_type"
@@ -34,91 +34,91 @@
               [required]="false">-->
               <mat-option [value]="test">Test</mat-option>
             </mat-select>
-            <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+           <!-- <mat-hint align="start">
+                <span [hidden]="itemTypeControl.pristine" class="tc-red-600">
+                  <span [hidden]="!itemTypeControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{itemTypeElement.value.length}} / 250</mat-hint>-->
           </mat-form-field>
         </div>
 
         <div layout="row">
           <mat-form-field flex>
-            <mat-select maxlength="250" placeholder="Item Group">
-              <!--#nameElement
-              #nameControl="ngModel"
-              placeholder="Item Type"
+            <mat-select placeholder="Item Group">
+              <!--#itemGroupElement
+              #itemGroupControl="ngModel"
+              placeholder="Item Group"
+              [(ngModel)]="data.item_type"
+              name="item_group"
+              maxlength="250"
+              [required]="false">-->
+              <mat-option [value]="test">Test</mat-option>
+            </mat-select>
+            <!--<mat-hint align="start">
+                <span [hidden]="itemGroupControl.pristine" class="tc-red-600">
+                  <span [hidden]="!itemGroupControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+            <mat-hint align="end">{{itemGroupElement.value.length}} / 250</mat-hint>-->
+          </mat-form-field>
+        </div>
+
+        <div layout="row">
+          <mat-form-field flex>
+            <mat-select placeholder="Item Sub Group">
+              <!--#itemSubGroupElement
+              #itemSubGroupControl="ngModel"
+              placeholder="Item Sub Group"
               [(ngModel)]="data.item_type"
               name="item_type"
               maxlength="250"
               [required]="false">-->
               <mat-option [value]="test">Test</mat-option>
             </mat-select>
-            <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+           <!-- <mat-hint align="start">
+                <span [hidden]="itemSubGroupControl.pristine" class="tc-red-600">
+                  <span [hidden]="!itemSubGroupControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
-          </mat-form-field>
-        </div>
-
-        <div layout="row">
-          <mat-form-field flex>
-            <mat-select maxlength="250" placeholder="Item Sub Group">
-              <!--#nameElement
-              #nameControl="ngModel"
-              placeholder="Item Type"
-              [(ngModel)]="data.item_type"
-              name="item_type"
-              maxlength="250"
-              [required]="false">-->
-              <mat-option [value]="test">Test</mat-option>
-            </mat-select>
-            <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
-                </span>
-            </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{itemSubGroupElement.value.length}} / 250</mat-hint>-->
           </mat-form-field>
         </div>
 
         <div layout="row">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #name1Element
+                   #name1Control="ngModel"
                    placeholder="Name 1"
                    [(ngModel)]="data.name1"
                    name="name1"
                    maxlength="250"
                    required>
             <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                <span [hidden]="name1Control.pristine" class="tc-red-600">
+                  <span [hidden]="!name1Control.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{name1Element.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #name2Element
+                   #name2Control="ngModel"
                    placeholder="Name 2"
                    [(ngModel)]="data.name2"
                    name="name2"
                    maxlength="250">
             <mat-hint align="start">
-              <span [hidden]="nameControl.pristine" class="tc-red-600">
-              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              <span [hidden]="name2Control.pristine" class="tc-red-600">
+              <span [hidden]="!name2Control.hasError('required')">Required</span>
               </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{name2Element.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
       </mat-card-content>
@@ -144,42 +144,45 @@
             <input matInput
                    type="number"
                    style="text-align: end;"
-                   #nameElement
-                   #nameControl="ngModel"
+                   #minimumElement
+                   #minimumControl="ngModel"
                    placeholder="Minimum"
                    [(ngModel)]="data.min"
                    name="min"
                    maxlength="8">
             <mat-hint align="start">
-              <span [hidden]="nameControl.pristine" class="tc-red-600">
-              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              <span [hidden]="minimumControl.pristine" class="tc-red-600">
+              <span [hidden]="!minimumControl.hasError('required')">Required</span>
               </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+            <mat-hint align="end">{{minimumElement.value?.length || 0}} / 8</mat-hint>
           </mat-form-field>
 
           <mat-form-field style="width: 100px;margin: 10px;" flex>
             <input matInput
                    type="number"
                    style="text-align: end;"
-                   #nameElement
-                   #nameControl="ngModel"
+                   #maximumElement
+                   #maximumControl="ngModel"
                    placeholder="Maximum"
                    [(ngModel)]="data.max"
                    name="max"
                    maxlength="8">
             <mat-hint align="start">
-              <span [hidden]="nameControl.pristine" class="tc-red-600">
-              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              <span [hidden]="maximumControl.pristine" class="tc-red-600">
+              <span [hidden]="!maximumControl.hasError('required')">Required</span>
               </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+            <mat-hint align="end">{{maximumElement.value?.length || 0}} / 8</mat-hint>
           </mat-form-field>
         </div>
 
       </mat-card-content>
     </div>
     <!-- End Col Right -->
+    <div layout="row" align="center">
+      Row For Unit
+    </div>
   </form>
 
   <mat-divider style="margin: 10px"></mat-divider>

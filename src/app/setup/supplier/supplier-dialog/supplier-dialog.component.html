@@ -6,102 +6,102 @@
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #codeElement
+                   #codeControl="ngModel"
                    placeholder="Code"
                    [(ngModel)]="data.code"
                    name="code"
                    maxlength="8"
                    readonly>
             <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                <span [hidden]="codeControl.pristine" class="tc-red-600">
+                  <span [hidden]="!codeControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 8</mat-hint>
+            <mat-hint align="end">{{codeElement.value?.length || 0}} / 8</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #name1Element
+                   #name1Control="ngModel"
                    placeholder="Description Name 1"
                    [(ngModel)]="data.name1"
                    name="name1"
                    maxlength="250"
                    required>
             <mat-hint align="start">
-                <span [hidden]="nameControl.pristine" class="tc-red-600">
-                  <span [hidden]="!nameControl.hasError('required')">Required</span>
+                <span [hidden]="name1Control.pristine" class="tc-red-600">
+                  <span [hidden]="!name1Control.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{name1Element.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #name2Element
+                   #name2Control="ngModel"
                    placeholder="Description Name 2"
                    [(ngModel)]="data.name2"
                    name="name2"
                    maxlength="250"
                    required>
             <mat-hint align="start">
-              <span [hidden]="nameControl.pristine" class="tc-red-600">
-              <span [hidden]="!nameControl.hasError('required')">Required</span>
+              <span [hidden]="name2Control.pristine" class="tc-red-600">
+              <span [hidden]="!name2Control.hasError('required')">Required</span>
               </span>
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{name2Element.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <textarea matInput
-                      #nameElement
-                      #nameControl="ngModel"
+                      #addressElement
+                      #addressControl="ngModel"
                       placeholder="Address"
                       [(ngModel)]="data.address"
                       name="address"
                       maxlength="250"></textarea>
             <mat-hint align="start">
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{addressElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #phoneElement
+                   #phoneControl="ngModel"
                    placeholder="Phone"
                    [(ngModel)]="data.phone"
                    name="phone"
                    maxlength="250">
             <mat-hint align="start">
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{phoneElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #faxElement
+                   #faxControl="ngModel"
                    placeholder="Fax"
                    [(ngModel)]="data.fax"
                    name="Fax"
                    maxlength="250">
             <mat-hint align="start">
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{faxElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
       </mat-card-content>
@@ -112,45 +112,45 @@
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #emailElement
+                   #emailControl="ngModel"
                    placeholder="Email"
                    [(ngModel)]="data.email"
                    name="email"
                    maxlength="250">
             <mat-hint align="start">
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{emailElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <input matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #termElement
+                   #termControl="ngModel"
                    placeholder="Term"
                    [(ngModel)]="data.term"
                    name="term"
                    maxlength="250">
             <mat-hint align="start">
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{termElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
 
         <div layout="row" class="push-top">
           <mat-form-field flex>
             <textarea matInput
-                   #nameElement
-                   #nameControl="ngModel"
+                   #bankElement
+                   #bankControl="ngModel"
                    placeholder="Bank"
                    [(ngModel)]="data.bank"
                    name="bank"
                    maxlength="250"></textarea>
             <mat-hint align="start">
             </mat-hint>
-            <mat-hint align="end">{{nameElement.value.length}} / 250</mat-hint>
+            <mat-hint align="end">{{bankElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
       </mat-card-content>
