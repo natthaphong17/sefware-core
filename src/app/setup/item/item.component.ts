@@ -203,6 +203,8 @@ export class ItemComponent implements OnInit {
     this.table.offset = 0;
   }
 
+  openLogs(data: Item) {}
+
   openLink(link: string) {
     window.open(link, '_blank');
   }

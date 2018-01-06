@@ -34,7 +34,7 @@
       "my"
     ],
     "templates-use-public": true,
-    "use-host-property-decorator": true,
+    "use-host-property-decorator": false,
     "use-input-property-decorator": true,
     "use-life-cycle-interface": true,
     "use-output-property-decorator": true,

@@ -79,13 +79,13 @@ type FactoryPromise = () => Promise<any>;
 
 interface AsyncRoutes {
   [component: string]: Es6PromiseLoader |
-                               Function |
+                               // Function |
                 FactoryEs6PromiseLoader |
                          FactoryPromise ;
 }
 
 type IdleCallbacks = Es6PromiseLoader |
-                             Function |
+                             // Function |
               FactoryEs6PromiseLoader |
                        FactoryPromise ;
 
