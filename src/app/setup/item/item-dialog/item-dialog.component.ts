@@ -20,6 +20,8 @@ export class ItemDialogComponent implements OnInit {
 
   @Language() lang: string;
 
+  config: GalleryConfig;
+
   data: Item = new Item({});
   error: any;
   images = [];
@@ -29,7 +31,7 @@ export class ItemDialogComponent implements OnInit {
               private _itemService: ItemService,
               private _uploadService: UploadService,
               private _loadingService: TdLoadingService,
-              private gallery: Gallery,
+              public gallery: Gallery,
               public dialogRef: MatDialogRef<ItemDialogComponent>) {
 
     try {
@@ -51,8 +53,6 @@ export class ItemDialogComponent implements OnInit {
       this.error = error;
     }
   }
-
-  config: GalleryConfig;
 
   ngOnInit() {
   }

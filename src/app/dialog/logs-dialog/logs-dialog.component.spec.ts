@@ -1,20 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {DriverDialogComponent} from "./logs-dialog.component";
+import {LogsDialogComponent} from './logs-dialog.component';
 
-
-describe('DriverDialogComponent', () => {
-  let component: DriverDialogComponent;
-  let fixture: ComponentFixture<DriverDialogComponent>;
+describe('LogsDialogComponent', () => {
+  let component: LogsDialogComponent;
+  let fixture: ComponentFixture<LogsDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DriverDialogComponent]
+      declarations: [LogsDialogComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DriverDialogComponent);
+    fixture = TestBed.createComponent(LogsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

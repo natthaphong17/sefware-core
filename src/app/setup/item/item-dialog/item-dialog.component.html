@@ -25,7 +25,7 @@
         <div layout="row">
           <mat-form-field flex>
             <mat-select placeholder="Item Type">
-              <mat-option [value]="test">Test</mat-option>
+              <mat-option [value]="">Test</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -33,7 +33,7 @@
         <div layout="row">
           <mat-form-field flex>
             <mat-select placeholder="Item Group">
-              <mat-option [value]="test">Test</mat-option>
+              <mat-option [value]="">Test</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -41,7 +41,7 @@
         <div layout="row">
           <mat-form-field flex>
             <mat-select placeholder="Item Sub Group">
-              <mat-option [value]="test">Test</mat-option>
+              <mat-option [value]="">Test</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -152,7 +152,7 @@
     <div layout="row">
       <mat-card-content style="padding:0px; padding-bottom: 10px; width: 100%">
         <mat-list class="item-list">
-          <ng-template let-item let-last="last" ngFor [ngForOf]="data.season_rates">
+          <!--<ng-template let-item let-last="last" ngFor [ngForOf]="data.season_rates">
             <mat-list-item style="margin-top: 20px;">
 
               <div fxFlex>
@@ -170,30 +170,30 @@
 
                   <div>
 
-                    <!--<mat-input-container flex style="margin-right: 20px">-->
-                    <!--<input matInput-->
-                    <!--readonly-->
-                    <!--[ngModelOptions]="{standalone: true}"-->
-                    <!--[ngModel]="item.start_date | date:'dd/MM/yyyy'"-->
-                    <!--(ngModelChange)="item.start_date = $event"-->
-                    <!--placeholder="From"-->
-                    <!--flex>-->
-                    <!--<input matInput [matDatepicker]="startdate_datepicker" style="display: none">-->
-                    <!--<button matSuffix [matDatepickerToggle]="startdate_datepicker"></button>-->
-                    <!--</mat-input-container>-->
-                    <!--<mat-datepicker #startdate_datepicker></mat-datepicker>-->
+                    &lt;!&ndash;<mat-input-container flex style="margin-right: 20px">&ndash;&gt;
+                    &lt;!&ndash;<input matInput&ndash;&gt;
+                    &lt;!&ndash;readonly&ndash;&gt;
+                    &lt;!&ndash;[ngModelOptions]="{standalone: true}"&ndash;&gt;
+                    &lt;!&ndash;[ngModel]="item.start_date | date:'dd/MM/yyyy'"&ndash;&gt;
+                    &lt;!&ndash;(ngModelChange)="item.start_date = $event"&ndash;&gt;
+                    &lt;!&ndash;placeholder="From"&ndash;&gt;
+                    &lt;!&ndash;flex>&ndash;&gt;
+                    &lt;!&ndash;<input matInput [matDatepicker]="startdate_datepicker" style="display: none">&ndash;&gt;
+                    &lt;!&ndash;<button matSuffix [matDatepickerToggle]="startdate_datepicker"></button>&ndash;&gt;
+                    &lt;!&ndash;</mat-input-container>&ndash;&gt;
+                    &lt;!&ndash;<mat-datepicker #startdate_datepicker></mat-datepicker>&ndash;&gt;
 
-                    <!--<mat-input-container fxFlex style="margin-right: 20px">-->
-                    <!--<input matInput-->
-                    <!--readonly-->
-                    <!--[ngModelOptions]="{standalone: true}"-->
-                    <!--[ngModel]="item.end_date | date:'dd/MM/yyyy'"-->
-                    <!--(ngModelChange)="item.end_date = $event"-->
-                    <!--placeholder="To"-->
-                    <!--fxFlex>-->
-                    <!--<input matInput [matDatepicker]="enddate_datepicker" style="display: none">-->
-                    <!--<button matSuffix [matDatepickerToggle]="enddate_datepicker"></button>-->
-                    <!--</mat-input-container>-->
+                    &lt;!&ndash;<mat-input-container fxFlex style="margin-right: 20px">&ndash;&gt;
+                    &lt;!&ndash;<input matInput&ndash;&gt;
+                    &lt;!&ndash;readonly&ndash;&gt;
+                    &lt;!&ndash;[ngModelOptions]="{standalone: true}"&ndash;&gt;
+                    &lt;!&ndash;[ngModel]="item.end_date | date:'dd/MM/yyyy'"&ndash;&gt;
+                    &lt;!&ndash;(ngModelChange)="item.end_date = $event"&ndash;&gt;
+                    &lt;!&ndash;placeholder="To"&ndash;&gt;
+                    &lt;!&ndash;fxFlex>&ndash;&gt;
+                    &lt;!&ndash;<input matInput [matDatepicker]="enddate_datepicker" style="display: none">&ndash;&gt;
+                    &lt;!&ndash;<button matSuffix [matDatepickerToggle]="enddate_datepicker"></button>&ndash;&gt;
+                    &lt;!&ndash;</mat-input-container>&ndash;&gt;
                     <mat-datepicker #enddate_datepicker></mat-datepicker>
 
                     <mat-input-container fxFlex style="margin-right: 20px">
@@ -232,7 +232,7 @@
 
             </mat-list-item>
             <mat-divider *ngIf="!last"></mat-divider>
-          </ng-template>
+          </ng-template>-->
         </mat-list>
       </mat-card-content>
     </div>

@@ -6,7 +6,7 @@ import { TdLoadingService, TdMediaService } from '@covalent/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { LocationDialogComponent } from './location-dialog/location-dialog.component';
 import { Page } from '../../shared/model/page';
-import { Location } from "./location";
+import { Location } from './location';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 
 @Component({
@@ -138,7 +138,7 @@ export class LocationComponent implements OnInit {
     const val = event.target.value.toLowerCase();
 
     // filter our data
-    const temp = this.temp.filter(function (d) {
+    const temp = this.temp.filter(function(d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
         (d.shortname && d.shortname.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||

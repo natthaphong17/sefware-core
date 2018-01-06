@@ -3,8 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
 import * as _ from 'lodash';
-import { Location } from "../location";
-import { LocationService } from "../location.service";
+import { Location } from '../location';
+import { LocationService } from '../location.service';
 import { UploadService } from '../../../services/upload.service';
 
 @Component({

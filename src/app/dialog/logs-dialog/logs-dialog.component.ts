@@ -1,4 +1,4 @@
-///<reference path="../../../../node_modules/@angular/common/src/pipes/date_pipe.d.ts"/>
+/*<reference path="../../../../node_modules/@angular/common/src/pipes/date_pipe.d.ts"/>*/
 import {AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {Language} from 'angular-l10n';
@@ -50,7 +50,7 @@ export class LogsDialogComponent implements OnInit, AfterViewInit {
         this.filter();
         this.loading = false;
       });
-    }else{
+    }else {
       this._logsService.requestDataByRef(this.path, this.ref).subscribe((snapshot) => {
         this._logsService.rows = [];
         snapshot.forEach((s) => {
@@ -78,7 +78,7 @@ export class LogsDialogComponent implements OnInit, AfterViewInit {
     this.temp.forEach((row) => {
       console.log('row : ' + row);
       const datetime = new DatePipe('En').transform(row.datetime, 'dd/MM/yyyy');
-      if (this.data.filter((s) => s.date === datetime).length == 0){
+      if (this.data.filter((s) => s.date === datetime).length === 0) {
         this.data.push({
           date: datetime,
           logs_list: []
