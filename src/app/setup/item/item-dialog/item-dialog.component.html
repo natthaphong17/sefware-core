@@ -1,6 +1,6 @@
-<div align="center" style="vertical-align: inherit; padding: 20px;">
+<div align="center" style="vertical-align: inherit; padding: 10px;">
   <form #dataForm="ngForm">
-    <div layout="col" align="center">
+    <div layout="row" align="center">
       <!-- Col Left -->
       <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
         <div layout="row">
@@ -25,63 +25,24 @@
         <div layout="row">
           <mat-form-field flex>
             <mat-select placeholder="Item Type">
-              <!--#itemTypeElement
-              #itemTypeControl="ngModel"
-              placeholder="Item Type"
-              [(ngModel)]="data.item_type"
-              name="item_type"
-              maxlength="250"
-              [required]="false">-->
               <mat-option [value]="test">Test</mat-option>
             </mat-select>
-           <!-- <mat-hint align="start">
-                <span [hidden]="itemTypeControl.pristine" class="tc-red-600">
-                  <span [hidden]="!itemTypeControl.hasError('required')">Required</span>
-                </span>
-            </mat-hint>
-            <mat-hint align="end">{{itemTypeElement.value.length}} / 250</mat-hint>-->
           </mat-form-field>
         </div>
 
         <div layout="row">
           <mat-form-field flex>
             <mat-select placeholder="Item Group">
-              <!--#itemGroupElement
-              #itemGroupControl="ngModel"
-              placeholder="Item Group"
-              [(ngModel)]="data.item_type"
-              name="item_group"
-              maxlength="250"
-              [required]="false">-->
               <mat-option [value]="test">Test</mat-option>
             </mat-select>
-            <!--<mat-hint align="start">
-                <span [hidden]="itemGroupControl.pristine" class="tc-red-600">
-                  <span [hidden]="!itemGroupControl.hasError('required')">Required</span>
-                </span>
-            </mat-hint>
-            <mat-hint align="end">{{itemGroupElement.value.length}} / 250</mat-hint>-->
           </mat-form-field>
         </div>
 
         <div layout="row">
           <mat-form-field flex>
             <mat-select placeholder="Item Sub Group">
-              <!--#itemSubGroupElement
-              #itemSubGroupControl="ngModel"
-              placeholder="Item Sub Group"
-              [(ngModel)]="data.item_type"
-              name="item_type"
-              maxlength="250"
-              [required]="false">-->
               <mat-option [value]="test">Test</mat-option>
             </mat-select>
-           <!-- <mat-hint align="start">
-                <span [hidden]="itemSubGroupControl.pristine" class="tc-red-600">
-                  <span [hidden]="!itemSubGroupControl.hasError('required')">Required</span>
-                </span>
-            </mat-hint>
-            <mat-hint align="end">{{itemSubGroupElement.value.length}} / 250</mat-hint>-->
           </mat-form-field>
         </div>
 
@@ -180,14 +141,106 @@
       </mat-card-content>
     </div>
     <!-- End Col Right -->
-    <div layout="row" align="center">
-      Row For Unit
+    <div layout="col" layout-align="start center" style="margin: 0px 10px;">
+      <mat-card-title class="push-bottom-none">
+        <button mat-button color="accent" (click)="addUnit()">
+          <mat-icon>add</mat-icon>Add Unit
+        </button>
+      </mat-card-title>
+    </div>
+    <mat-divider style="margin: 0px 10px;"></mat-divider>
+    <div layout="row">
+      <mat-card-content style="padding:0px; padding-bottom: 10px; width: 100%">
+        <mat-list class="item-list">
+          <ng-template let-item let-last="last" ngFor [ngForOf]="data.season_rates">
+            <mat-list-item style="margin-top: 20px;">
+
+              <div fxFlex>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                  <mat-select fxFlex="200px"
+                             [ngModelOptions]="{standalone: true}"
+                             placeholder="Select Season"
+                             [(ngModel)]="item.rate_name"
+                  >
+                    <mat-option *ngFor="let season of ['Hi Season','Low Season','Peak Season']" [value]="season">
+                      {{season}}
+                    </mat-option>
+                  </mat-select>
+
+                  <div>
+
+                    <!--<mat-input-container flex style="margin-right: 20px">-->
+                    <!--<input matInput-->
+                    <!--readonly-->
+                    <!--[ngModelOptions]="{standalone: true}"-->
+                    <!--[ngModel]="item.start_date | date:'dd/MM/yyyy'"-->
+                    <!--(ngModelChange)="item.start_date = $event"-->
+                    <!--placeholder="From"-->
+                    <!--flex>-->
+                    <!--<input matInput [matDatepicker]="startdate_datepicker" style="display: none">-->
+                    <!--<button matSuffix [matDatepickerToggle]="startdate_datepicker"></button>-->
+                    <!--</mat-input-container>-->
+                    <!--<mat-datepicker #startdate_datepicker></mat-datepicker>-->
+
+                    <!--<mat-input-container fxFlex style="margin-right: 20px">-->
+                    <!--<input matInput-->
+                    <!--readonly-->
+                    <!--[ngModelOptions]="{standalone: true}"-->
+                    <!--[ngModel]="item.end_date | date:'dd/MM/yyyy'"-->
+                    <!--(ngModelChange)="item.end_date = $event"-->
+                    <!--placeholder="To"-->
+                    <!--fxFlex>-->
+                    <!--<input matInput [matDatepicker]="enddate_datepicker" style="display: none">-->
+                    <!--<button matSuffix [matDatepickerToggle]="enddate_datepicker"></button>-->
+                    <!--</mat-input-container>-->
+                    <mat-datepicker #enddate_datepicker></mat-datepicker>
+
+                    <mat-input-container fxFlex style="margin-right: 20px">
+                      <input matInput
+                             placeholder="Rate"
+                             [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="item.rate"
+                             type="number"
+                             fxFlex
+                      >
+                    </mat-input-container>
+
+                    <mat-input-container fxFlex style="margin-right: 20px">
+                      <input matInput
+                             placeholder="Cut Off"
+                             [ngModelOptions]="{standalone: true}"
+                             [(ngModel)]="item.cut_off"
+                             type="number"
+                             fxFlex
+                      >
+                    </mat-input-container>
+                  </div>
+
+                  <button mat-icon-button class="push-right" [matMenuTriggerFor]="menuSeasonrate">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+
+                  <mat-menu #menuSeasonrate="matMenu">
+                    <button mat-menu-item (click)="removeSeasonRate(item.code)">
+                      <span>Remove</span>
+                    </button>
+                  </mat-menu>
+
+                </div>
+              </div>
+
+            </mat-list-item>
+            <mat-divider *ngIf="!last"></mat-divider>
+          </ng-template>
+        </mat-list>
+      </mat-card-content>
     </div>
   </form>
 
-  <mat-divider style="margin: 10px"></mat-divider>
+  <mat-divider style="margin:10px"></mat-divider>
   <!-- Footer -->
-  <mat-card-footer style="margin: 10px;align-content: center;">
+  <mat-card-footer style="margin: 0px 10px;align-content: center;">
     <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
     <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
             (click)="saveData(dataForm.form)">Save
