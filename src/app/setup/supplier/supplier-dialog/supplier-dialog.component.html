@@ -1,9 +1,9 @@
-<div align="center" style="vertical-align: inherit; padding: 20px;">
+<div align="center" style="vertical-align: inherit; padding: 10px;">
   <form #dataForm="ngForm">
-    <div layout="col" class="push-top" align="center">
+    <div layout="col" align="center">
       <!-- Col Left -->
       <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #codeElement
@@ -22,7 +22,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #name1Element
@@ -41,7 +41,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #name2Element
@@ -60,7 +60,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <textarea matInput
                       #addressElement
@@ -75,7 +75,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #phoneElement
@@ -90,7 +90,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #faxElement
@@ -109,7 +109,7 @@
 
       <!-- Col Right -->
       <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #emailElement
@@ -124,7 +124,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <input matInput
                    #termElement
@@ -139,7 +139,7 @@
           </mat-form-field>
         </div>
 
-        <div layout="row" class="push-top">
+        <div layout="row">
           <mat-form-field flex>
             <textarea matInput
                    #bankElement
@@ -160,7 +160,7 @@
 
   <mat-divider style="margin: 10px"></mat-divider>
   <!-- Footer -->
-  <mat-card-footer style="margin: 10px;align-content: center;">
+  <mat-card-footer style="margin: 0px 10px;align-content: center;">
     <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
     <button mat-button class="text-upper" [disabled]="!dataForm.form.valid" color="primary"
             (click)="saveData(dataForm.form)">Save

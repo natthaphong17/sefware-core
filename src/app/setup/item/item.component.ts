@@ -78,7 +78,6 @@ export class ItemComponent implements OnInit {
       maxWidth: '100vw',
       maxHeight: '100vw',
       width: '50%',
-      height: '90%'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
