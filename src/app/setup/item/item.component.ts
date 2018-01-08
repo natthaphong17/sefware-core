@@ -8,12 +8,15 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { ItemService } from '../item/item.service';
 import { Item } from '../item/item';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import {LogsService} from '../../dialog/logs-dialog/logs.service';
+import {Logs} from '../../dialog/logs-dialog/logs';
+import {LogsDialogComponent} from '../../dialog/logs-dialog/logs-dialog.component';
 
 @Component({
   selector: 'app-settings-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
-  providers: [ItemService]
+  providers: [ItemService, LogsService]
 })
 export class ItemComponent implements OnInit {
   @Language() lang: string;
@@ -29,6 +32,7 @@ export class ItemComponent implements OnInit {
   temp = [];
 
   constructor(private _itemService: ItemService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -119,7 +123,7 @@ export class ItemComponent implements OnInit {
         this.snackBar.dismiss();
         this._itemService.removeData(data).then(() => {
           this.snackBar.open('Delete item succeed.', '', {duration: 3000});
-          // this.addLog('Delete', 'delete item succeed', data, {});
+          this.addLog('Delete', 'delete item succeed', data, {});
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -145,7 +149,7 @@ export class ItemComponent implements OnInit {
 
           const new_data = new Item(data);
           new_data.disable = false;
-          // this.addLog('Enable', 'enable item succeed', new_data, data);
+          this.addLog('Enable', 'enable item succeed', new_data, data);
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -172,7 +176,7 @@ export class ItemComponent implements OnInit {
 
           const new_data = new Item(data);
           new_data.disable = false;
-          // this.addLog('Disable', 'disable driver succeed', new_data, data);
+          this.addLog('Disable', 'disable driver succeed', new_data, data);
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -203,7 +207,30 @@ export class ItemComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  openLogs(data: Item) {}
+  openLogs(data: Item) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Item',
+        path: this._itemService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._itemService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._itemService.getPath(), log);
+  }
 
   openLink(link: string) {
     window.open(link, '_blank');
