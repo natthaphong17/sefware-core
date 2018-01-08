@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import {GalleryConfig, /*GalleryService*/} from 'ng-gallery';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
@@ -19,7 +20,6 @@ export class ItemGroupDialogComponent implements OnInit {
   @Language() lang: string;
 
   data: ItemGroup = new ItemGroup({});
-  // types: ItemType = new ItemType({});
   error: any;
   images = [];
   types = [];
