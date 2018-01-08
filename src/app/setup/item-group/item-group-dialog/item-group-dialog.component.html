@@ -24,10 +24,16 @@
       <div layout="row">
         <mat-form-field flex>
           <mat-select placeholder="Item Type"
+                      #typeControl="ngModel"
                       [ngModelOptions]="{standalone: true}"
                       [(ngModel)]="data.type_code">
-            <mat-option *ngFor="let type of types" [value]="type.code">{{type.name1}}</mat-option>
+            <mat-option *ngFor="let type of types" [value]="type.code">{{type.code}} : {{type.name1}}</mat-option>
           </mat-select>
+          <mat-hint align="start">
+                <span [hidden]="typeControl.pristine" class="tc-red-600">
+                  <span [hidden]="!typeControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
         </mat-form-field>
       </div>
 

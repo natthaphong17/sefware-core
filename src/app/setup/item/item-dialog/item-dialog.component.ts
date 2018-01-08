@@ -6,14 +6,20 @@ import {UploadService} from '../../../services/upload.service';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
 import { ItemService } from '../item.service';
+import { ItemTypeService } from '../../item-type/item-type.service';
+import { ItemGroupService } from '../../item-group/item-group.service';
+import { ItemSubGroupService } from '../../item-sub-group/item-sub-group.service';
 import { Item } from '../item';
+import { ItemType } from '../../item-type/item-type';
+import { ItemGroup } from '../../item-group/item-group';
+import { ItemSubGroup } from '../../item-sub-group/item-sub-group';
 import * as _ from 'lodash';
 
 @Component({
   selector: 'app-settings-item-dialog',
   templateUrl: './item-dialog.component.html',
   styleUrls: ['./item-dialog.component.scss'],
-  providers: [ItemService, UploadService]
+  providers: [ItemService, ItemTypeService, ItemGroupService, ItemSubGroupService, UploadService]
 })
 
 export class ItemDialogComponent implements OnInit {
@@ -25,10 +31,16 @@ export class ItemDialogComponent implements OnInit {
   data: Item = new Item({});
   error: any;
   images = [];
+  types = [];
+  groups = [];
+  subgroups = [];
   storage_ref = '/main/settings/item';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: Item,
               private _itemService: ItemService,
+              private _itemtypeService: ItemTypeService,
+              private _itemgroupService: ItemGroupService,
+              private _itemsubgroupService: ItemSubGroupService,
               private _uploadService: UploadService,
               private _loadingService: TdLoadingService,
               public gallery: Gallery,
@@ -55,6 +67,42 @@ export class ItemDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getItemTypeData();
+    this.getItemGroupData();
+    this.getItemSubGroupData();
+  }
+
+  getItemTypeData() {
+    this._itemtypeService.requestData().subscribe((snapshot) => {
+      this._itemtypeService.rows = [];
+      snapshot.forEach((s) => {
+
+        const _row = new ItemType(s.val());
+        this.types.push(_row);
+      });
+    });
+  }
+
+  getItemGroupData() {
+    this._itemgroupService.requestData().subscribe((snapshot) => {
+      this._itemgroupService.rows = [];
+      snapshot.forEach((s) => {
+
+        const _row = new ItemGroup(s.val());
+        this.groups.push(_row);
+      });
+    });
+  }
+
+  getItemSubGroupData() {
+    this._itemsubgroupService.requestData().subscribe((snapshot) => {
+      this._itemsubgroupService.rows = [];
+      snapshot.forEach((s) => {
+
+        const _row = new ItemSubGroup(s.val());
+        this.subgroups.push(_row);
+      });
+    });
   }
 
   displayImage(path: string) {
@@ -71,9 +119,9 @@ export class ItemDialogComponent implements OnInit {
     this._loadingService.register('data.form');
     const prefix = 'ITEM';
     this.data.code = prefix + '-001';
-    console.log('Prev Code :' + this.data.code);
     this._itemService.requestLastData().subscribe((s) => {
       s.forEach((ss: Item) => {
+        console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;

@@ -54,14 +54,17 @@ export class ItemTypeDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'TYPE';
-    this.data.code = prefix + '-001';
-    console.log('Prev Code :' + this.data.code);
+    // const prefix = 'TYPE';
+    // this.data.code = prefix + '-001';
+    this.data.code = '1';
     this._itemtypeService.requestLastData().subscribe((s) => {
       s.forEach((ss: ItemType) => {
+        console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
-        const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
-        let last = prefix + '-' + str;
+        const str = parseInt(ss.code.substring(ss.code.length - 1, ss.code.length)) + 1;
+        const last = '' + str;
+
+        /*let last = prefix + '-' + str;
 
         if (str < 100) {
           last = prefix + '-0' + str;
@@ -69,7 +72,7 @@ export class ItemTypeDialogComponent implements OnInit {
 
         if (str < 10) {
           last = prefix + '-00' + str;
-        }
+        }*/
 
         this.data.code = last;
       });

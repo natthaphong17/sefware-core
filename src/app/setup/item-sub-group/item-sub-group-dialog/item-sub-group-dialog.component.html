@@ -23,9 +23,17 @@
 
       <div layout="row">
         <mat-form-field flex>
-          <mat-select placeholder="Item Group">
-            <mat-option [value]="">Test</mat-option>
+          <mat-select placeholder="Item Group"
+                      #groupControl="ngModel"
+                      [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="data.group_code">
+            <mat-option *ngFor="let group of groups" [value]="group.code">{{group.code}} : {{group.name1}}</mat-option>
           </mat-select>
+          <mat-hint align="start">
+                <span [hidden]="groupControl.pristine" class="tc-red-600">
+                  <span [hidden]="!groupControl.hasError('required')">Required</span>
+                </span>
+          </mat-hint>
         </mat-form-field>
       </div>
 
