@@ -45,10 +45,10 @@ export class ItemGroupDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load();
+    this.getItemTypeData();
   }
 
-  load() {
+  getItemTypeData() {
     this._itemtypeService.requestData().subscribe((snapshot) => {
       this._itemtypeService.rows = [];
       snapshot.forEach((s) => {
@@ -63,9 +63,9 @@ export class ItemGroupDialogComponent implements OnInit {
     this._loadingService.register('data.form');
     const prefix = 'GRP';
     this.data.code = prefix + '-001';
-    console.log('Prev Code :' + this.data.code);
     this._itemgroupService.requestLastData().subscribe((s) => {
       s.forEach((ss: ItemGroup) => {
+        console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;

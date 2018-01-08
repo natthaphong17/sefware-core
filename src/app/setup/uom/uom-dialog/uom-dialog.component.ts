@@ -44,9 +44,9 @@ export class UomDialogComponent implements OnInit {
     this._loadingService.register('data.form');
     const prefix = 'UOM';
     this.data.code = prefix + '-001';
-    console.log('Prev Code :' + this.data.code);
     this._uomService.requestLastData().subscribe((s) => {
       s.forEach((ss: Uom) => {
+        console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;

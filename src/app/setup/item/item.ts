@@ -2,6 +2,9 @@ export class Item {
 
   code?: string = 'N/A';
   image? = '../../../../../assets/images/placeholder.png';
+  type_code?: string | null | undefined;
+  group_code?: string | null | undefined;
+  subgroup_code?: string | null | undefined;
   name1?: string | null | undefined;
   name2?: string | null | undefined;
   unit?: string | null | undefined;

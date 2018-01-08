@@ -4,14 +4,16 @@ import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ItemSubGroupService } from '../../item-sub-group/item-sub-group.service';
+import { ItemGroupService } from '../../item-group/item-group.service';
 import * as _ from 'lodash';
 import { ItemSubGroup } from '../../item-sub-group/item-sub-group';
+import { ItemGroup } from '../../item-group/item-group';
 
 @Component({
   selector: 'app-settings-item-sub-group-dialog',
   templateUrl: './item-sub-group-dialog.component.html',
   styleUrls: ['./item-sub-group-dialog.component.scss'],
-  providers: [ItemSubGroupService]
+  providers: [ItemSubGroupService, ItemGroupService]
 })
 export class ItemSubGroupDialogComponent implements OnInit {
   @Language() lang: string;
@@ -19,10 +21,12 @@ export class ItemSubGroupDialogComponent implements OnInit {
   data: ItemSubGroup = new ItemSubGroup({});
   error: any;
   images = [];
+  groups = [];
   storage_ref = '/main/settings/item_group';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemSubGroup,
               private _itemsubgroupService: ItemSubGroupService,
+              private _itemgroupService: ItemGroupService,
               private _loadingService: TdLoadingService,
               public dialogRef: MatDialogRef<ItemSubGroupDialogComponent>) {
 
@@ -40,15 +44,27 @@ export class ItemSubGroupDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getItemGroupData();
+  }
+
+  getItemGroupData() {
+    this._itemgroupService.requestData().subscribe((snapshot) => {
+      this._itemgroupService.rows = [];
+      snapshot.forEach((s) => {
+
+        const _row = new ItemGroup(s.val());
+        this.groups.push(_row);
+      });
+    });
   }
 
   generateCode() {
     this._loadingService.register('data.form');
     const prefix = 'SGRP';
     this.data.code = prefix + '-001';
-    console.log('Prev Code :' + this.data.code);
     this._itemsubgroupService.requestLastData().subscribe((s) => {
       s.forEach((ss: ItemSubGroup) => {
+        console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
         let last = prefix + '-' + str;
