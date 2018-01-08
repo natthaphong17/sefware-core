@@ -1,7 +1,7 @@
 export class ItemGroup {
 
   code?: string = 'N/A';
-  // item_type?: string | null | undefined;
+  type_code?: string | null | undefined;
   name1?: string | null | undefined;
   name2?: string | null | undefined;
 
