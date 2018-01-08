@@ -23,8 +23,10 @@
 
       <div layout="row">
         <mat-form-field flex>
-          <mat-select placeholder="Item Type">
-            <mat-option [value]="">Test</mat-option>
+          <mat-select placeholder="Item Type"
+                      [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="data.type_code">
+            <mat-option *ngFor="let type of types" [value]="type.code">{{type.name1}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

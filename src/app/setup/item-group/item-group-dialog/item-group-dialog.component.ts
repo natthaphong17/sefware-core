@@ -4,25 +4,30 @@ import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ItemGroupService } from '../../item-group/item-group.service';
+import { ItemTypeService } from '../../item-type/item-type.service';
 import * as _ from 'lodash';
 import { ItemGroup } from '../../item-group/item-group';
+import { ItemType } from '../../item-type/item-type';
 
 @Component({
   selector: 'app-settings-item-group-dialog',
   templateUrl: './item-group-dialog.component.html',
   styleUrls: ['./item-group-dialog.component.scss'],
-  providers: [ItemGroupService]
+  providers: [ItemGroupService, ItemTypeService]
 })
 export class ItemGroupDialogComponent implements OnInit {
   @Language() lang: string;
 
   data: ItemGroup = new ItemGroup({});
+  // types: ItemType = new ItemType({});
   error: any;
   images = [];
+  types = [];
   storage_ref = '/main/settings/item_group';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemGroup,
               private _itemgroupService: ItemGroupService,
+              private _itemtypeService: ItemTypeService,
               private _loadingService: TdLoadingService,
               public dialogRef: MatDialogRef<ItemGroupDialogComponent>) {
 
@@ -40,6 +45,18 @@ export class ItemGroupDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  load() {
+    this._itemtypeService.requestData().subscribe((snapshot) => {
+      this._itemtypeService.rows = [];
+      snapshot.forEach((s) => {
+
+        const _row = new ItemType(s.val());
+        this.types.push(_row);
+      });
+    });
   }
 
   generateCode() {
