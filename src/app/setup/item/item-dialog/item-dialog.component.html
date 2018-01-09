@@ -2,7 +2,7 @@
   <form #dataForm="ngForm">
     <div layout="row" align="center">
       <!-- Col Left -->
-      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px;margin-bottom: 0px;">
         <div layout="row">
           <mat-form-field flex>
             <input matInput
@@ -110,7 +110,7 @@
       <!-- End Col Left -->
 
       <!-- Col Right -->
-      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px;margin-bottom: 0px;">
         <div class="grid" style="text-align: center">
           <div *ngFor="let image of images; let i = index">
             <img height="200px" [src]="image.src" (click)="gallery.set(i)"/>
@@ -165,99 +165,43 @@
       </mat-card-content>
     </div>
     <!-- End Col Right -->
-    <div layout="col" layout-align="start center" style="margin: 0px 10px;">
-      <mat-card-title class="push-bottom-none">
-        <button mat-button color="accent" (click)="addUnit()">
-          <mat-icon>add</mat-icon>Add Unit
-        </button>
-      </mat-card-title>
-    </div>
-    <mat-divider style="margin: 0px 10px;"></mat-divider>
-    <div layout="row">
-      <mat-card-content style="padding:0px; padding-bottom: 10px; width: 100%">
-        <mat-list class="item-list">
-          <!--<ng-template let-item let-last="last" ngFor [ngForOf]="data.season_rates">
-            <mat-list-item style="margin-top: 20px;">
 
-              <div fxFlex>
-                <div fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- Unit -->
+    <div layout="row" align="center">
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px;margin-top: 0px;">
+        <div layout="row">
+          <mat-form-field flex>
+            <mat-select placeholder="Primary Unit"
+                        #primaryUnitControl="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="data.primary_unit" (selectionChange)="changePrimaryUnit(data.primary_unit)">
+              <mat-option *ngFor="let uom of uoms" [value]="uom.code">{{uom.code}} : {{uom.name1}} ({{uom.shortname}})</mat-option>
+            </mat-select>
+            <mat-hint align="start">
+              <span [hidden]="primaryUnitControl.pristine" class="tc-red-600">
+                <span [hidden]="!primaryUnitControl.hasError('required')">Required</span>
+              </span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
 
-                  <mat-select fxFlex="200px"
-                             [ngModelOptions]="{standalone: true}"
-                             placeholder="Select Season"
-                             [(ngModel)]="item.rate_name"
-                  >
-                    <mat-option *ngFor="let season of ['Hi Season','Low Season','Peak Season']" [value]="season">
-                      {{season}}
-                    </mat-option>
-                  </mat-select>
-
-                  <div>
-
-                    &lt;!&ndash;<mat-input-container flex style="margin-right: 20px">&ndash;&gt;
-                    &lt;!&ndash;<input matInput&ndash;&gt;
-                    &lt;!&ndash;readonly&ndash;&gt;
-                    &lt;!&ndash;[ngModelOptions]="{standalone: true}"&ndash;&gt;
-                    &lt;!&ndash;[ngModel]="item.start_date | date:'dd/MM/yyyy'"&ndash;&gt;
-                    &lt;!&ndash;(ngModelChange)="item.start_date = $event"&ndash;&gt;
-                    &lt;!&ndash;placeholder="From"&ndash;&gt;
-                    &lt;!&ndash;flex>&ndash;&gt;
-                    &lt;!&ndash;<input matInput [matDatepicker]="startdate_datepicker" style="display: none">&ndash;&gt;
-                    &lt;!&ndash;<button matSuffix [matDatepickerToggle]="startdate_datepicker"></button>&ndash;&gt;
-                    &lt;!&ndash;</mat-input-container>&ndash;&gt;
-                    &lt;!&ndash;<mat-datepicker #startdate_datepicker></mat-datepicker>&ndash;&gt;
-
-                    &lt;!&ndash;<mat-input-container fxFlex style="margin-right: 20px">&ndash;&gt;
-                    &lt;!&ndash;<input matInput&ndash;&gt;
-                    &lt;!&ndash;readonly&ndash;&gt;
-                    &lt;!&ndash;[ngModelOptions]="{standalone: true}"&ndash;&gt;
-                    &lt;!&ndash;[ngModel]="item.end_date | date:'dd/MM/yyyy'"&ndash;&gt;
-                    &lt;!&ndash;(ngModelChange)="item.end_date = $event"&ndash;&gt;
-                    &lt;!&ndash;placeholder="To"&ndash;&gt;
-                    &lt;!&ndash;fxFlex>&ndash;&gt;
-                    &lt;!&ndash;<input matInput [matDatepicker]="enddate_datepicker" style="display: none">&ndash;&gt;
-                    &lt;!&ndash;<button matSuffix [matDatepickerToggle]="enddate_datepicker"></button>&ndash;&gt;
-                    &lt;!&ndash;</mat-input-container>&ndash;&gt;
-                    <mat-datepicker #enddate_datepicker></mat-datepicker>
-
-                    <mat-input-container fxFlex style="margin-right: 20px">
-                      <input matInput
-                             placeholder="Rate"
-                             [ngModelOptions]="{standalone: true}"
-                             [(ngModel)]="item.rate"
-                             type="number"
-                             fxFlex
-                      >
-                    </mat-input-container>
-
-                    <mat-input-container fxFlex style="margin-right: 20px">
-                      <input matInput
-                             placeholder="Cut Off"
-                             [ngModelOptions]="{standalone: true}"
-                             [(ngModel)]="item.cut_off"
-                             type="number"
-                             fxFlex
-                      >
-                    </mat-input-container>
-                  </div>
-
-                  <button mat-icon-button class="push-right" [matMenuTriggerFor]="menuSeasonrate">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-
-                  <mat-menu #menuSeasonrate="matMenu">
-                    <button mat-menu-item (click)="removeSeasonRate(item.code)">
-                      <span>Remove</span>
-                    </button>
-                  </mat-menu>
-
-                </div>
-              </div>
-
-            </mat-list-item>
-            <mat-divider *ngIf="!last"></mat-divider>
-          </ng-template>-->
-        </mat-list>
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px;margin-top: 0px;">
+        <div layout="row">
+          <mat-form-field flex>
+            <mat-select placeholder="Secondary Unit"
+                        #secondaryUnitControl="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="data.secondary_unit">
+              <mat-option *ngFor="let uom of uoms" [value]="uom.code">{{uom.code}} : {{uom.name1}} ({{uom.shortname}})</mat-option>
+            </mat-select>
+            <mat-hint align="start">
+                <span [hidden]="secondaryUnitControl.pristine" class="tc-red-600">
+                  <span [hidden]="!secondaryUnitControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
+          </mat-form-field>
+        </div>
       </mat-card-content>
     </div>
   </form>

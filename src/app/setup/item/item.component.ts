@@ -53,7 +53,6 @@ export class ItemComponent implements OnInit {
 
         const _row = new Item(s.val());
         this._itemService.rows.push(_row);
-
       });
 
       this.temp = [...this._itemService.rows];
