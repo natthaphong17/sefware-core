@@ -5,21 +5,27 @@ import {Upload} from '../../../shared/model/upload';
 import {UploadService} from '../../../services/upload.service';
 import {Language} from 'angular-l10n';
 import {TdLoadingService} from '@covalent/core';
+import * as _ from 'lodash';
+
+/*
+Load data
+*/
 import { ItemService } from '../item.service';
 import { ItemTypeService } from '../../item-type/item-type.service';
 import { ItemGroupService } from '../../item-group/item-group.service';
 import { ItemSubGroupService } from '../../item-sub-group/item-sub-group.service';
+import { UomService } from '../../uom/uom.service';
 import { Item } from '../item';
 import { ItemType } from '../../item-type/item-type';
 import { ItemGroup } from '../../item-group/item-group';
 import { ItemSubGroup } from '../../item-sub-group/item-sub-group';
-import * as _ from 'lodash';
+import { Uom } from '../../uom/uom';
 
 @Component({
   selector: 'app-settings-item-dialog',
   templateUrl: './item-dialog.component.html',
   styleUrls: ['./item-dialog.component.scss'],
-  providers: [ItemService, ItemTypeService, ItemGroupService, ItemSubGroupService, UploadService]
+  providers: [ItemService, ItemTypeService, ItemGroupService, ItemSubGroupService, UomService, UploadService]
 })
 
 export class ItemDialogComponent implements OnInit {
@@ -34,6 +40,7 @@ export class ItemDialogComponent implements OnInit {
   types = [];
   groups = [];
   subgroups = [];
+  uoms = [];
   storage_ref = '/main/settings/item';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: Item,
@@ -41,6 +48,7 @@ export class ItemDialogComponent implements OnInit {
               private _itemtypeService: ItemTypeService,
               private _itemgroupService: ItemGroupService,
               private _itemsubgroupService: ItemSubGroupService,
+              private _uomService: UomService,
               private _uploadService: UploadService,
               private _loadingService: TdLoadingService,
               public gallery: Gallery,
@@ -49,6 +57,7 @@ export class ItemDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new Item(md_data);
+        console.log('DATA : ' + JSON.stringify(this.data));
         if (!this.data.image) {
           this.displayImage('../../../../../assets/images/placeholder.png');
         } else {
@@ -70,6 +79,7 @@ export class ItemDialogComponent implements OnInit {
     this.getItemTypeData();
     this.getItemGroupData();
     this.getItemSubGroupData();
+    this.getUomData();
   }
 
   getItemTypeData() {
@@ -101,6 +111,17 @@ export class ItemDialogComponent implements OnInit {
 
         const _row = new ItemSubGroup(s.val());
         this.subgroups.push(_row);
+      });
+    });
+  }
+
+  getUomData() {
+    this._uomService.requestData().subscribe((snapshot) => {
+      this._uomService.rows = [];
+      snapshot.forEach((s) => {
+
+        const _row = new Uom(s.val());
+        this.uoms.push(_row);
       });
     });
   }
@@ -140,7 +161,14 @@ export class ItemDialogComponent implements OnInit {
     });
   }
 
-  addUnit() {}
+  changePrimaryUnit(unit) {
+    this.uoms.forEach((c_unit) => {
+      if (unit === c_unit.code) {
+        this.data.primary_unit_name = c_unit.name1;
+      }
+    });
+    console.log('changePrimaryUnit : ' + unit + ' -> ' + this.data.primary_unit_name);
+  }
 
   saveData(form) {
 
