@@ -207,7 +207,6 @@ export class ItemTypeComponent implements OnInit {
     this.table.offset = 0;
   }
 
-
   openLogs(data: ItemType) {
     this.dialog.open(LogsDialogComponent, {
       disableClose: true,

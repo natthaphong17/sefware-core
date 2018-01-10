@@ -209,7 +209,6 @@ export class LocationComponent implements OnInit {
     this.table.offset = 0;
   }
 
-
   openLogs(data: Location) {
     this.dialog.open(LogsDialogComponent, {
       disableClose: true,
