@@ -8,12 +8,15 @@ import { ItemGroupDialogComponent } from '../item-group/item-group-dialog/item-g
 import { Page } from '../../shared/model/page';
 import { ItemGroup } from '../item-group/item-group';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { LogsDialogComponent } from '../../dialog/logs-dialog/logs-dialog.component';
+import { LogsService } from '../../dialog/logs-dialog/logs.service';
+import { Logs } from '../../dialog/logs-dialog/logs';
 
 @Component({
   selector: 'app-settings-item-group',
   templateUrl: './item-group.component.html',
   styleUrls: ['./item-group.component.scss'],
-  providers: [ItemGroupService]
+  providers: [ItemGroupService, LogsService]
 })
 export class ItemGroupComponent implements OnInit {
   @Language() lang: string;
@@ -29,6 +32,7 @@ export class ItemGroupComponent implements OnInit {
   temp = [];
 
   constructor(private _itemgroupService: ItemGroupService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -119,7 +123,60 @@ export class ItemGroupComponent implements OnInit {
         this.snackBar.dismiss();
         this._itemgroupService.removeData(data).then(() => {
           this.snackBar.open('Delete item group succeed.', '', {duration: 3000});
-          // this.addLog('Delete', 'delete item group succeed', data, {});
+          this.addLog('Delete', 'delete item group succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  enableData(data: ItemGroup) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'enable',
+        title: 'Enable item group',
+        content: 'Item group with enabled will be able to use',
+        data_title: 'Item Group',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemgroupService.updateDataStatus(data, false).then(() => {
+          this.snackBar.open('Enable item group succeed', '', {duration: 3000});
+
+          const new_data = new ItemGroup(data);
+          new_data.disable = false;
+          this.addLog('Enable', 'enable item group succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+
+  }
+
+  disableData(data: ItemGroup) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'disable',
+        title: 'Disable item group',
+        content: 'Item group with disabled are not able to use',
+        data_title: 'Item Group',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemgroupService.updateDataStatus(data, true).then(() => {
+          this.snackBar.open('Disable item group succeed', '', {duration: 3000});
+
+          const new_data = new ItemGroup(data);
+          new_data.disable = false;
+          this.addLog('Disable', 'disable item group succeed', new_data, data);
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -139,7 +196,6 @@ export class ItemGroupComponent implements OnInit {
     // filter our data
     const temp = this.temp.filter(function(d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
-        // (d.item_type && d.item_type.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
         (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
         || !val;
@@ -149,6 +205,31 @@ export class ItemGroupComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+  openLogs(data: ItemGroup) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Item Group',
+        path: this._itemgroupService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._itemgroupService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._itemgroupService.getPath(), log);
   }
 
   openLink(link: string) {

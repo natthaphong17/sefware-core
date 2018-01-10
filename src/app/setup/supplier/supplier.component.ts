@@ -8,12 +8,15 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { SupplierService } from '../supplier/supplier.service';
 import { Supplier } from '../supplier/supplier';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { LogsDialogComponent } from '../../dialog/logs-dialog/logs-dialog.component';
+import { Logs } from '../../dialog/logs-dialog/logs';
+import { LogsService } from '../../dialog/logs-dialog/logs.service';
 
 @Component({
   selector: 'app-settings-supplier',
   templateUrl: './supplier.component.html',
   styleUrls: ['./supplier.component.scss'],
-  providers: [SupplierService]
+  providers: [SupplierService, LogsService]
 })
 export class SupplierComponent implements OnInit {
   @Language() lang: string;
@@ -29,6 +32,7 @@ export class SupplierComponent implements OnInit {
   temp = [];
 
   constructor(private _supplierService: SupplierService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -119,7 +123,60 @@ export class SupplierComponent implements OnInit {
         this.snackBar.dismiss();
         this._supplierService.removeData(data).then(() => {
           this.snackBar.open('Delete supplier succeed.', '', {duration: 3000});
-          // this.addLog('Delete', 'delete supplier succeed', data, {});
+          this.addLog('Delete', 'delete supplier succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  enableData(data: Supplier) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'enable',
+        title: 'Enable supplier',
+        content: 'Supplier with enabled will be able to use',
+        data_title: 'Supplier',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._supplierService.updateDataStatus(data, false).then(() => {
+          this.snackBar.open('Enable supplier succeed', '', {duration: 3000});
+
+          const new_data = new Supplier(data);
+          new_data.disable = false;
+          this.addLog('Enable', 'enable supplier succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+
+  }
+
+  disableData(data: Supplier) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'disable',
+        title: 'Disable supplier',
+        content: 'Supplier with disabled are not able to use',
+        data_title: 'Supplier',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._supplierService.updateDataStatus(data, true).then(() => {
+          this.snackBar.open('Disable supplier succeed', '', {duration: 3000});
+
+          const new_data = new Supplier(data);
+          new_data.disable = false;
+          this.addLog('Disable', 'disable supplier succeed', new_data, data);
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -154,6 +211,31 @@ export class SupplierComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+  openLogs(data: Supplier) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Supplier',
+        path: this._supplierService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._supplierService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._supplierService.getPath(), log);
   }
 
   openLink(link: string) {

@@ -8,12 +8,15 @@ import { DepartmentDialogComponent } from './department-dialog/department-dialog
 import { Page } from '../../shared/model/page';
 import { Department } from './department';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { LogsDialogComponent } from '../../dialog/logs-dialog/logs-dialog.component';
+import { LogsService } from '../../dialog/logs-dialog/logs.service';
+import { Logs } from '../../dialog/logs-dialog/logs';
 
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
   styleUrls: ['./department.component.scss'],
-  providers: [DepartmentService]
+  providers: [DepartmentService, LogsService]
 })
 export class DepartmentComponent implements OnInit {
 
@@ -30,6 +33,7 @@ export class DepartmentComponent implements OnInit {
   temp = [];
 
   constructor(private _departmentService: DepartmentService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -121,7 +125,60 @@ export class DepartmentComponent implements OnInit {
         this.snackBar.dismiss();
         this._departmentService.removeData(data).then(() => {
           this.snackBar.open('Delete unit succeed.', '', {duration: 3000});
-          // this.addLog('Delete', 'delete unit succeed', data, {});
+          this.addLog('Delete', 'delete department succeed', data, {});
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  enableData(data: Department) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'enable',
+        title: 'Enable department',
+        content: 'Department with enabled will be able to use',
+        data_title: 'Department',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._departmentService.updateDataStatus(data, false).then(() => {
+          this.snackBar.open('Enable department succeed', '', {duration: 3000});
+
+          const new_data = new Department(data);
+          new_data.disable = false;
+          this.addLog('Enable', 'enable department succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+
+  }
+
+  disableData(data: Department) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'disable',
+        title: 'Disable department',
+        content: 'Department with disabled are not able to use',
+        data_title: 'Department',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._departmentService.updateDataStatus(data, true).then(() => {
+          this.snackBar.open('Disable department succeed', '', {duration: 3000});
+
+          const new_data = new Department(data);
+          new_data.disable = false;
+          this.addLog('Disable', 'disable department succeed', new_data, data);
+
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
         });
@@ -150,6 +207,31 @@ export class DepartmentComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+  openLogs(data: Department) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Department',
+        path: this._departmentService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._departmentService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._departmentService.getPath(), log);
   }
 
   openLink(link: string) {

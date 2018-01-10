@@ -46,9 +46,12 @@ export class SupplierService {
     return this.lists.remove(data.code);
   }
 
-  requestLastData() {
+  requestLastData(prefix: string) {
     return this.agFb.list(this._path, {
       query: {
+        orderByChild: 'code',
+        startAt: prefix + '-0000',
+        endAt: prefix + '-9999',
         limitToLast: 1
       }
     });

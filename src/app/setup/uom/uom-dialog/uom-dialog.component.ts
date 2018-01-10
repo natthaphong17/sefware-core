@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { Uom } from '../../uom/uom';
 import { UomService } from '../../uom/uom.service';
 import { UploadService } from '../../../services/upload.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-setting-uom-dialog',
@@ -15,6 +16,7 @@ import { UploadService } from '../../../services/upload.service';
 })
 export class UomDialogComponent implements OnInit {
   data: Uom = new Uom({});
+  disableSelect = new FormControl(true);
   error: any;
   images = [];
   storage_ref = '/main/settings/uom';
@@ -42,21 +44,22 @@ export class UomDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'UOM';
-    this.data.code = prefix + '-001';
+    // const prefix = 'UOM';
+    // this.data.code = prefix + '-001';
+    this.data.code = '001';
     this._uomService.requestLastData().subscribe((s) => {
       s.forEach((ss: Uom) => {
         console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
-        let last = prefix + '-' + str;
+        let last = '' + str;
 
         if (str < 100) {
-          last = prefix + '-0' + str;
+          last = '0' + str;
         }
 
         if (str < 10) {
-          last = prefix + '-00' + str;
+          last = '00' + str;
         }
 
         this.data.code = last;

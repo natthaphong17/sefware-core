@@ -20,6 +20,7 @@ import { ItemType } from '../../item-type/item-type';
 import { ItemGroup } from '../../item-group/item-group';
 import { ItemSubGroup } from '../../item-sub-group/item-sub-group';
 import { Uom } from '../../uom/uom';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-settings-item-dialog',
@@ -35,6 +36,7 @@ export class ItemDialogComponent implements OnInit {
   config: GalleryConfig;
 
   data: Item = new Item({});
+  disableSelect = new FormControl(true);
   error: any;
   images = [];
   types = [];
@@ -67,7 +69,7 @@ export class ItemDialogComponent implements OnInit {
       } else {
         this.displayImage('../../../../../assets/images/placeholder.png');
         this._itemService.requestData().subscribe(() => {
-          this.generateCode();
+          this.generateCode(null);
         });
       }
     } catch (error) {
@@ -77,8 +79,6 @@ export class ItemDialogComponent implements OnInit {
 
   ngOnInit() {
     this.getItemTypeData();
-    this.getItemGroupData();
-    this.getItemSubGroupData();
     this.getUomData();
   }
 
@@ -93,26 +93,31 @@ export class ItemDialogComponent implements OnInit {
     });
   }
 
-  getItemGroupData() {
-    this._itemgroupService.requestData().subscribe((snapshot) => {
+  getItemGroupData(typeCode) {
+    this.groups = [];
+    this.subgroups = [];
+    this._itemgroupService.requestDataByType(typeCode).subscribe((snapshot) => {
       this._itemgroupService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new ItemGroup(s.val());
+        const _row = new ItemGroup(s);
         this.groups.push(_row);
       });
     });
+    this.generateCode(typeCode + '000');
   }
 
-  getItemSubGroupData() {
-    this._itemsubgroupService.requestData().subscribe((snapshot) => {
+  getItemSubGroupData(groupCode) {
+    this.subgroups = [];
+    this._itemsubgroupService.requestDataByGroup(groupCode).subscribe((snapshot) => {
       this._itemsubgroupService.rows = [];
       snapshot.forEach((s) => {
 
-        const _row = new ItemSubGroup(s.val());
+        const _row = new ItemSubGroup(s);
         this.subgroups.push(_row);
       });
     });
+    this.generateCode(groupCode + '00');
   }
 
   getUomData() {
@@ -136,29 +141,35 @@ export class ItemDialogComponent implements OnInit {
     this.gallery.load(this.images);
   }
 
-  generateCode() {
-    this._loadingService.register('data.form');
-    const prefix = 'ITEM';
-    this.data.code = prefix + '-001';
-    this._itemService.requestLastData().subscribe((s) => {
-      s.forEach((ss: Item) => {
-        console.log('Prev Code :' + ss.code);
-        // tslint:disable-next-line:radix
-        const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
-        let last = prefix + '-' + str;
-
-        if (str < 100) {
-          last = prefix + '-0' + str;
-        }
-
-        if (str < 10) {
-          last = prefix + '-00' + str;
-        }
-
-        this.data.code = last;
+  generateCode(Code) {
+    if (this.disableSelect.value === true) {
+      this._loadingService.register('data.form');
+      let prefix = '0000';
+      if (Code !== null) {
+        prefix = Code;
+      }
+      this.data.code = prefix + '-0001';
+      this._itemService.requestLastData(prefix).subscribe((s) => {
+        console.log('Prev Code :' + JSON.stringify(s));
+        s.forEach((ss: Item) => {
+          console.log('Prev Code :' + ss.code);
+          // tslint:disable-next-line:radix
+          const str = parseInt(ss.code.substring(ss.code.length - 4, ss.code.length)) + 1;
+          let last = prefix + '-' + str;
+          if (str < 1000) {
+            last = prefix + '-0' + str;
+          }
+          if (str < 100) {
+            last = prefix + '-00' + str;
+          }
+          if (str < 10) {
+            last = prefix + '-000' + str;
+          }
+          this.data.code = last;
+        });
+        this._loadingService.resolve('data.form');
       });
-      this._loadingService.resolve('data.form');
-    });
+    }
   }
 
   changePrimaryUnit(unit) {

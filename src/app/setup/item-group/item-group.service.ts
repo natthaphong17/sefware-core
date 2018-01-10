@@ -46,10 +46,22 @@ export class ItemGroupService {
     return this.lists.remove(data.code);
   }
 
-  requestLastData() {
+  requestLastData(prefix: string) {
     return this.agFb.list(this._path, {
       query: {
+        orderByChild: 'code',
+        startAt: prefix + '0',
+        endAt: prefix + '9',
         limitToLast: 1
+      }
+    });
+  }
+
+  requestDataByType(type: string) {
+    return this.agFb.list(this._path, {
+      query: {
+        orderByChild: 'type_code',
+        equalTo: type
       }
     });
   }

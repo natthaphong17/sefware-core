@@ -101,6 +101,28 @@
 
   }
 
+  .search-bar {
+    background-color: #f5f5f5;
+    color: rgb(255, 255, 255);
+  }
+
+  td-search-box {
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 16px;
+  }
+
+  .status-active {
+    color: #fff;
+    background: #009688 !important;
+    height: 24px;
+  }
+
+  .status-inactive {
+    background: #e0e0e0 !important;
+    height: 24px;
+  }
+
   .link {
     color: var(--accent-color);
     cursor: pointer;

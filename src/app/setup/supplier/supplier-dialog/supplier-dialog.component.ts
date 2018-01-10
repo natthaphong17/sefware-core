@@ -8,6 +8,7 @@ import {TdLoadingService} from '@covalent/core';
 import { SupplierService } from '../supplier.service';
 import { Supplier } from '../supplier';
 import * as _ from 'lodash';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-settings-supplier-dialog',
@@ -20,6 +21,11 @@ export class SupplierDialogComponent implements OnInit {
   @Language() lang: string;
 
   data: Supplier = new Supplier({});
+  disableSelect = new FormControl(true);
+  supplierTypes = [
+    {value: 'credit', name: 'Credit'},
+    {value: 'petty_cash', name: 'Petty Cash'},
+  ];
   error: any;
   images = [];
   storage_ref = '/main/settings/supplier';
@@ -41,7 +47,7 @@ export class SupplierDialogComponent implements OnInit {
       } else {
         // this.displayImage('../../../../../assets/images/user.png');
         this._supplierService.requestData().subscribe(() => {
-          this.generateCode();
+          this.generateCode(null);
         });
       }
     } catch (error) {
@@ -52,23 +58,32 @@ export class SupplierDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  generateCode() {
+  generateCode(supplierType) {
     this._loadingService.register('data.form');
-    const prefix = 'SUP';
-    this.data.code = prefix + '-001';
-    this._supplierService.requestLastData().subscribe((s) => {
+    let prefix = 'sup';
+    if (supplierType === 'credit') {
+      prefix = 'c';
+    } else if (supplierType === 'petty_cash') {
+      prefix = 'p';
+    }
+    this.data.code = prefix + '-0001';
+    this._supplierService.requestLastData(prefix).subscribe((s) => {
       s.forEach((ss: Supplier) => {
         console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
-        const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
+        const str = parseInt(ss.code.substring(ss.code.length - 4, ss.code.length)) + 1;
         let last = prefix + '-' + str;
 
-        if (str < 100) {
+        if (str < 1000) {
           last = prefix + '-0' + str;
         }
 
-        if (str < 10) {
+        if (str < 100) {
           last = prefix + '-00' + str;
+        }
+
+        if (str < 10) {
+          last = prefix + '-000' + str;
         }
 
         this.data.code = last;

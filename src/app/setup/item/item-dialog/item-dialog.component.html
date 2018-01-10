@@ -10,16 +10,18 @@
                    #codeControl="ngModel"
                    placeholder="Code"
                    [(ngModel)]="data.code"
+                   [disabled]="disableSelect.value"
                    name="code"
-                   maxlength="8"
-                   readonly>
+                   maxlength="9"
+                   required>
             <mat-hint align="start">
                 <span [hidden]="codeControl.pristine" class="tc-red-600">
                   <span [hidden]="!codeControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
-            <mat-hint align="end">{{codeElement.value?.length || 0}} / 8</mat-hint>
+            <mat-hint align="end">{{codeElement.value?.length || 0}} / 9</mat-hint>
           </mat-form-field>
+          <mat-checkbox [formControl]="disableSelect" style="margin: 0px 5px;">Disable</mat-checkbox>
         </div>
 
         <div layout="row">
@@ -27,7 +29,7 @@
             <mat-select placeholder="Item Type"
                         #typeControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.type_code">
+                        [(ngModel)]="data.type_code"  (selectionChange)="getItemGroupData(data.type_code)">
               <mat-option *ngFor="let type of types" [value]="type.code">{{type.code}} : {{type.name1}}</mat-option>
             </mat-select>
             <mat-hint align="start">
@@ -43,7 +45,7 @@
             <mat-select placeholder="Item Group"
                         #groupControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.group_code">
+                        [(ngModel)]="data.group_code" (selectionChange)="getItemSubGroupData(data.group_code)">
               <mat-option *ngFor="let group of groups" [value]="group.code">{{group.code}} : {{group.name1}}</mat-option>
             </mat-select>
             <mat-hint align="start">
@@ -59,7 +61,7 @@
             <mat-select placeholder="Item Group"
                         #subgroupControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.subgroup_code">
+                        [(ngModel)]="data.subgroup_code" (selectionChange)="generateCode(data.subgroup_code)">
               <mat-option *ngFor="let subgroup of subgroups" [value]="subgroup.code">{{subgroup.code}} : {{subgroup.name1}}</mat-option>
             </mat-select>
             <mat-hint align="start">

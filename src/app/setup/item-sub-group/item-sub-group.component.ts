@@ -8,12 +8,15 @@ import { ItemSubGroupDialogComponent } from '../item-sub-group/item-sub-group-di
 import { Page } from '../../shared/model/page';
 import { ItemSubGroup } from '../item-sub-group/item-sub-group';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { LogsDialogComponent } from '../../dialog/logs-dialog/logs-dialog.component';
+import { Logs } from '../../dialog/logs-dialog/logs';
+import { LogsService } from '../../dialog/logs-dialog/logs.service';
 
 @Component({
   selector: 'app-settings-item-sub-group',
   templateUrl: './item-sub-group.component.html',
   styleUrls: ['./item-sub-group.component.scss'],
-  providers: [ItemSubGroupService]
+  providers: [ItemSubGroupService, LogsService]
 })
 export class ItemSubGroupComponent implements OnInit {
   @Language() lang: string;
@@ -29,6 +32,7 @@ export class ItemSubGroupComponent implements OnInit {
   temp = [];
 
   constructor(private _itemsubgroupService: ItemSubGroupService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -128,6 +132,59 @@ export class ItemSubGroupComponent implements OnInit {
     });
   }
 
+  enableData(data: ItemSubGroup) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'enable',
+        title: 'Enable item sub group',
+        content: 'Item sub group with enabled will be able to use',
+        data_title: 'Item Sub Group',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemsubgroupService.updateDataStatus(data, false).then(() => {
+          this.snackBar.open('Enable item sub group succeed', '', {duration: 3000});
+
+          const new_data = new ItemSubGroup(data);
+          new_data.disable = false;
+          this.addLog('Enable', 'enable item sub ggroup succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+
+  }
+
+  disableData(data: ItemSubGroup) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'disable',
+        title: 'Disable item sub group',
+        content: 'Item sub group with disabled are not able to use',
+        data_title: 'Item Sub Group',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemsubgroupService.updateDataStatus(data, true).then(() => {
+          this.snackBar.open('Disable item sub group succeed', '', {duration: 3000});
+
+          const new_data = new ItemSubGroup(data);
+          new_data.disable = false;
+          this.addLog('Disable', 'disable item sub group succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
   updateFilter(event) {
     if (event === '') {
       this.setPage(null);
@@ -149,6 +206,31 @@ export class ItemSubGroupComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+  openLogs(data: ItemSubGroup) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Item Sub Group',
+        path: this._itemsubgroupService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._itemsubgroupService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._itemsubgroupService.getPath(), log);
   }
 
   openLink(link: string) {

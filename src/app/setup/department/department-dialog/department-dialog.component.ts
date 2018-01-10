@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { Department } from '../department';
 import { DepartmentService } from '../department.service';
 import { UploadService } from '../../../services/upload.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-department-dialog',
@@ -16,6 +17,7 @@ import { UploadService } from '../../../services/upload.service';
 export class DepartmentDialogComponent implements OnInit {
 
   data: Department = new Department({});
+  disableSelect = new FormControl(true);
   error: any;
   images = [];
   storage_ref = '/main/settings/department';
@@ -43,21 +45,22 @@ export class DepartmentDialogComponent implements OnInit {
 
   generateCode() {
     this._loadingService.register('data.form');
-    const prefix = 'DPM';
-    this.data.code = prefix + '-001';
+    // const prefix = 'DPM';
+    // this.data.code = prefix + '-001';
+    this.data.code = '001';
     this._departmentService.requestLastData().subscribe((s) => {
       s.forEach((ss: Department) => {
         console.log('Prev Code :' + ss.code);
         // tslint:disable-next-line:radix
         const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
-        let last = prefix + '-' + str;
+        let last = '' + str;
 
         if (str < 100) {
-          last = prefix + '-0' + str;
+          last = '0' + str;
         }
 
         if (str < 10) {
-          last = prefix + '-00' + str;
+          last = '00' + str;
         }
 
         this.data.code = last;
