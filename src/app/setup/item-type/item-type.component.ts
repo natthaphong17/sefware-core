@@ -8,12 +8,15 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {ItemTypeService} from './item-type.service';
 import {ItemTypeDialogComponent} from './item-type-dialog/item-type-dialog.component';
 import {ItemType} from './item-type';
+import { LogsDialogComponent } from '../../dialog/logs-dialog/logs-dialog.component';
+import { Logs } from '../../dialog/logs-dialog/logs';
+import { LogsService } from '../../dialog/logs-dialog/logs.service';
 
 @Component({
   selector: 'app-settings-item-type',
   templateUrl: './item-type.component.html',
   styleUrls: ['./item-type.component.scss'],
-  providers: [ItemTypeService]
+  providers: [ItemTypeService, LogsService]
 })
 export class ItemTypeComponent implements OnInit {
   @Language() lang: string;
@@ -29,6 +32,7 @@ export class ItemTypeComponent implements OnInit {
   temp = [];
 
   constructor(private _itemtypeService: ItemTypeService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -119,7 +123,60 @@ export class ItemTypeComponent implements OnInit {
         this.snackBar.dismiss();
         this._itemtypeService.removeData(data).then(() => {
           this.snackBar.open('Delete item type succeed.', '', {duration: 3000});
-          // this.addLog('Delete', 'delete item type succeed', data, {});
+          this.addLog('Delete', 'delete item type succeed', data, {});
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  enableData(data: ItemType) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'enable',
+        title: 'Enable item type',
+        content: 'Item type with enabled will be able to use',
+        data_title: 'Item Type',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemtypeService.updateDataStatus(data, false).then(() => {
+          this.snackBar.open('Enable item type succeed', '', {duration: 3000});
+
+          const new_data = new ItemType(data);
+          new_data.disable = false;
+          this.addLog('Enable', 'enable item type succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+
+  }
+
+  disableData(data: ItemType) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'disable',
+        title: 'Disable item type',
+        content: 'Item type with disabled are not able to use',
+        data_title: 'Item Type',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._itemtypeService.updateDataStatus(data, true).then(() => {
+          this.snackBar.open('Disable item type succeed', '', {duration: 3000});
+
+          const new_data = new ItemType(data);
+          new_data.disable = false;
+          this.addLog('Disable', 'disable item type succeed', new_data, data);
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -148,6 +205,32 @@ export class ItemTypeComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+
+  openLogs(data: ItemType) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Item Type',
+        path: this._itemtypeService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._itemtypeService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._itemtypeService.getPath(), log);
   }
 
   openLink(link: string) {

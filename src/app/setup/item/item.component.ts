@@ -163,7 +163,7 @@ export class ItemComponent implements OnInit {
       data: {
         type: 'disable',
         title: 'Disable item',
-        content: 'item with disabled are not able to use',
+        content: 'Item with disabled are not able to use',
         data_title: 'Item',
         data: data.code + ' : ' + data.name1
       }
@@ -175,7 +175,7 @@ export class ItemComponent implements OnInit {
 
           const new_data = new Item(data);
           new_data.disable = false;
-          this.addLog('Disable', 'disable driver succeed', new_data, data);
+          this.addLog('Disable', 'disable item succeed', new_data, data);
 
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
@@ -196,7 +196,8 @@ export class ItemComponent implements OnInit {
     const temp = this.temp.filter(function(d) {
       return (d.code.toLowerCase().indexOf(val) !== -1) ||
         (d.name1 && d.name1.toLowerCase().indexOf(val) !== -1) ||
-        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1)
+        (d.name2 && d.name2.toLowerCase().indexOf(val) !== -1) ||
+        (d.primary_unit_name && d.primary_unit_name.toLowerCase().indexOf(val) !== -1)
         || !val;
     });
 

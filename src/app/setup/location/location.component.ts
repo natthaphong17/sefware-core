@@ -8,12 +8,15 @@ import { LocationDialogComponent } from './location-dialog/location-dialog.compo
 import { Page } from '../../shared/model/page';
 import { Location } from './location';
 import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
+import { LogsDialogComponent } from '../../dialog/logs-dialog/logs-dialog.component';
+import { Logs } from '../../dialog/logs-dialog/logs';
+import { LogsService } from '../../dialog/logs-dialog/logs.service';
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss'],
-  providers: [LocationService]
+  providers: [LocationService, LogsService]
 })
 export class LocationComponent implements OnInit {
 
@@ -30,6 +33,7 @@ export class LocationComponent implements OnInit {
   temp = [];
 
   constructor(private _locationService: LocationService,
+              private _logService: LogsService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -111,7 +115,7 @@ export class LocationComponent implements OnInit {
     this.dialog.open(ConfirmComponent, {
       data: {
         type: 'delete',
-        title: 'Delete unit',
+        title: 'Delete location',
         content: 'Confirm to delete?',
         data_title: 'Location',
         data: data.code + ' : ' + data.name1
@@ -120,8 +124,61 @@ export class LocationComponent implements OnInit {
       if (confirm) {
         this.snackBar.dismiss();
         this._locationService.removeData(data).then(() => {
-          this.snackBar.open('Delete unit succeed.', '', {duration: 3000});
-          // this.addLog('Delete', 'delete unit succeed', data, {});
+          this.snackBar.open('Delete location succeed.', '', {duration: 3000});
+          this.addLog('Delete', 'delete location succeed', data, {});
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+  }
+
+  enableData(data: Location) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'enable',
+        title: 'Enable location',
+        content: 'Location with enabled will be able to use',
+        data_title: 'Location',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._locationService.updateDataStatus(data, false).then(() => {
+          this.snackBar.open('Enable location succeed', '', {duration: 3000});
+
+          const new_data = new Location(data);
+          new_data.disable = false;
+          this.addLog('Enable', 'enable location succeed', new_data, data);
+
+        }).catch((err) => {
+          this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
+        });
+      }
+    });
+
+  }
+
+  disableData(data: Location) {
+    this.dialog.open(ConfirmComponent, {
+      data: {
+        type: 'disable',
+        title: 'Disable location',
+        content: 'Location with disabled are not able to use',
+        data_title: 'Location',
+        data: data.code + ' : ' + data.name1
+      }
+    }).afterClosed().subscribe((confirm: boolean) => {
+      if (confirm) {
+        this.snackBar.dismiss();
+        this._locationService.updateDataStatus(data, true).then(() => {
+          this.snackBar.open('Disable location succeed', '', {duration: 3000});
+
+          const new_data = new Location(data);
+          new_data.disable = false;
+          this.addLog('Disable', 'disable location succeed', new_data, data);
+
         }).catch((err) => {
           this.snackBar.open('Error : ' + err.message, '', {duration: 3000});
         });
@@ -150,6 +207,32 @@ export class LocationComponent implements OnInit {
     this.rows = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+
+  openLogs(data: Location) {
+    this.dialog.open(LogsDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      width: '100%',
+      height: '100%',
+      data: {
+        menu: 'Location',
+        path: this._locationService.getPath(),
+        ref: data ? data.code : null
+      },
+    });
+  }
+
+  addLog(operation: string, description: string, data: any, old: any): void {
+    const log = new Logs({});
+    log.path = this._locationService.getPath();
+    log.ref = data.code;
+    log.operation = operation;
+    log.description = description;
+    log.old_data = old;
+    log.new_data = data;
+    this._logService.addLog(this._locationService.getPath(), log);
   }
 
   openLink(link: string) {
