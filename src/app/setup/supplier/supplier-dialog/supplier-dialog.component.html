@@ -8,17 +8,36 @@
             <input matInput
                    #codeElement
                    #codeControl="ngModel"
-                   placeholder="Code"
+                   placeholder="Department Code"
                    [(ngModel)]="data.code"
+                   [disabled]="disableSelect.value"
                    name="code"
                    maxlength="8"
-                   readonly>
+                   required>
             <mat-hint align="start">
                 <span [hidden]="codeControl.pristine" class="tc-red-600">
                   <span [hidden]="!codeControl.hasError('required')">Required</span>
                 </span>
             </mat-hint>
             <mat-hint align="end">{{codeElement.value?.length || 0}} / 8</mat-hint>
+          </mat-form-field>
+          <mat-checkbox [formControl]="disableSelect" style="margin: 0px 5px;">Disable</mat-checkbox>
+        </div>
+
+        <div layout="row">
+          <mat-form-field flex>
+            <mat-select placeholder="Supplier Type"
+                        #typeControl="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="data.supplier_type"
+                        (selectionChange)="generateCode(data.supplier_type)">
+              <mat-option *ngFor="let supplierType of supplierTypes" [value]="supplierType.value">{{supplierType.name}}</mat-option>
+            </mat-select>
+            <mat-hint align="start">
+                <span [hidden]="typeControl.pristine" class="tc-red-600">
+                  <span [hidden]="!typeControl.hasError('required')">Required</span>
+                </span>
+            </mat-hint>
           </mat-form-field>
         </div>
 
@@ -75,6 +94,11 @@
           </mat-form-field>
         </div>
 
+      </mat-card-content>
+      <!-- End Col Left -->
+
+      <!-- Col Right -->
+      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
         <div layout="row">
           <mat-form-field flex>
             <input matInput
@@ -104,11 +128,7 @@
             <mat-hint align="end">{{faxElement.value?.length || 0}} / 250</mat-hint>
           </mat-form-field>
         </div>
-      </mat-card-content>
-      <!-- End Col Left -->
 
-      <!-- Col Right -->
-      <mat-card-content class="push-bottom-none" style="width: 50vw;margin: 10px">
         <div layout="row">
           <mat-form-field flex>
             <input matInput
