@@ -8,6 +8,7 @@ import { ItemGroupService } from '../../item-group/item-group.service';
 import * as _ from 'lodash';
 import { ItemSubGroup } from '../../item-sub-group/item-sub-group';
 import { ItemGroup } from '../../item-group/item-group';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-settings-item-sub-group-dialog',
@@ -19,10 +20,11 @@ export class ItemSubGroupDialogComponent implements OnInit {
   @Language() lang: string;
 
   data: ItemSubGroup = new ItemSubGroup({});
+  disableSelect = new FormControl(true);
   error: any;
   images = [];
   groups = [];
-  storage_ref = '/main/settings/item_group';
+  storage_ref = '/main/settings/item_sub_group';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemSubGroup,
               private _itemsubgroupService: ItemSubGroupService,
@@ -35,7 +37,7 @@ export class ItemSubGroupDialogComponent implements OnInit {
         this.data = new ItemSubGroup(md_data);
       } else {
         this._itemsubgroupService.requestData().subscribe(() => {
-          this.generateCode();
+          this.generateCode(null);
         });
       }
     } catch (error) {
@@ -58,29 +60,29 @@ export class ItemSubGroupDialogComponent implements OnInit {
     });
   }
 
-  generateCode() {
-    this._loadingService.register('data.form');
-    const prefix = 'SGRP';
-    this.data.code = prefix + '-001';
-    this._itemsubgroupService.requestLastData().subscribe((s) => {
-      s.forEach((ss: ItemSubGroup) => {
-        console.log('Prev Code :' + ss.code);
-        // tslint:disable-next-line:radix
-        const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
-        let last = prefix + '-' + str;
-
-        if (str < 100) {
-          last = prefix + '-0' + str;
-        }
-
-        if (str < 10) {
-          last = prefix + '-00' + str;
-        }
-
-        this.data.code = last;
+  generateCode(groupCode) {
+    if (this.disableSelect.value === true) {
+      this._loadingService.register('data.form');
+      let prefix = '00';
+      if (groupCode !== null) {
+        prefix = groupCode;
+      }
+      this.data.code = prefix + '01';
+      this._itemsubgroupService.requestLastData(prefix).subscribe((s) => {
+        console.log('Prev Code :' + JSON.stringify(s));
+        s.forEach((ss: ItemSubGroup) => {
+          console.log('Prev Code :' + ss.code);
+          // tslint:disable-next-line:radix
+          const str = parseInt(ss.code.substring(ss.code.length - 2, ss.code.length)) + 1;
+          let last = prefix + str;
+          if (str < 10) {
+            last = prefix + '0' + str;
+          }
+          this.data.code = last;
+        });
+        this._loadingService.resolve('data.form');
       });
-      this._loadingService.resolve('data.form');
-    });
+    }
   }
 
   saveData(form) {

@@ -9,6 +9,7 @@
                  #codeControl="ngModel"
                  placeholder="Sub Group Code"
                  [(ngModel)]="data.code"
+                 [disabled]="disableSelect.value"
                  name="code"
                  maxlength="8"
                  readonly>
@@ -19,6 +20,7 @@
           </mat-hint>
           <mat-hint align="end">{{codeElement.value?.length || 0}} / 8</mat-hint>
         </mat-form-field>
+        <mat-checkbox [formControl]="disableSelect" style="margin: 0px 5px;">Disable</mat-checkbox>
       </div>
 
       <div layout="row">
@@ -26,7 +28,7 @@
           <mat-select placeholder="Item Group"
                       #groupControl="ngModel"
                       [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="data.group_code">
+                      [(ngModel)]="data.group_code" (selectionChange)="generateCode(data.group_code)">
             <mat-option *ngFor="let group of groups" [value]="group.code">{{group.code}} : {{group.name1}}</mat-option>
           </mat-select>
           <mat-hint align="start">
