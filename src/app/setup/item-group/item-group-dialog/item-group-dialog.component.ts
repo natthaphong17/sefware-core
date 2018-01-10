@@ -20,6 +20,7 @@ export class ItemGroupDialogComponent implements OnInit {
   @Language() lang: string;
 
   data: ItemGroup = new ItemGroup({});
+  disableSelect = new FormControl(true);
   error: any;
   images = [];
   types = [];
@@ -36,7 +37,7 @@ export class ItemGroupDialogComponent implements OnInit {
         this.data = new ItemGroup(md_data);
       } else {
         this._itemgroupService.requestData().subscribe(() => {
-          this.generateCode();
+          this.generateCode(null);
         });
       }
     } catch (error) {
@@ -59,29 +60,27 @@ export class ItemGroupDialogComponent implements OnInit {
     });
   }
 
-  generateCode() {
-    this._loadingService.register('data.form');
-    const prefix = 'GRP';
-    this.data.code = prefix + '-001';
-    this._itemgroupService.requestLastData().subscribe((s) => {
-      s.forEach((ss: ItemGroup) => {
-        console.log('Prev Code :' + ss.code);
-        // tslint:disable-next-line:radix
-        const str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
-        let last = prefix + '-' + str;
+  generateCode(typeCode) {
+    if (this.disableSelect.value === true) {
+      this._loadingService.register('data.form');
+      let prefix = '0';
+      if (typeCode !== null) {
+        prefix = typeCode;
+      }
+      this.data.code = prefix + '1';
+      this._itemgroupService.requestLastData(prefix).subscribe((s) => {
+        console.log('Prev Code :' + JSON.stringify(s));
+        s.forEach((ss: ItemGroup) => {
+          console.log('Prev Code :' + ss.code);
+          // tslint:disable-next-line:radix
+          const str = parseInt(ss.code.substring(ss.code.length - 1, ss.code.length)) + 1;
+          const last = prefix + str;
 
-        if (str < 100) {
-          last = prefix + '-0' + str;
-        }
-
-        if (str < 10) {
-          last = prefix + '-00' + str;
-        }
-
-        this.data.code = last;
+          this.data.code = last;
+        });
+        this._loadingService.resolve('data.form');
       });
-      this._loadingService.resolve('data.form');
-    });
+    }
   }
 
   saveData(form) {
