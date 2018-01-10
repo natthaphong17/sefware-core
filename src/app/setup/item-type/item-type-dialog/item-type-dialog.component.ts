@@ -8,6 +8,7 @@ import {TdLoadingService} from '@covalent/core';
 import { ItemTypeService } from '../item-type.service';
 import { ItemType } from '../item-type';
 import * as _ from 'lodash';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-settings-item-type-dialog',
@@ -20,6 +21,7 @@ export class ItemTypeDialogComponent implements OnInit {
   @Language() lang: string;
 
   data: ItemType = new ItemType({});
+  disableSelect = new FormControl(true);
   error: any;
   images = [];
   storage_ref = '/main/settings/item_type';

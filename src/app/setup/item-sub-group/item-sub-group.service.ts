@@ -57,6 +57,15 @@ export class ItemSubGroupService {
     });
   }
 
+  requestDataByGroup(group: string) {
+    return this.agFb.list(this._path, {
+      query: {
+        orderByChild: 'group_code',
+        equalTo: group
+      }
+    });
+  }
+
   public getResults(page: Page): Observable<PagedData<ItemSubGroup>> {
     return Observable.of(this.rows).map((data) => this.getPagedData(page));
   }

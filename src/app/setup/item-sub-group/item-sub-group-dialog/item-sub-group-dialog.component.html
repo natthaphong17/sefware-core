@@ -12,7 +12,7 @@
                  [disabled]="disableSelect.value"
                  name="code"
                  maxlength="8"
-                 readonly>
+                 required>
           <mat-hint align="start">
                 <span [hidden]="codeControl.pristine" class="tc-red-600">
                   <span [hidden]="!codeControl.hasError('required')">Required</span>
