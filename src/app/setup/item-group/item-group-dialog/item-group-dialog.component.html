@@ -28,7 +28,9 @@
           <mat-select placeholder="Item Type"
                       #typeControl="ngModel"
                       [ngModelOptions]="{standalone: true}"
-                      [(ngModel)]="data.type_code" (selectionChange)="generateCode(data.type_code)">
+                      [(ngModel)]="data.type_code"
+                      (selectionChange)="getItemGroupData(data.type_code)"
+                      [required]="true">
             <mat-option *ngFor="let type of types" [value]="type.code">{{type.code}} : {{type.name1}}</mat-option>
           </mat-select>
           <mat-hint align="start">

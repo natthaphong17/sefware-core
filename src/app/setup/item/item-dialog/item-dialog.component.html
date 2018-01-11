@@ -29,7 +29,9 @@
             <mat-select placeholder="Item Type"
                         #typeControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.type_code"  (selectionChange)="getItemGroupData(data.type_code)">
+                        [(ngModel)]="data.type_code"
+                        (change)="getItemGroupData(data.type_code)"
+                        required>
               <mat-option *ngFor="let type of types" [value]="type.code">{{type.code}} : {{type.name1}}</mat-option>
             </mat-select>
             <mat-hint align="start">
@@ -45,7 +47,9 @@
             <mat-select placeholder="Item Group"
                         #groupControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.group_code" (selectionChange)="getItemSubGroupData(data.group_code)">
+                        [(ngModel)]="data.group_code"
+                        (change)="getItemSubGroupData(data.group_code)"
+                        required>
               <mat-option *ngFor="let group of groups" [value]="group.code">{{group.code}} : {{group.name1}}</mat-option>
             </mat-select>
             <mat-hint align="start">
@@ -58,10 +62,12 @@
 
         <div layout="row">
           <mat-form-field flex>
-            <mat-select placeholder="Item Group"
+            <mat-select placeholder="Item Sub Group"
                         #subgroupControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.subgroup_code" (selectionChange)="generateCode(data.subgroup_code)">
+                        [(ngModel)]="data.subgroup_code"
+                        (change)="getItemData(data.subgroup_code)"
+                        required>
               <mat-option *ngFor="let subgroup of subgroups" [value]="subgroup.code">{{subgroup.code}} : {{subgroup.name1}}</mat-option>
             </mat-select>
             <mat-hint align="start">
@@ -176,7 +182,7 @@
             <mat-select placeholder="Primary Unit"
                         #primaryUnitControl="ngModel"
                         [ngModelOptions]="{standalone: true}"
-                        [(ngModel)]="data.primary_unit" (selectionChange)="changePrimaryUnit(data.primary_unit)">
+                        [(ngModel)]="data.primary_unit" (change)="changePrimaryUnit(data.primary_unit)">
               <mat-option *ngFor="let uom of uoms" [value]="uom.code">{{uom.code}} : {{uom.name1}} ({{uom.shortname}})</mat-option>
             </mat-select>
             <mat-hint align="start">

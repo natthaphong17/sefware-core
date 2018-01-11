@@ -43,6 +43,8 @@ export class ItemDialogComponent implements OnInit {
   groups = [];
   subgroups = [];
   uoms = [];
+  codes = '0000-0001';
+  edit = false;
   storage_ref = '/main/settings/item';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: Item,
@@ -59,12 +61,16 @@ export class ItemDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new Item(md_data);
-        console.log('DATA : ' + JSON.stringify(this.data));
         if (!this.data.image) {
           this.displayImage('../../../../../assets/images/placeholder.png');
         } else {
           this.displayImage(this.data.image);
         }
+        console.log('DATA : ' + JSON.stringify(this.data));
+        this.codes = this.data.code;
+        this.getItemGroupData(this.data.type_code);
+        this.getItemSubGroupData(this.data.group_code);
+        this.getItemData(this.data.subgroup_code);
 
       } else {
         this.displayImage('../../../../../assets/images/placeholder.png');
@@ -104,7 +110,7 @@ export class ItemDialogComponent implements OnInit {
         this.groups.push(_row);
       });
     });
-    this.generateCode(typeCode + '000');
+    this.getItemData(typeCode + '000');
   }
 
   getItemSubGroupData(groupCode) {
@@ -117,7 +123,30 @@ export class ItemDialogComponent implements OnInit {
         this.subgroups.push(_row);
       });
     });
-    this.generateCode(groupCode + '00');
+    this.getItemData(groupCode + '00');
+  }
+
+  getItemData(Code) {
+    console.log('Data Code :' + this.codes.substr(0, 4));
+    console.log('Code :' + Code);
+    switch (Code) {
+      case this.codes.substr(0, 4):
+        this.edit = true;
+        this.generateCode(Code);
+        break;
+      default:
+        this.edit = false;
+        this.generateCode(Code);
+        break;
+    }
+
+    /*if (this.itemCode.substr(0, 4) !== Code) {
+       this.generateCode(Code);
+       this.edit = false;
+    } else {
+      this.generateCode(Code);
+      this.edit = true;
+    }*/
   }
 
   getUomData() {
@@ -165,6 +194,11 @@ export class ItemDialogComponent implements OnInit {
           if (str < 10) {
             last = prefix + '-000' + str;
           }
+
+          if (this.edit === true) {
+            last = this.codes;
+          }
+
           this.data.code = last;
         });
         this._loadingService.resolve('data.form');
