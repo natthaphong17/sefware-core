@@ -24,6 +24,8 @@ export class ItemGroupDialogComponent implements OnInit {
   error: any;
   images = [];
   types = [];
+  codes = '01';
+  edit = false;
   storage_ref = '/main/settings/item_group';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemGroup,
@@ -35,6 +37,8 @@ export class ItemGroupDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new ItemGroup(md_data);
+        this.codes = this.data.code;
+        this.getItemGroupData(this.data.type_code);
       } else {
         this._itemgroupService.requestData().subscribe(() => {
           this.generateCode(null);
@@ -60,6 +64,21 @@ export class ItemGroupDialogComponent implements OnInit {
     });
   }
 
+  getItemGroupData(Code) {
+    console.log('Data Code :' + this.codes.substr(0, 1));
+    console.log('Code :' + Code);
+    switch (Code) {
+      case this.codes.substr(0, 1):
+        this.edit = true;
+        this.generateCode(Code);
+        break;
+      default:
+        this.edit = false;
+        this.generateCode(Code);
+        break;
+    }
+  }
+
   generateCode(typeCode) {
     if (this.disableSelect.value === true) {
       this._loadingService.register('data.form');
@@ -74,7 +93,11 @@ export class ItemGroupDialogComponent implements OnInit {
           console.log('Prev Code :' + ss.code);
           // tslint:disable-next-line:radix
           const str = parseInt(ss.code.substring(ss.code.length - 1, ss.code.length)) + 1;
-          const last = prefix + str;
+          let last = prefix + str;
+
+          if (this.edit === true) {
+            last = this.codes;
+          }
 
           this.data.code = last;
         });

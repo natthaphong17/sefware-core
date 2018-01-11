@@ -24,6 +24,8 @@ export class ItemSubGroupDialogComponent implements OnInit {
   error: any;
   images = [];
   groups = [];
+  codes = '0001';
+  edit = false;
   storage_ref = '/main/settings/item_sub_group';
 
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: ItemSubGroup,
@@ -35,6 +37,8 @@ export class ItemSubGroupDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new ItemSubGroup(md_data);
+        this.codes = this.data.code;
+        this.getItemSubGroupData(this.data.group_code);
       } else {
         this._itemsubgroupService.requestData().subscribe(() => {
           this.generateCode(null);
@@ -60,6 +64,21 @@ export class ItemSubGroupDialogComponent implements OnInit {
     });
   }
 
+  getItemSubGroupData(Code) {
+    console.log('Data Code :' + this.codes.substr(0, 2));
+    console.log('Code :' + Code);
+    switch (Code) {
+      case this.codes.substr(0, 2):
+        this.edit = true;
+        this.generateCode(Code);
+        break;
+      default:
+        this.edit = false;
+        this.generateCode(Code);
+        break;
+    }
+  }
+
   generateCode(groupCode) {
     if (this.disableSelect.value === true) {
       this._loadingService.register('data.form');
@@ -78,6 +97,11 @@ export class ItemSubGroupDialogComponent implements OnInit {
           if (str < 10) {
             last = prefix + '0' + str;
           }
+
+          if (this.edit === true) {
+            last = this.codes;
+          }
+
           this.data.code = last;
         });
         this._loadingService.resolve('data.form');
