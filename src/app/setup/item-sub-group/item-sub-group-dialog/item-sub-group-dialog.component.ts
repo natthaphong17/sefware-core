@@ -65,18 +65,23 @@ export class ItemSubGroupDialogComponent implements OnInit {
   }
 
   getItemSubGroupData(Code) {
-    console.log('Data Code :' + this.codes.substr(0, 2));
-    console.log('Code :' + Code);
-    switch (Code) {
-      case this.codes.substr(0, 2):
+    // ฟังก์ชั่นตรวจสอบว่ารหัสเดิม มีอยู่หรือไม่ และ อยู่ในประเภทได ก่อนนำไป Genarate Code
+    if (this.codes.substr(0, 2) === Code) {
+      if (this.data.group_code === Code.substr(0, 2)) {
         this.edit = true;
         this.generateCode(Code);
-        break;
-      default:
-        this.edit = false;
-        this.generateCode(Code);
-        break;
+      } else {
+        this.data.group_code = this.codes.substr(0, 2);
+        this.edit = true;
+      }
+    } else {
+      this.edit = false;
+      this.generateCode(Code);
     }
+    /*
+      console.log('Data Code :' + this.codes.substr(0, 2));
+      console.log('Code :' + Code);
+    */
   }
 
   generateCode(groupCode) {
@@ -88,7 +93,7 @@ export class ItemSubGroupDialogComponent implements OnInit {
       }
       this.data.code = prefix + '01';
       this._itemsubgroupService.requestLastData(prefix).subscribe((s) => {
-        console.log('Prev Code :' + JSON.stringify(s));
+        // console.log('Prev Code :' + JSON.stringify(s));
         s.forEach((ss: ItemSubGroup) => {
           console.log('Prev Code :' + ss.code);
           // tslint:disable-next-line:radix

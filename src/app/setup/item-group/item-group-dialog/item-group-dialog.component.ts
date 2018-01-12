@@ -65,18 +65,23 @@ export class ItemGroupDialogComponent implements OnInit {
   }
 
   getItemGroupData(Code) {
-    console.log('Data Code :' + this.codes.substr(0, 1));
-    console.log('Code :' + Code);
-    switch (Code) {
-      case this.codes.substr(0, 1):
+    // ฟังก์ชั่นตรวจสอบว่ารหัสเดิม มีอยู่หรือไม่ และ อยู่ในประเภทได ก่อนนำไป Genarate Code
+    if (this.codes.substr(0, 1) === Code) {
+      if (this.data.type_code === Code.substr(0, 1)) {
         this.edit = true;
         this.generateCode(Code);
-        break;
-      default:
-        this.edit = false;
-        this.generateCode(Code);
-        break;
+      } else {
+        this.data.type_code = this.codes.substr(0, 1);
+        this.edit = true;
+      }
+    } else {
+      this.edit = false;
+      this.generateCode(Code);
     }
+    /*
+      console.log('Data Code :' + this.codes.substr(0, 1));
+      console.log('Code :' + Code);
+    */
   }
 
   generateCode(typeCode) {
@@ -88,7 +93,7 @@ export class ItemGroupDialogComponent implements OnInit {
       }
       this.data.code = prefix + '1';
       this._itemgroupService.requestLastData(prefix).subscribe((s) => {
-        console.log('Prev Code :' + JSON.stringify(s));
+        // console.log('Prev Code :' + JSON.stringify(s));
         s.forEach((ss: ItemGroup) => {
           console.log('Prev Code :' + ss.code);
           // tslint:disable-next-line:radix
