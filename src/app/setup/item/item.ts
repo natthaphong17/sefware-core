@@ -12,6 +12,7 @@ export class Item {
   min?: number = 0;
   max?: number = 0;
   disable?: boolean = false;
+  disableSelect?: boolean = true;
 
   constructor(params: Item) {
     Object.assign(this, params);

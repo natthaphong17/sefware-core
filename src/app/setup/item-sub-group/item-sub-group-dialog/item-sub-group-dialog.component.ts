@@ -38,6 +38,7 @@ export class ItemSubGroupDialogComponent implements OnInit {
       if (md_data) {
         this.data = new ItemSubGroup(md_data);
         this.codes = this.data.code;
+        this.disableSelect = new FormControl(this.data.disableSelect);
         this.getItemSubGroupData(this.data.group_code);
       } else {
         this._itemsubgroupService.requestData().subscribe(() => {
@@ -145,6 +146,11 @@ export class ItemSubGroupDialogComponent implements OnInit {
         });
       }
     }
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {

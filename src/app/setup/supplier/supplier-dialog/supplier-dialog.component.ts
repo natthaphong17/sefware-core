@@ -38,6 +38,7 @@ export class SupplierDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new Supplier(md_data);
+        this.disableSelect = new FormControl(this.data.disableSelect);
         /*if (!this.data.image) {
           this.displayImage('../../../../../assets/images/user.png');
         } else {
@@ -123,6 +124,11 @@ export class SupplierDialogComponent implements OnInit {
         });
       }
     }
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {

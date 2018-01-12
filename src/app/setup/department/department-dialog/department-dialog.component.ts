@@ -30,6 +30,7 @@ export class DepartmentDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new Department(md_data);
+        this.disableSelect = new FormControl(this.data.disableSelect);
       } else {
         this._departmentService.requestData().subscribe(() => {
           this.generateCode();
@@ -100,6 +101,11 @@ export class DepartmentDialogComponent implements OnInit {
         });
       }
     }
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {

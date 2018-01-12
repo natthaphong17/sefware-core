@@ -29,6 +29,7 @@ export class UomDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new Uom(md_data);
+        this.disableSelect = new FormControl(this.data.disableSelect);
       } else {
         this._uomService.requestData().subscribe(() => {
           this.generateCode();
@@ -99,6 +100,11 @@ export class UomDialogComponent implements OnInit {
         });
       }
     }
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {

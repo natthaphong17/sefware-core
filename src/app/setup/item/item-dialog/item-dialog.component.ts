@@ -68,6 +68,7 @@ export class ItemDialogComponent implements OnInit {
         }
         // console.log('DATA : ' + JSON.stringify(this.data));
         this.codes = this.data.code;
+        this.disableSelect = new FormControl(this.data.disableSelect);
         this.getItemGroupData(this.data.type_code);
         this.getItemSubGroupData(this.data.group_code);
         this.getItemData(this.data.subgroup_code);
@@ -280,6 +281,11 @@ export class ItemDialogComponent implements OnInit {
     this.data.image = '../../../../../assets/images/placeholder.png';
     this.displayImage(this.data.image);
     // this.displayImage('../../../../../assets/images/placeholder.png');
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {

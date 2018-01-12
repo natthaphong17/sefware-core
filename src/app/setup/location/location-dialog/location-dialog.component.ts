@@ -30,6 +30,7 @@ export class LocationDialogComponent implements OnInit {
     try {
       if (md_data) {
         this.data = new Location(md_data);
+        this.disableSelect = new FormControl(this.data.disableSelect);
       } else {
         this._locationService.requestData().subscribe(() => {
           this.generateCode();
@@ -100,6 +101,11 @@ export class LocationDialogComponent implements OnInit {
         });
       }
     }
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {
