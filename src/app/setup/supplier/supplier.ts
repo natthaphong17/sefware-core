@@ -10,6 +10,7 @@ export class Supplier {
   term?: string | null | undefined;
   bank?: string | null | undefined;
   disable?: boolean = false;
+  disableSelect?: boolean = true;
 
   constructor(params: Supplier) {
     Object.assign(this, params);

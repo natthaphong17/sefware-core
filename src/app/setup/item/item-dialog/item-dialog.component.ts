@@ -66,8 +66,9 @@ export class ItemDialogComponent implements OnInit {
         } else {
           this.displayImage(this.data.image);
         }
-        console.log('DATA : ' + JSON.stringify(this.data));
+        // console.log('DATA : ' + JSON.stringify(this.data));
         this.codes = this.data.code;
+        this.disableSelect = new FormControl(this.data.disableSelect);
         this.getItemGroupData(this.data.type_code);
         this.getItemSubGroupData(this.data.group_code);
         this.getItemData(this.data.subgroup_code);
@@ -127,26 +128,37 @@ export class ItemDialogComponent implements OnInit {
   }
 
   getItemData(Code) {
-    console.log('Data Code :' + this.codes.substr(0, 4));
-    console.log('Code :' + Code);
-    switch (Code) {
-      case this.codes.substr(0, 4):
+    // ฟังก์ชั่นตรวจสอบว่ารหัสเดิม มีอยู่หรือไม่ และ อยู่ในประเภทได ก่อนนำไป Genarate Code
+    if (this.codes.substr(0, 4) === Code) {
+      if (this.data.type_code === Code.substr(0, 1)) {
         this.edit = true;
         this.generateCode(Code);
-        break;
-      default:
-        this.edit = false;
-        this.generateCode(Code);
-        break;
-    }
-
-    /*if (this.itemCode.substr(0, 4) !== Code) {
-       this.generateCode(Code);
-       this.edit = false;
+        if (this.data.group_code === Code.substr(0, 2)) {
+          this.edit = true;
+          this.generateCode(Code);
+          if (this.data.subgroup_code === Code.substr(0, 4)) {
+            this.edit = true;
+            this.generateCode(Code);
+          } else {
+            this.data.subgroup_code = this.codes.substr(0, 4);
+            this.edit = true;
+          }
+        } else {
+          this.data.group_code = this.codes.substr(0, 2);
+          this.edit = true;
+        }
+      } else {
+        this.data.type_code = this.codes.substr(0, 1);
+        this.edit = true;
+      }
     } else {
+      this.edit = false;
       this.generateCode(Code);
-      this.edit = true;
-    }*/
+    }
+  /*
+    console.log('Data Code :' + this.codes.substr(0, 4));
+    console.log('Code :' + Code);
+  */
   }
 
   getUomData() {
@@ -179,7 +191,7 @@ export class ItemDialogComponent implements OnInit {
       }
       this.data.code = prefix + '-0001';
       this._itemService.requestLastData(prefix).subscribe((s) => {
-        console.log('Prev Code :' + JSON.stringify(s));
+        // console.log('Prev Code :' + JSON.stringify(s));
         s.forEach((ss: Item) => {
           console.log('Prev Code :' + ss.code);
           // tslint:disable-next-line:radix
@@ -269,6 +281,11 @@ export class ItemDialogComponent implements OnInit {
     this.data.image = '../../../../../assets/images/placeholder.png';
     this.displayImage(this.data.image);
     // this.displayImage('../../../../../assets/images/placeholder.png');
+  }
+
+  disableSelectChange() {
+    this.data.disableSelect = this.disableSelect.value;
+    console.log('Func Active is : ' + this.data.disableSelect);
   }
 
   openLink(link: string) {
