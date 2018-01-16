@@ -1,0 +1,21 @@
+<p>
+  import-item-dialog works!
+</p>
+
+<div align="center" style="vertical-align: inherit; padding: 10px;">
+  <input type="file" (change)="onFileChange($event)" multiple="false" />
+
+  <mat-divider style="margin:10px"></mat-divider>
+ <!-- <h2>
+    Result :
+    <br>
+  </h2>-->
+  <!--{{result}}-->
+  <!-- Footer -->
+  <mat-card-footer style="margin: 0px 10px;align-content: center;">
+    <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    <button mat-button class="text-upper" color="primary">Import
+            <!--[disabled]="!dataForm.form.valid" (click)="importData(dataForm.form)">Import-->
+    </button>
+  </mat-card-footer>
+</div>
