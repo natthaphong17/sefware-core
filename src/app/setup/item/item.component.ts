@@ -238,7 +238,8 @@ export class ItemComponent implements OnInit {
       disableClose: true,
       maxWidth: '100vw',
       maxHeight: '100vw',
-      width: '25%',
+      height: '200px',
+      width: '350px'
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

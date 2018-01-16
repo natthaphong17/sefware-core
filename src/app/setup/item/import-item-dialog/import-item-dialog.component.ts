@@ -12,11 +12,18 @@ import { XlsxToJsonService } from '../../../services/xlsx-to-json-service';
 export class ImportItemDialogComponent implements OnInit {
   @Language() lang: string;
   public result: any;
+  files: any;
+  disabled: boolean = false;
+
   private xlsxToJsonService: XlsxToJsonService = new XlsxToJsonService();
 
   constructor() {}
 
   ngOnInit() {
+  }
+
+  toggleDisabled(): void {
+    this.disabled = !this.disabled;
   }
 
   onFileChange(evt: any) {
