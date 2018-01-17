@@ -1,0 +1,38 @@
+<div align="center" style="vertical-align: inherit; padding: 10px;">
+  <div layout="row">
+    <p style="font-size: 18px; margin: 0px 10px;">Importing</p>
+  </div>
+
+  <mat-divider style="margin:10px"></mat-divider>
+
+  <div layout="row" style="margin: 0px 10px;" class="push-bottom-none">
+    <mat-form-field tdFileDrop
+                    [disabled]="disabled"
+                    (fileDrop)="files = $event"
+                    flex>
+      <input matInput
+             class="push-left-sm push-right-sm push-bottom-none"
+             placeholder="select or drop files"
+             [value]="files?.length ? (files?.length + ' files') : files?.name"
+             [disabled]="disabled"
+             readonly/>
+    </mat-form-field>
+    <button mat-icon-button *ngIf="files" (click)="fileInput.clear()" (keyup.enter)="fileInput.clear()">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <td-file-input #fileInput
+                   [(ngModel)]="files" multiple
+                   [disabled]="disabled"
+                   (change)="onFileChange($event)">
+      <mat-icon>folder</mat-icon>
+      <span class="text-upper">Browse</span>
+    </td-file-input>
+  </div>
+
+  <mat-divider style="margin:10px"></mat-divider>
+
+  <mat-card-footer style="margin: 0px 10px;align-content: center;">
+    <button mat-button class="text-upper" mat-dialog-close>Cancel</button>
+    <button mat-button class="text-upper" [disabled]="!files" color="primary" (click)="importData()">Import</button>
+  </mat-card-footer>
+</div>

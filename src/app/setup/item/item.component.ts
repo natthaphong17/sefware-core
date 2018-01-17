@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ItemDialogComponent } from '../item/item-dialog/item-dialog.component';
 import { Language } from 'angular-l10n';
 import { Page } from '../../shared/model/page';
 import {TdLoadingService, TdMediaService} from '@covalent/core';
@@ -11,6 +10,8 @@ import { ConfirmComponent } from '../../dialog/confirm/confirm.component';
 import {LogsService} from '../../dialog/logs-dialog/logs.service';
 import {Logs} from '../../dialog/logs-dialog/logs';
 import {LogsDialogComponent} from '../../dialog/logs-dialog/logs-dialog.component';
+import { ItemDialogComponent } from '../item/item-dialog/item-dialog.component';
+import { ImportItemDialogComponent } from '../item/import-item-dialog/import-item-dialog.component';
 
 @Component({
   selector: 'app-settings-item',
@@ -230,6 +231,23 @@ export class ItemComponent implements OnInit {
     log.old_data = old;
     log.new_data = data;
     this._logService.addLog(this._itemService.getPath(), log);
+  }
+
+  openDialogImport() {
+    const dialogRef = this.dialog.open(ImportItemDialogComponent, {
+      disableClose: true,
+      maxWidth: '100vw',
+      maxHeight: '100vw',
+      height: '200px',
+      width: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
   }
 
   openLink(link: string) {

@@ -52,6 +52,7 @@ import { ItemSubGroupComponent } from './setup/item-sub-group/item-sub-group.com
 import { ItemSubGroupDialogComponent } from './setup/item-sub-group/item-sub-group-dialog/item-sub-group-dialog.component';
 import { ItemComponent } from './setup/item/item.component';
 import { ItemDialogComponent } from './setup/item/item-dialog/item-dialog.component';
+import { ImportItemDialogComponent } from './setup/item/import-item-dialog/import-item-dialog.component';
 import { UomComponent } from './setup/uom/uom.component';
 import { UomDialogComponent } from './setup/uom/uom-dialog/uom-dialog.component';
 import { SupplierComponent } from './setup/supplier/supplier.component';
@@ -99,6 +100,7 @@ interface StoreType {
     ItemSubGroupDialogComponent,
     ItemComponent,
     ItemDialogComponent,
+    ImportItemDialogComponent,
     UomComponent,
     UomDialogComponent,
     SupplierComponent,
@@ -145,6 +147,7 @@ interface StoreType {
     ItemSubGroupDialogComponent,
     ItemComponent,
     ItemDialogComponent,
+    ImportItemDialogComponent,
     UomComponent,
     UomDialogComponent,
     SupplierComponent,
