@@ -53,8 +53,13 @@ export class ImportItemDialogComponent implements OnInit {
     this.xlsxToJsonService.processFileToJson({}, file).subscribe((data) => {
       this.result = JSON.stringify(data['sheets'].Sheet1);
       data['sheets'].Sheet1.forEach((s) => {
+        s.min = Number.parseInt(s.min);
+        s.max = Number.parseInt(s.max);
+        s.disable = JSON.parse(s.disable);
+        s.disable_select = JSON.parse(s.disable_select);
+
         this.datas.push(s);
-        // console.log('Result : ' + JSON.stringify(this.datas));
+        console.log('Result : ' + JSON.stringify(this.datas));
       });
     });
   }
